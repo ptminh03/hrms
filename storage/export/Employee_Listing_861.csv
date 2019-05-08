@@ -1,0 +1,3 @@
+id,photo,code,name,status,gender,date_of_birth,date_of_joining,number,qualification,emergency_number,pan_number,father_name,current_address,permanent_address,formalities,offer_acceptance,probation_period,date_of_confirmation,department,salary,account_number,bank_name,ifsc_code,pf_account_number,un_number,pf_status,date_of_resignation,notice_period,last_working_day,full_final,user_id,created_at,updated_at
+1,admin.png,HR0001,"HR Manager",1,1,0000-00-00,0000-00-00,9999999999,,,,,,,0,0,,0000-00-00,,,,,,,,0,0000-00-00,,0000-00-00,0
+2,JCOw5lfLgmtl.jpeg,00001,"John Evans",1,0,2019-03-25,2019-03-25,0132145158,Engineering(B.Tech),1554242424,4545,sadasd,dasdas,sadasdasd,1,1,0,2019-03-12,IT,120000,44242,fgfgdfg,535353,3434354,345345345,1,2019-03-06,1,2019-03-26,1
