@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNewsTable extends Migration
+class CreateDevicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('devices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('target_id')->unsigned();
-            $table->integer('type');
-            $table->string('title')->nullable();
-            $table->string('content')->nullable();
+            $table->integer('device_type_id')->unsigned();
+            $table->string('code');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('devices');
     }
 }

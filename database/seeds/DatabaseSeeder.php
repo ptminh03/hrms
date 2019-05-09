@@ -17,5 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call(EmployeeTableSeeder::class);
         $this->call(LeaveAnnualLeftTableSeeder::class);
         $this->call(LeaveTypeTableSeeder::class);
+        $this->call(PolicyTableSeeder::class);
+        $this->call(NewsTableSeeder::class);
+        $this->call(DeviceTypeTableSeeder::class);
+        $this->call(DeviceTableSeeder::class);
     }
 }
