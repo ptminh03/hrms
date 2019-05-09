@@ -41,6 +41,7 @@ use App\Http\Controllers\HomeController;
             Route::get('profile', 'EmployeeController@myProfile')->name('employee.my-profile');
             Route::get('profile/{profile}', 'EmployeeController@showProfile')->name('employee.profile');
             Route::get('department', 'EmployeeController@department')->name('employee.department');
+            Route::get('/', 'EmployeeController@showAdd')->name('employee.add');
         });
 
         Route::group(['prefix' => 'news'], function()
@@ -48,7 +49,6 @@ use App\Http\Controllers\HomeController;
             Route::get('/add', 'NewsController@add')->name('news.add');
             Route::post('/add', 'NewsController@processAdd');
         });
-        Route::post('/add-employee', 'EmpController@processEmployee');
         Route::get('asset-register', 'AssetController@showAsset');
         
     });
@@ -67,7 +67,7 @@ use App\Http\Controllers\HomeController;
 
 
     //     //Routes for add-employees
-    // Route::get('add-employee', ['as' => 'add-employee', 'uses' => 'EmpController@addEmployee']);
+    Route::get('add-employee', ['as' => 'add-employee', 'uses' => 'EmployeeController@showAdd']);
 
     // Route::post('add-employee', ['as' => 'add-employee', 'uses' => 'EmpController@processEmployee']);
 

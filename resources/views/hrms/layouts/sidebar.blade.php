@@ -29,97 +29,89 @@
 
 <!-- Sidebar Menu -->
 <ul class="nav sidebar-menu scrollable">
-    @if(explode("/", Route::getFacadeRoot()->current()->uri())[0] != 'manager')
-        <!-- Quản lý -->
-        <li>
-            <a href="{{route('index')}}">
-                <span class="glyphicon glyphicon-home"></span>
-                <span class="sidebar-title">Trang chủ</span>
-            </a>
-        </li>
+    <!-- Quản lý -->
+    <li>
+        <a href="{{route('index')}}">
+            <span class="glyphicon glyphicon-home"></span>
+            <span class="sidebar-title">Trang chủ</span>
+        </a>
+    </li>
 
-        <!-- Nghỉ phép -->
-        <li>
-            <a class="accordion-toggle" href="#">
-                <span class="fa fa-calendar"></span>
-                <span class="sidebar-title">Nghỉ phép</span>
-                <span class="fa fa-caret-square-o-left"></span>
-            </a>
-            <ul class="nav sub-nav">
-                <li>
-                    <a href="{{route('leave.showAdd')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Tạo yêu cầu</a>
-                </li>
-                <li>
-                    <a href="{{route('leave.my-leave')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Lịch sử</a>
-                </li>
-            </ul>
-        </li>
+    <!-- Nghỉ phép -->
+    <li>
+        <a class="accordion-toggle" href="#">
+            <span class="fa fa-calendar"></span>
+            <span class="sidebar-title">Nghỉ phép</span>
+            <span class="fa fa-caret-square-o-left"></span>
+        </a>
+        <ul class="nav sub-nav">
+            <li>
+                <a href="{{route('leave.showAdd')}}">
+                    <span class="glyphicon glyphicon-tags"></span>Tạo yêu cầu</a>
+            </li>
+            <li>
+                <a href="{{route('leave.my-leave')}}">
+                    <span class="glyphicon glyphicon-tags"></span>Lịch sử</a>
+            </li>
+        </ul>
+    </li>
 
-        <!-- Chuyên môn -->
-        <li>
-            <a class="accordion-toggle" href="#">
-                <span class="fa fa-sitemap"></span>
-                <span class="sidebar-title">Chuyên môn</span>
-                <span class="fa fa-caret-square-o-left"></span>
-            </a>
-            <ul class="nav sub-nav">
-                <li>
-                    <a href="{{route('employee.department')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Thành viên</a>
-                </li>
-            </ul>
-        </li>
+    <!-- Chuyên môn -->
+    <li>
+        <a class="accordion-toggle" href="#">
+            <span class="fa fa-sitemap"></span>
+            <span class="sidebar-title">Chuyên môn</span>
+            <span class="fa fa-caret-square-o-left"></span>
+        </a>
+        <ul class="nav sub-nav">
+            <li>
+                <a href="{{route('employee.department')}}">
+                    <span class="glyphicon glyphicon-tags"></span>Thành viên</a>
+            </li>
+        </ul>
+    </li>
 
-        <!-- Thiết bị -->
+    <!-- Thiết bị -->
+    <li>
+        <a class="accordion-toggle" href="/dashboard">
+            <span class="fa fa-laptop"></span>
+            <span class="sidebar-title">Thiết bị</span>
+            <span class="caret"></span>
+        </a>
+        <ul class="nav sub-nav">
+            <li>
+                <a href="">
+                    <span class="glyphicon glyphicon-tags"></span>Yêu cầu thiết bị</a>
+            </li>
+
+            <li>
+                <a href="">
+                    <span class="glyphicon glyphicon-tags"></span>Thiết bị của tôi</a>
+            </li>
+        </ul>
+    </li>
+    @if(Auth::user()->isManager())
+        <!-- Nhân viên -->
         <li>
             <a class="accordion-toggle" href="/dashboard">
-                <span class="fa fa-laptop"></span>
-                <span class="sidebar-title">Thiết bị</span>
+                <span class="fa fa-child"></span>
+                <span class="sidebar-title">Nhân viên</span>
                 <span class="caret"></span>
             </a>
             <ul class="nav sub-nav">
                 <li>
                     <a href="">
-                        <span class="glyphicon glyphicon-tags"></span>Yêu cầu thiết bị</a>
+                        <span class="glyphicon glyphicon-tags"></span>Danh sách nhân viên</a>
                 </li>
 
                 <li>
-                    <a href="">
-                        <span class="glyphicon glyphicon-tags"></span>Thiết bị của tôi</a>
-                </li>
-            </ul>
-        </li>
-    @else
-        <!-- Quản lý -->
-        <li>
-            <a href="{{route('index')}}">
-                <span class="fa fa-home"></span>
-                <span class="sidebar-title">Trang chủ</span>
-            </a>
-        </li>
-
-        <!-- Quản lý nghỉ phép -->
-        <li>
-            <a class="accordion-toggle" href="/dashboard">
-                <span class="fa fa-calendar"></span>
-                <span class="sidebar-title">Nghỉ phép</span>
-                <span class="caret"></span>
-            </a>
-            <ul class="nav sub-nav">
-                <li>
-                    <a href="">
-                        <span class="glyphicon glyphicon-tags"></span>Yêu cầu thiết bị</a>
-                </li>
-
-                <li>
-                    <a href="">
-                        <span class="glyphicon glyphicon-tags"></span>Thiết bị của tôi</a>
+                    <a href="{{route('employee.add')}}">
+                        <span class="glyphicon glyphicon-tags"></span>Thêm nhân viên</a>
                 </li>
             </ul>
         </li>
     @endif
+    
         {{--  <li>
             <a class="accordion-toggle" href="/dashboard">
                 <span class="fa fa-group"></span>

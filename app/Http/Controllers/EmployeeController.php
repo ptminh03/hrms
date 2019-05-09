@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
-    public function addEmployee()
+    public function showAdd()
     {
         $departments = Department::all();
         $positions = Position::all();

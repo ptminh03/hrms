@@ -371,7 +371,6 @@
 
                                     <!-- -------------- /section -------------- -->
                                 </section>
-@php /*
                                 <!-- -------------- step 2 -------------- -->
                                 <h4 class="wizard-section-title">
                                     <i class="fa fa-user-secret pr5"></i> Thông tin nhân viên</h4>
@@ -702,7 +701,6 @@
                                         </div>
                                     </div>
                                 </section>
-*/ @endphp
                             </div>
                             <!-- -------------- /Wizard -------------- -->
 
