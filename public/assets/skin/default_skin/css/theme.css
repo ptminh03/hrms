@@ -25137,3 +25137,15 @@ body.basic-timeline .panel-clone {
 .border-content {
   padding: 0px 50px;
 }
+
+.paginate {
+  float: right;
+  margin-right: 50px;
+}
+
+.policy-content {
+  border: solid 2px silver;
+  margin-top: 8px;
+  margin-left: 30px;
+  padding: 7px;
+}
