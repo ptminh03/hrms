@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\LeaveType;
 use App\Models\Employee;
 use App\Models\LeaveDetail;
+use App\Models\News;
 
 class Leave extends Model
 {
@@ -24,5 +25,9 @@ class Leave extends Model
     public function details()
     {
         return $this->hasMany(LeaveDetail::class);
+    }
+
+    public function news() {
+        return $this->hasOne(News::class);
     }
 }
