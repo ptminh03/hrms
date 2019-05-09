@@ -53,7 +53,7 @@ use App\Http\Controllers\HomeController;
         
     });
     
-    Route::get('hr-policy', ['as' => 'hr-policy', 'uses' => 'IndexController@showPolicy']);
+    Route::get('hr-policy', ['as' => 'hr-policy', 'uses' => 'PolicyController@showPolicy']);
     
     // Route::get('/leave-type-listing', ['as' => 'leave-type-listing', 'uses' => 'LeaveController@showLeaveType']);
     Route::get('/test', 'AuthController@test');

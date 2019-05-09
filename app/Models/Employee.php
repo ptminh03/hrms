@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Position;
+use App\Models\News;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
@@ -35,5 +36,9 @@ class Employee extends Model
     public function position()
     {
         return $this->belongsTo(Position::class);
+    }
+
+    public function news() {
+        return $this->hasMany(News::class);
     }
 }
