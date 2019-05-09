@@ -39,7 +39,7 @@
                     <p>{{ $new->name }} has been approve your request!</p>
                     @else
                     <h3>{{ $new->title }}</h3>
-                    <p>{{ $new->content }}</p>
+                    <p>{!! $new->content !!}</p>
                     @endif
                 </div>
             </div>        
