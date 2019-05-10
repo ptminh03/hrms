@@ -16,7 +16,7 @@
                     Leave
                 </li>
                 <li class="breadcrumb-current-item">
-                    <a href="{{route('leave.my-leave')}}"> My leave </a>
+                    <a href="{{route('leave.showMyLeave')}}"> My leave </a>
                 </li>
                 <li class="breadcrumb-current-item">
                     Leave details
