@@ -123,9 +123,28 @@
      */
     public function processAdd(Request $request)
     {
-      $leave = Leave::first();
+      $leave = new Leave();
+      $leave->leave_type_id = $request->leave_type;
       $leave->reason = $request->reason;
+      $quantity = 0;
+      foreach ($request->date as $key => $value){
+        if ($value == 2) {
+          $quantity += 1;
+        } else {
+          $quantity += 0.5;
+        }
+      }
+      $leave->quantity = $quantity;
+      $leave->employee_id = Auth::user()->id;
       $leave->save();
+
+      foreach ($request->date as $key => $value) {
+        $leave_detail = new LeaveDetail();
+        $leave_detail->leave_id = $leave->id;
+        $leave_detail->date_leave = $key;
+        $leave_detail->session_id = $value;
+        $leave_detail->save();
+      }
       dd($request);
       return view('hrms.leave.apply_leave', compact('leaves'));
     }

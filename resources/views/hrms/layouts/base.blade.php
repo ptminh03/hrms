@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/allcp/forms/css/forms.css">
     <link rel="stylesheet" type="text/css" href="/assets/allcp/forms/css/widget.css">
 
-    <link rel="stylesheet" type="text/css" href="assets/js/plugins/select2/css/core.css">
+    <link rel="stylesheet" type="text/css" href="/assets/js/plugins/select2/css/core.css">
     <!-- -------------- Favicon -------------- -->
     <link rel="shortcut icon" href="/assets/img/favicon.png">
 

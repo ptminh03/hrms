@@ -55,7 +55,6 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <?php $i =0;?>
                                     @foreach($leaves as $leave)
                                         <tr>
                                             <td class="text-center">{{$leave->id}}</td>
@@ -80,7 +79,7 @@
                                             <td class="text-center">{{getFormattedDate($leave->date_leave)}}</td>
                                             <td class="text-center">{{$leave->quantity}}</td>
                                             <td class="text-center">
-                                                @if(isset($leave->process_by))
+                                                @if(isset($leave->process_by) && $leave->process_by != 0)
                                                     <a href='/wel'>{{$leave->processor->name}}</a>
                                                 @endif
                                             </td>
