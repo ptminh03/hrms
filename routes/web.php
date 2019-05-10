@@ -33,7 +33,7 @@ use App\Http\Controllers\HomeController;
             Route::get('my-leave', 'LeaveController@showMyLeave')->name('leave.showMyLeave');
             Route::get('{leave}/detail', 'LeaveController@showDetails')->name('leave.showDetails');
             Route::get('register', 'LeaveController@showAdd')->name('leave.showAdd');
-            Route::post('register', 'LeaveController@processAdd');
+            Route::post('register', 'LeaveController@processAdd')->name('leave.processAdd');
         });
 
         Route::group(['prefix' => 'employee'], function()

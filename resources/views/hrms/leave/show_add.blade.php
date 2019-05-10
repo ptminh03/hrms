@@ -45,7 +45,7 @@
                                             {{ session::get('flash_message') }}
                                         </div>
                                     @endif
-                                    {!! Form::open(['class' => 'form-horizontal', 'method' => 'post', 'id' => 'abcd', 'onclick'=> 'abcdef()']) !!}
+                                    {!! Form::open(['class' => 'form-horizontal', 'method' => 'post']) !!}
 
                                     <div class="form-group">
                                         <label class="col-md-2 control-label"> Loại ngày nghỉ </label>
@@ -71,7 +71,7 @@
                                                     <i class="fa fa-calendar text-alert pr10"></i>
                                                 </div>
                                                 <input type="text" id="datepicker1" class="select2-single form-control"
-                                                       name="dateFrom" required onclick="getvalue()">
+                                                       name="dateFrom" required readonly style="cursor: auto" onchange="getvalue()">
                                             </div>
                                         </div>
                                         <label for="date_to" class="col-md-2 control-label"> đến </label>
@@ -81,7 +81,7 @@
                                                     <i class="fa fa-calendar text-alert pr10"></i>
                                                 </div>
                                                 <input type="text" id="datepicker4" class="select2-single form-control"
-                                                       name="dateTo" required onclick="getvalue()">
+                                                       name="dateTo" required readonly style="cursor: auto" onchange="getvalue()">
                                             </div>
 
                                         </div>
