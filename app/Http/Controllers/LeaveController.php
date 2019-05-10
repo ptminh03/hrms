@@ -141,7 +141,7 @@
       foreach ($request->date as $key => $value) {
         $leave_detail = new LeaveDetail();
         $leave_detail->leave_id = $leave->id;
-        $leave_detail->date_leave = $key;
+        $leave_detail->date_leave = date_format(date_create($key),"Y/m/d");
         $leave_detail->session_id = $value;
         $leave_detail->save();
       }

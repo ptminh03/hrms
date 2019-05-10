@@ -152,9 +152,9 @@
                     if (d.getDay() !== 0 && d.getDay() !== 6) {
                         str += "<tr class='bg-light'>"
                         str += "<td class='text-left'>" + formatDate(d) + "</td>"
-                        str += "<td class='text-center'><input type='radio' name='date[" + d + "]' value='0'></td>"
-                        str += "<td class='text-center'><input type='radio' name='date[" + d + "]' value='1'></td>"
-                        str += "<td class='text-center'><input type='radio' name='date[" + d + "]' value='2' checked></td>"
+                        str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='0'></td>"
+                        str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='1'></td>"
+                        str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='2' checked></td>"
                         str += "</tr>"
                     }
                 }
