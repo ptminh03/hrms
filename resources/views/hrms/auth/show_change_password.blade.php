@@ -21,7 +21,7 @@
                                 <div class="table-responsive">
                                     <div class="panel-body p25 pb10">
                                         @if(Session::has('flash_message'))
-                                            <div class="alert alert-success">
+                                            <div class="alert alert-warning">
                                                 {{Session::get('flash_message')}}
                                             </div>
                                         @endif

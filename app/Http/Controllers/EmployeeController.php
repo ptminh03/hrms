@@ -594,14 +594,14 @@ class EmployeeController extends Controller
         return view('hrms.promotion.show_promotion', compact('promotions'));
     }
 
-    public function myProfile()
+    public function showMyProfile()
     {
 
         $employee = Employee::where('user_id', Auth::user()->id)->first();
         return view('hrms.employee.profile', compact('employee'));
     }
 
-    public function department()
+    public function showDepartment()
     {
         $departmentId = Auth::user()->employee->department_id;
         $employees = Employee::where('department_id', $departmentId)->paginate(10);

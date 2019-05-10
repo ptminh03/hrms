@@ -115,7 +115,7 @@
     public function showAdd()
     {
       $leaves = LeaveType::get();
-      return view('hrms.leave.apply_leave', compact('leaves'));
+      return view('hrms.leave.show_add', compact('leaves'));
     }
 
     /**
@@ -133,7 +133,7 @@
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function detail($leave)
+    public function showDetails($leave)
     {
       $leaveDetails = LeaveDetail::where('leave_id', $leave)->get();
       return view('hrms.leave.show_leave_details', compact('leaveDetails'));

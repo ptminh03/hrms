@@ -17,36 +17,36 @@ use App\Http\Controllers\HomeController;
     Route::group(['prefix' => 'auth'], function()
     {
         Route::get('/login', 'AuthController@showLogin')->name('auth.login');
-        Route::get('/logout', 'AuthController@doLogout')->name('auth.logout');
-        Route::get('change-password', 'AuthController@changePassword')->name('auth.change-password');
-        Route::get('reset-password', 'AuthController@resetPassword')->name('auth.reset-password');
-        Route::post('/login', 'AuthController@doLogin');
+        Route::post('/login', 'AuthController@processLogin');
+        Route::get('/logout', 'AuthController@processLogout')->name('auth.logout');
+        Route::get('change-password', 'AuthController@showChangePassword')->name('auth.change-password');
+        Route::post('change-password', 'AuthController@processChangePassword');
+        Route::get('reset-password', 'AuthController@showResetPassword')->name('auth.reset-password');
+        Route::post('reset-password', 'AuthController@processResetPassword');
     });
-    Route::post('change-password', 'AuthController@processPasswordChange');
-    Route::post('reset-password', 'AuthController@processPasswordReset');
     
     Route::group(['middleware' => ['auth']], function ()
     {
         Route::get('/', 'AuthController@index')->name('index');
         Route::group(['prefix' => 'leave'], function()
         {
-            Route::get('my-leave', 'LeaveController@showMyLeave')->name('leave.my-leave');
-            Route::get('{leave}/detail', 'LeaveController@detail')->name('leave.detail');
+            Route::get('my-leave', 'LeaveController@showMyLeave')->name('leave.showMyLeave');
+            Route::get('{leave}/detail', 'LeaveController@showDetails')->name('leave.showDetails');
             Route::get('register', 'LeaveController@showAdd')->name('leave.showAdd');
-            Route::post('register', 'LeaveController@processAdd')->name('leave.processAdd');
+            Route::post('register', 'LeaveController@processAdd');
         });
 
         Route::group(['prefix' => 'employee'], function()
         {
-            Route::get('profile', 'EmployeeController@myProfile')->name('employee.my-profile');
-            Route::get('profile/{profile}', 'EmployeeController@showProfile')->name('employee.profile');
-            Route::get('department', 'EmployeeController@department')->name('employee.department');
-            Route::get('/', 'EmployeeController@showAdd')->name('employee.add');
+            Route::get('profile', 'EmployeeController@showMyProfile')->name('employee.showMyProfile');
+            Route::get('profile/{profile}', 'EmployeeController@showProfile')->name('employee.showProfile');
+            Route::get('department', 'EmployeeController@showDepartment')->name('employee.showDepartment');
+            Route::get('/', 'EmployeeController@showAdd')->name('employee.showAdd');
         });
 
         Route::group(['prefix' => 'news'], function()
         {
-            Route::get('/add', 'NewsController@add')->name('news.add');
+            Route::get('/add', 'NewsController@showAdd')->name('news.showAdd');
             Route::post('/add', 'NewsController@processAdd');
         });
         Route::get('asset-register', 'AssetController@showAsset');
@@ -56,7 +56,6 @@ use App\Http\Controllers\HomeController;
     Route::get('hr-policy', ['as' => 'hr-policy', 'uses' => 'PolicyController@showPolicy']);
     
     // Route::get('/leave-type-listing', ['as' => 'leave-type-listing', 'uses' => 'LeaveController@showLeaveType']);
-    Route::get('/test', 'AuthController@test');
 
 
 

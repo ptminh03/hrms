@@ -6,7 +6,7 @@
 <!-- Sidebar Author -->
 <div class="sidebar-widget author-widget">
     <div class="media">
-        <a href="{{route('employee.my-profile')}}">
+        <a href="{{route('employee.showMyProfile')}}">
             @if(isset(Auth::user()->employee()->photo))
                 <img src="{{asset('photos/'.Auth::user()->employee->photo)}}" width="40px" height="30px" class="img-responsive">
             @else
@@ -15,7 +15,7 @@
         </a>
 
         <div class="media-body">
-                <a href="{{route('employee.my-profile')}}">
+                <a href="{{route('employee.showMyProfile')}}">
                 </a>
                 <p>{{Auth::user()->employee->name}}</p>
                 <p>{{Auth::user()->employee->code}} -
@@ -50,13 +50,13 @@
                     <span class="glyphicon glyphicon-tags"></span>Tạo yêu cầu</a>
             </li>
             <li>
-                <a href="{{route('leave.my-leave')}}">
+                <a href="{{route('leave.showMyLeave')}}">
                     <span class="glyphicon glyphicon-tags"></span>Lịch sử</a>
             </li>
         </ul>
     </li>
 
-    <!-- Chuyên môn -->
+    {{--  <!-- Chuyên môn -->
     <li>
         <a class="accordion-toggle" href="#">
             <span class="fa fa-sitemap"></span>
@@ -69,7 +69,7 @@
                     <span class="glyphicon glyphicon-tags"></span>Thành viên</a>
             </li>
         </ul>
-    </li>
+    </li>  --}}
 
     <!-- Thiết bị -->
     <li>
@@ -90,28 +90,32 @@
             </li>
         </ul>
     </li>
-    @if(Auth::user()->isManager())
-        <!-- Nhân viên -->
-        <li>
-            <a class="accordion-toggle" href="/dashboard">
-                <span class="fa fa-child"></span>
-                <span class="sidebar-title">Nhân viên</span>
-                <span class="caret"></span>
-            </a>
-            <ul class="nav sub-nav">
-                <li>
-                    <a href="">
-                        <span class="glyphicon glyphicon-tags"></span>Danh sách nhân viên</a>
-                </li>
 
+    <!-- Nhân viên -->
+    <li>
+        <a class="accordion-toggle" href="/dashboard">
+            <span class="fa fa-child"></span>
+            <span class="sidebar-title">Nhân viên</span>
+            <span class="caret"></span>
+        </a>
+        <ul class="nav sub-nav">
+            <li>
+                <a href="">
+                    <span class="glyphicon glyphicon-tags"></span>Danh sách nhân viên</a>
+            </li>
+            @if(Auth::user()->isManager())
                 <li>
-                    <a href="{{route('employee.add')}}">
+                    <a href="{{route('employee.showAdd')}}">
                         <span class="glyphicon glyphicon-tags"></span>Thêm nhân viên</a>
                 </li>
-            </ul>
-        </li>
-    @endif
-    
+                <li>
+                    <a href="{{route('employee.showDepartment')}}">
+                        <span class="glyphicon glyphicon-tags"></span>Thành viên</a>
+                </li>
+            @endif
+        </ul>
+    </li>
+
         {{--  <li>
             <a class="accordion-toggle" href="/dashboard">
                 <span class="fa fa-group"></span>

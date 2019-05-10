@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
+use DB;
 
 const TYPES = [
     'post' => 1,
@@ -26,10 +27,10 @@ class AuthController extends Controller
 
     public function showLogin()
     {
-        return view('hrms.auth.login');
+        return view('hrms.auth.show_login');
     }
 
-    public function doLogin(Request $request)
+    public function processLogin(Request $request)
     {
         $email = $request->email;
         $password = $request->password;
@@ -37,7 +38,7 @@ class AuthController extends Controller
         if ($user) {
             $data = [
                 'email' => $email,
-                'password' => $password,
+                'password' => $password
             ];
             if (Auth::attempt($data)) {
                 return redirect()->route('index');
@@ -45,27 +46,19 @@ class AuthController extends Controller
         }
         Session::flash('class', 'alert-danger');
         Session::flash('message', 'Email hoặc mật khẩu không đúng !');
-
         return redirect()->route('auth.login');
     }
 
-    public function doLogout()
+    public function processLogout()
     {
         Auth::logout();
 
         return redirect()->route('auth.login');
     }
 
-    public function dashboard()
-    {
-        // $events   = $this->convertToArray(Event::where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(3)->get());
-        // $meetings = $this->convertToArray(Meeting::where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(3)->get());
-        return view('hrms.dashboard');
-    }
-
     public function index()
     {
-        $news = News::select(\DB::raw("
+        $news = News::select(DB::raw("
             news.id,
             news.type,
             ( CASE
@@ -85,7 +78,7 @@ class AuthController extends Controller
         "))
         ->leftJoin('leaves', function($join) {
             $join->on('news.target_id', '=', 'leaves.id');
-            $join->on('news.type', \DB::raw(TYPES['leave']));
+            $join->on('news.type', DB::raw(TYPES['leave']));
         })
         // ->leftJoin('devices', function($join) {
         //     $join->on('news.target_id', '=', 'devices.id');
@@ -94,10 +87,10 @@ class AuthController extends Controller
         ->leftJoin('employees', function($join) {
             $join
             ->on('news.target_id', '=', 'employees.id')
-            ->on('news.type', \DB::raw(TYPES['post']));
+            ->on('news.type', DB::raw(TYPES['post']));
 
             $join
-            ->orOn('news.type', \DB::raw(TYPES['leave']))
+            ->orOn('news.type', DB::raw(TYPES['leave']))
             ->on('leaves.process_by', '=', 'employees.id');
         })
         ->where('news.type', TYPES['post'])
@@ -114,32 +107,12 @@ class AuthController extends Controller
         return view('hrms.auth.index', ['news' => $news]);
     }
 
-    // public function notFound()
-    // {
-    //     return view('hrms.auth.not_found');
-    // }
-
-    // public function showRegister()
-    // {
-    //     return view('hrms.auth.register');
-    // }
-
-    // public function doRegister(Request $request)
-    // {
-    //     return view('hrms.auth.register');
-    // }
-
-    // public function calendar()
-    // {
-    //     return view('hrms.auth.calendar');
-    // }
-
-    public function changePassword()
+    public function showChangePassword()
     {
-        return view('hrms.auth.change');
+        return view('hrms.auth.show_change_password');
     }
 
-    public function processPasswordChange(Request $request)
+    public function processChangePassword(Request $request)
     {
         $password = $request->old;
         $user = User::where('id', Auth::user()->id)->first();
@@ -148,21 +121,19 @@ class AuthController extends Controller
             $user->password = bcrypt($request->new);
             $user->save();
             Auth::logout();
-
-            return redirect()->to('/')->with('message', 'Password updated! LOGIN again with updated password.');
+            return redirect()->route('auth.login')->with('message', 'Đổi mật khẩu thành công, vui lòng đăng nhập lại.')->with('class', 'alert-success');
         } else {
-            Session::flash('flash_message', 'The supplied password does not matches with the one we have in records');
-
+            Session::flash('flash_message', 'Mật khẩu cũ không đúng');
             return redirect()->back();
         }
     }
 
-    public function resetPassword()
+    public function showResetPassword()
     {
-        return view('hrms.auth.reset');
+        return view('hrms.auth.show_reset_password');
     }
 
-    public function processPasswordReset(Request $request)
+    public function processResetPassword(Request $request)
     {
         $email = $request->email;
         $user = User::where('email', $email)->first();
@@ -194,11 +165,31 @@ class AuthController extends Controller
     //     return $result;
     // }
 
-    public function test()
-    {
-        $user = User::where(['email' => 'ptminh03@gmail.com', 'password' => md5('123456')])->first();
-        // dd($user);
-        $auth = Auth::attempt(['email' => 'ptminh03@gmail.com', 'password' => '123456']);
-        dd($auth);
-    }
+    
+    // public function notFound()
+    // {
+    //     return view('hrms.auth.not_found');
+    // }
+
+    // public function showRegister()
+    // {
+    //     return view('hrms.auth.register');
+    // }
+
+    // public function doRegister(Request $request)
+    // {
+    //     return view('hrms.auth.register');
+    // }
+
+    // public function calendar()
+    // {
+    //     return view('hrms.auth.calendar');
+    // }
+
+    // public function dashboard()
+    // {
+    //     // $events   = $this->convertToArray(Event::where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(3)->get());
+    //     // $meetings = $this->convertToArray(Meeting::where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(3)->get());
+    //     return view('hrms.dashboard');
+    // }
 }
