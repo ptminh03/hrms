@@ -88,21 +88,23 @@
                 <a href="">
                     <span class="glyphicon glyphicon-tags"></span>Thiết bị của tôi</a>
             </li>
+            @if(Auth::user()->isManager())
+                <li>
+                    <a href="{{route('device.showAdd')}}">
+                        <span class="glyphicon glyphicon-tags"></span>Thêm thiết bị</a>
+                </li>
+            @endif
         </ul>
     </li>
 
     <!-- Nhân viên -->
     <li>
-        <a class="accordion-toggle" href="/dashboard">
+        <a class="accordion-toggle" href="#">
             <span class="fa fa-child"></span>
             <span class="sidebar-title">Nhân viên</span>
             <span class="caret"></span>
         </a>
         <ul class="nav sub-nav">
-            <li>
-                <a href="">
-                    <span class="glyphicon glyphicon-tags"></span>Danh sách nhân viên</a>
-            </li>
             @if(Auth::user()->isManager())
                 <li>
                     <a href="{{route('employee.showAdd')}}">
@@ -110,7 +112,11 @@
                 </li>
                 <li>
                     <a href="{{route('employee.showDepartment')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Thành viên</a>
+                        <span class="glyphicon glyphicon-tags"></span>Nhóm của tôi</a>
+                </li>
+                <li>
+                    <a href="{{route('employee.showEmployees')}}">
+                        <span class="glyphicon glyphicon-tags"></span>Danh sách nhân viên</a>
                 </li>
             @endif
         </ul>
@@ -375,22 +381,3 @@
     <p> &nbsp; </p>
 </ul>
 <!-- -------------- /Sidebar Menu  -------------- -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-        /*var $icon = $('.sidebar-menu li a span.fa-caret-square-o-left');
-        var $li = $icon.parent().parent();
-        $li.on('click', function (event){
-            $e = $(event.target);
-            $a = $e.children();
-            $lastSpan = $a.children().last();
-            console.log($a);
-            if($a.hasClass('menu-open')) {
-                $lastSpan.addClass('fa-caret-square-o-left').removeClass('fa-caret-square-o-down');
-            } else {
-                $lastSpan.addClass('fa-caret-square-o-down').removeClass('fa-caret-square-o-left');
-            }
-        });*/
-    });
-</script>

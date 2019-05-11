@@ -231,7 +231,7 @@
 
       // $leaves = EmployeeLeaves::where('user_id', \Auth::user()->id)->paginate(15);
       $leaves = Leave::where('employee_id', Auth::user()->id)->orderBy('created_at')->paginate(10);
-      return view('hrms.leave.show_my_leaves', compact('leaves'));
+      return view('hrms.leave.show_leaves', compact('leaves'));
     }
 
 

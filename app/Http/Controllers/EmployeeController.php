@@ -22,14 +22,14 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
-    public function showAdd()
+    public function add()
     {
         $departments = Department::all();
         $positions = Position::all();
         return view('hrms.employee.add', compact(['departments', 'positions']));
     }
 
-    public function processEmployee(Request $request)
+    public function store(Request $request)
     {
         dd($request);
         $filename = public_path('photos/a.png');
@@ -48,49 +48,27 @@ class EmployeeController extends Controller
         }
 
         $user           = new User;
-        $user->name     = $request->emp_name;
-        $user->email    = str_replace(' ', '_', $request->emp_name) . '@asian-tech.vn';
+        $user->name     = $request->name;
+        $user->email    = str_replace(' ', '_', $request->name) . '@asian-tech.vn';
         $user->password = bcrypt('123456');
         $user->save();
 
         $emp                       = new Employee;
         $emp->photo                = $filename;
-        $emp->name                 = $request->emp_name;
-        $emp->code                 = $request->emp_code;
-        $emp->status               = $request->emp_status;
+        $emp->name                 = $request->name;
+        $emp->code                 = $request->code;       
         $emp->gender               = $request->gender;
-        $emp->date_of_birth        = date_format(date_create($request->dob), 'Y-m-d');
-        $emp->date_of_joining      = date_format(date_create($request->doj), 'Y-m-d');
-        $emp->number               = $request->number;
-        $emp->qualification        = $request->qualification;
-        $emp->current_address      = $request->current_address;
-        $emp->permanent_address    = $request->permanent_address;
-        $emp->formalities          = $request->formalities;
-        $emp->offer_acceptance     = $request->offer_acceptance;
-        $emp->probation_period     = $request->probation_period;
-        $emp->date_of_confirmation = date_format(date_create($request->date_of_confirmation), 'Y-m-d');
-        $emp->department           = $request->department;
+        $emp->date_of_birth        = date_format(date_create($request->date_of_birth), 'Y-m-d');
+        $emp->date_of_join         = date_format(date_create($request->date_of_join), 'Y-m-d');       
+        $emp->address              = $request->address;
+        $emp->department_id        = $request->department_id;
+        $emp->position_id          = $request->position_id;
         $emp->salary               = $request->salary;
-        $emp->account_number       = $request->account_number;
-        $emp->bank_name            = $request->bank_name;
-        $emp->account_name            = $request->account_name;
-        $emp->pf_status            = $request->pf_status;
-        $emp->date_of_resignation  = date_format(date_create($request->date_of_resignation), 'Y-m-d');
-        $emp->notice_period        = $request->notice_period;
-        $emp->last_working_day     = date_format(date_create($request->last_working_day), 'Y-m-d');
-        $emp->full_final           = $request->full_final;
+        $emp->account_number       = $request->account_number;   
         $emp->user_id              = $user->id;
         $emp->save();
 
-        $userRole          = new UserRole();
-        $userRole->role_id = $request->role;
-        $userRole->user_id = $user->id;
-        $userRole->save();
-
-        //$emp->userrole()->create(['role_id' => $request->role]);
-
-        return json_encode(['title' => 'Success', 'message' => 'Employee added successfully', 'class' => 'modal-header-success']);
-
+        return back()->with('message', 'Tạo nhân viên mới thành công.')->with('class', 'alert-success');
     }
 
     public function showEmployee()
@@ -605,7 +583,13 @@ class EmployeeController extends Controller
     {
         $departmentId = Auth::user()->employee->department_id;
         $employees = Employee::where('department_id', $departmentId)->paginate(10);
-        return view('hrms.employee.department', compact('employees'));
+        return view('hrms.employee.show_employees', compact('employees'));
+    }
+
+    public function showEmployees()
+    {
+        $employees = Employee::paginate(10);
+        return view('hrms.employee.show_employees', compact('employees'));
     }
 
     public function showProfile($profile)

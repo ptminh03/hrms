@@ -44,6 +44,9 @@
     <link rel="stylesheet" type="text/css" href="/assets/sweetalert.css">
     <script type="text/javascript" src="/assets/js/ckeditor/ckeditor.js"></script>
 
+    <script src="/assets/js/jquery/jquery-1.11.3.min.js"></script>
+    <script src="/assets/js/jquery/jquery_ui/jquery-ui.min.js"></script>    
+
 @stack('styles')
 
     <!-- -------------- IE8 HTML5 support  -------------- -->
@@ -107,325 +110,34 @@
 
     <!-- -------------- Main Wrapper -------------- -->
     <section id="content_wrapper">
+        <div class="content">
+            <header id="topbar" class="alt">
+                <div class="topbar-left">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-icon">
+                            <a href="{{route('index')}}">
+                                <span class="fa fa-home"></span>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-current-item"> @yield('title')</li>
+                    </ol>
+                </div>
+            </header>
 
-        <!-- -------------- Topbar Menu Wrapper -------------- -->
-        <div id="topbar-dropmenu-wrapper">
-            <div class="topbar-menu row">
-                <div class="col-xs-4 col-sm-2">
-                    <a href="#" class="service-box bg-danger">
-                        <span class="fa fa-music"></span>
-                        <span class="service-title">Audio</span>
-                    </a>
+            <section id="content" class="table-layout animated fadeIn">
+                <div class="chute chute-center">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-success">
+                            <div class="panel">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-4 col-sm-2">
-                    <a href="#" class="service-box bg-success">
-                        <span class="fa fa-picture-o"></span>
-                        <span class="service-title">Images</span>
-                    </a>
-                </div>
-                <div class="col-xs-4 col-sm-2">
-                    <a href="#" class="service-box bg-primary">
-                        <span class="fa fa-video-camera"></span>
-                        <span class="service-title">Videos</span>
-                    </a>
-                </div>
-                <div class="col-xs-4 col-sm-2">
-                    <a href="#" class="service-box bg-alert">
-                        <span class="fa fa-envelope"></span>
-                        <span class="service-title">Messages</span>
-                    </a>
-                </div>
-                <div class="col-xs-4 col-sm-2">
-                    <a href="#" class="service-box bg-system">
-                        <span class="fa fa-cog"></span>
-                        <span class="service-title">Settings</span>
-                    </a>
-                </div>
-                <div class="col-xs-4 col-sm-2">
-                    <a href="#" class="service-box bg-dark">
-                        <span class="fa fa-user"></span>
-                        <span class="service-title">Users</span>
-                    </a>
-                </div>
-            </div>
+            </section>
         </div>
-        <!-- -------------- /Topbar Menu Wrapper -------------- -->
-
-        <!-- YIELD CONTENT -->
-
-        @yield('content')
-
-        <!-- /YIELD CONTENT -->
-
-        <!-- -------------- Content -------------- -->
-        <section id="content" class="table-layout animated fadeIn">
-
-            <!-- -------------- Column Right -------------- -->
-            <aside class="chute chute-right chute270 pn hidden" data-chute-height="match">
-
-                <!-- -------------- Activity Timeline -------------- -->
-                <ol class="timeline-list pl5 mt5">
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Genry</b> Added a new item to his store:
-                            <a href="#">Ipod</a>
-                        </div>
-                        <div class="timeline-date">1:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Lion</b> Added a new item to his store:
-                            <a href="#">Notebook</a>
-                        </div>
-                        <div class="timeline-date">3:05am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-success">
-                            <span class="fa fa-usd"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="#">Software</a>
-                        </div>
-                        <div class="timeline-date">4:15am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-warning">
-                            <span class="fa fa-pencil"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Laura</b> edited her work experience
-                        </div>
-                        <div class="timeline-date">5:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-success">
-                            <span class="fa fa-usd"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="#">Apple Inc.</a>
-                        </div>
-                        <div class="timeline-date">7:45am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Genry</b> Added a new item to his store:
-                            <a href="#">Ipod</a>
-                        </div>
-                        <div class="timeline-date">8:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Lion</b> Added a new item to his store:
-                            <a href="#">Watch</a>
-                        </div>
-                        <div class="timeline-date">9:35am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-system">
-                            <span class="fa fa-fire"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="#">Software</a>
-                        </div>
-                        <div class="timeline-date">4:15am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-warning">
-                            <span class="fa fa-pencil"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Laura</b> edited her work experience
-                        </div>
-                        <div class="timeline-date">5:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-success">
-                            <span class="fa fa-usd"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="#">Software</a>
-                        </div>
-                        <div class="timeline-date">4:15am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-warning">
-                            <span class="fa fa-pencil"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Laura</b> edited her work experience
-                        </div>
-                        <div class="timeline-date">5:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-success">
-                            <span class="fa fa-usd"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="#">Apple Inc.</a>
-                        </div>
-                        <div class="timeline-date">7:45am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Genry</b> Added a new item to his store:
-                            <a href="#">Ipod</a>
-                        </div>
-                        <div class="timeline-date">8:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Lion</b> Added a new item to his store:
-                            <a href="#">Watch</a>
-                        </div>
-                        <div class="timeline-date">9:35am</div>
-                    </li>
-                </ol>
-
-            </aside>
-            <!-- -------------- /Column Right -------------- -->
-
-        </section>
-        <!-- -------------- /Content -------------- -->
-
-        @if(\Route::getFacadeRoot()->current()->uri() == 'dashboard' || \Route::getFacadeRoot()->current()->uri() == 'welcome' || \Route::getFacadeRoot()->current()->uri() == 'change-password' ||
-        \Route::getFacadeRoot()->current()->uri() == 'not-found' )
-        <!-- -------------- Page Footer -------------- -->
-        <footer id="content-footer" class="affix">
-            <div class="row">
-                <div class="col-md-6">
-                    <span class="footer-legal">ĐATN © 2019 All rights reserved. By <a
-                                href="/" target="_blank">Phan Tấn Minh</a></span>
-                </div>
-                <div class="col-md-6 text-right">
-                    <span class="footer-meta"></span>
-                    <a href="#content" class="footer-return-top">
-                        <span class="fa fa-angle-up"></span>
-                    </a>
-                </div>
-            </div>
-        </footer>
-        <!-- -------------- /Page Footer -------------- -->
-        @endif
-
-    </section>
-    <!-- -------------- /Main Wrapper -------------- -->
-
-    <!-- -------------- Sidebar Right -------------- -->
-    <aside id="sidebar_right" class="nano affix">
-
-        <!-- -------------- Sidebar Right Content -------------- -->
-        <div class="sidebar-right-wrapper nano-content">
-
-            <div class="sidebar-block br-n p15">
-
-                <h6 class="title-divider text-muted mb20"> Visitors Stats
-                <span class="pull-right"> 2015
-                  <i class="fa fa-caret-down ml5"></i>
-                </span>
-                </h6>
-
-                <div class="progress mh5">
-                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="34"
-                         aria-valuemin="0"
-                         aria-valuemax="100" style="width: 34%">
-                        <span class="fs11">New visitors</span>
-                    </div>
-                </div>
-                <div class="progress mh5">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="66"
-                         aria-valuemin="0"
-                         aria-valuemax="100" style="width: 66%">
-                        <span class="fs11 text-left">Returnig visitors</span>
-                    </div>
-                </div>
-                <div class="progress mh5">
-                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45"
-                         aria-valuemin="0"
-                         aria-valuemax="100" style="width: 45%">
-                        <span class="fs11 text-left">Orders</span>
-                    </div>
-                </div>
-h
-                <h6 class="title-divider text-muted mt30 mb10">New visitors</h6>
-
-                <div class="row">
-                    <div class="col-xs-5">
-                        <h3 class="text-primary mn pl5">350</h3>
-                    </div>
-                    <div class="col-xs-7 text-right">
-                        <h3 class="text-warning mn">
-                            <i class="fa fa-caret-down"></i> 15.7% </h3>
-                    </div>
-                </div>
-
-                <h6 class="title-divider text-muted mt25 mb10">Returnig visitors</h6>
-
-                <div class="row">
-                    <div class="col-xs-5">
-                        <h3 class="text-primary mn pl5">660</h3>
-                    </div>
-                    <div class="col-xs-7 text-right">
-                        <h3 class="text-success-dark mn">
-                            <i class="fa fa-caret-up"></i> 20.2% </h3>
-                    </div>
-                </div>
-
-                <h6 class="title-divider text-muted mt25 mb10">Orders</h6>
-
-                <div class="row">
-                    <div class="col-xs-5">
-                        <h3 class="text-primary mn pl5">153</h3>
-                    </div>
-                    <div class="col-xs-7 text-right">
-                        <h3 class="text-success mn">
-                            <i class="fa fa-caret-up"></i> 5.3% </h3>
-                    </div>
-                </div>
-
-                <h6 class="title-divider text-muted mt40 mb20"> Site Statistics
-                    <span class="pull-right text-primary fw600">Today</span>
-                </h6>
-            </div>
-        </div>
-    </aside>
-    <!-- -------------- /Sidebar Right -------------- -->
-
-</div>
-<!-- -------------- /Body Wrap  -------------- -->
-
-
-
-
-
-<!-- -------------- Scripts -------------- -->
-
-<!-- -------------- jQuery -------------- -->
-<script src="/assets/js/jquery/jquery-1.11.3.min.js"></script>
-{{--<script src="/assets/js/jquery/jquery-2.2.4.min.js"></script>--}}
-<script src="/assets/js/jquery/jquery_ui/jquery-ui.min.js"></script>
+    </section>    
 
 <!-- -------------- HighCharts Plugin -------------- -->
 <script src="/assets/js/plugins/highcharts/highcharts.js"></script>

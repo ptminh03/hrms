@@ -86,9 +86,9 @@
                     </li>
                     <li class="breadcrumb-link">
                         @if(Auth::id() == $employee->id)
-                            <a href="{{route('employee.my-profile')}}">Thông tin cá nhân</a>
+                            <a href="{{route('employee.showMyDetails')}}">Thông tin cá nhân</a>
                         @else
-                            <a href="{{route('employee.profile', ['profile' => $employee->id ])}}">Thông tin nhân viên</a>
+                            <a href="{{route('employee.showProfile', ['profile' => $employee->id ])}}">Thông tin nhân viên</a>
                         @endif
                     </li>
                 </ol>

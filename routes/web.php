@@ -28,7 +28,7 @@ use App\Http\Controllers\HomeController;
     Route::group(['middleware' => ['auth']], function ()
     {
         Route::get('/', 'AuthController@index')->name('index');
-        Route::group(['prefix' => 'leave'], function()
+        Route::group(['prefix' => 'leaves'], function()
         {
             Route::get('my-leave', 'LeaveController@showMyLeave')->name('leave.showMyLeave');
             Route::get('{leave}/detail', 'LeaveController@showDetails')->name('leave.showDetails');
@@ -36,12 +36,14 @@ use App\Http\Controllers\HomeController;
             Route::post('register', 'LeaveController@processAdd')->name('leave.processAdd');
         });
 
-        Route::group(['prefix' => 'employee'], function()
+        Route::group(['prefix' => 'employees'], function()
         {
             Route::get('profile', 'EmployeeController@showMyProfile')->name('employee.showMyProfile');
             Route::get('profile/{profile}', 'EmployeeController@showProfile')->name('employee.showProfile');
+            Route::get('all', 'EmployeeController@showEmployees')->name('employee.showEmployees');
             Route::get('department', 'EmployeeController@showDepartment')->name('employee.showDepartment');
-            Route::get('/', 'EmployeeController@showAdd')->name('employee.showAdd');
+            Route::get('/add', 'EmployeeController@add')->name('employee.showAdd');
+            Route::post('/add', 'EmployeeController@store')->name('employee.store');
         });
 
         Route::group(['prefix' => 'news'], function()
@@ -49,8 +51,11 @@ use App\Http\Controllers\HomeController;
             Route::get('/add', 'NewsController@showAdd')->name('news.showAdd');
             Route::post('/add', 'NewsController@processAdd');
         });
-        Route::get('asset-register', 'AssetController@showAsset');
-        
+
+        Route::group(['prefix' => 'devices'], function()
+        {
+            Route::get('/', 'DeviceController@showAdd')->name('device.showAdd');
+        });
     });
     
     Route::get('hr-policy', ['as' => 'hr-policy', 'uses' => 'PolicyController@showPolicy']);
@@ -68,7 +73,7 @@ use App\Http\Controllers\HomeController;
     //     //Routes for add-employees
     Route::get('add-employee', ['as' => 'add-employee', 'uses' => 'EmployeeController@showAdd']);
 
-    // Route::post('add-employee', ['as' => 'add-employee', 'uses' => 'EmpController@processEmployee']);
+    Route::post('add-employee', ['as' => 'add-employee', 'uses' => 'EmpController@processEmployee']);
 
     // Route::get('employee-manager', ['as' => 'employee-manager', 'uses' => 'EmpController@showEmployee']);
 

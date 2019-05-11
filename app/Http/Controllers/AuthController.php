@@ -102,7 +102,7 @@ class AuthController extends Controller
             ['news.type', TYPES['device']],
             // ['devices.employee_id', \DB::raw(Auth::user()->id)]
         ])
-        ->orderBy('news.updated_at', 'desc')->paginate(1);
+        ->orderBy('news.updated_at', 'desc')->paginate(10);
 
         return view('hrms.auth.index', ['news' => $news]);
     }
