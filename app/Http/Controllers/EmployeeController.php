@@ -134,8 +134,9 @@ class EmployeeController extends Controller
     public function myDepartment()
     {
         $departmentId = Auth::user()->employee->department_id;
+        $department = Department::withCount('employees as count')->findOrFail($departmentId);
         $employees = Employee::where('department_id', $departmentId)->orderBy('id', 'desc')->paginate(15);
-        return view('hrms.employee.my_department', compact('employees'));
+        return view('hrms.employee.my_department', compact('employees', 'department'));
     }
 
     public function department($id)

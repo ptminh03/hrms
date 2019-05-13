@@ -3279,7 +3279,6 @@
 .stateface {
   font-family: 'StateFaceRegular';
   display: inline-block;
-  speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -19085,7 +19084,6 @@ body.chute-rescale .chute.chute-right:hover {
   font-size: 10px;
   display: inline-block;
   padding-right: 3px;
-  float: right;
   right: 0;
 }
 .sidebar-menu li > a.menu-open > span.caret:after {
@@ -25162,7 +25160,7 @@ body.basic-timeline .panel-clone {
 
 .search-box {
   padding: 0px 0px 0px 7px;
-  width: 55%;
+  width: 187px;
   margin-bottom: 10px;
 }
 
