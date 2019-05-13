@@ -40,7 +40,7 @@ class DepartmentController extends Controller
     }
 
     public function edit($id) {
-        $department = Department::find($id);
+        $department = Department::findOrFail($id);
         return view('hrms.department.edit', compact('department'));
     }
 

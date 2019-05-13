@@ -35,27 +35,27 @@ use App\Http\Controllers\HomeController;
             Route::get('register', 'LeaveController@showAdd')->name('leave.showAdd');
             Route::post('register', 'LeaveController@processAdd')->name('leave.processAdd');
         });
-
-        Route::group(['prefix' => 'employees'], function()
-        {
-            Route::post('/', 'EmployeeController@store')->name('employee.store');
-            Route::get('/', 'EmployeeController@index')->name('employee.index');
-            Route::get('my-profile', 'EmployeeController@myProfile')->name('employee.myProfile');
-            Route::get('create', 'EmployeeController@create')->name('employee.create');            
-            Route::get('my-department', 'EmployeeController@myDepartment')->name('employee.myDepartment');
-            Route::get('{id}/department', 'EmployeeController@department')->name('employee.department');
-            Route::get('{id}', 'EmployeeController@show')->name('employee.show');
-        });
-
+        
         Route::group(['prefix' => 'news'], function()
         {
             Route::get('/add', 'NewsController@showAdd')->name('news.showAdd');
             Route::post('/add', 'NewsController@processAdd');
         });
-
+        
         Route::group(['prefix' => 'devices'], function()
         {
             Route::get('/', 'DeviceController@showAdd')->name('device.showAdd');
+        });
+
+        Route::group(['prefix' => 'employees'], function()
+        {
+            Route::get('/', 'EmployeeController@index')->name('employee.index');
+            Route::get('create', 'EmployeeController@create')->name('employee.create');            
+            Route::post('/', 'EmployeeController@store')->name('employee.store');
+            Route::get('my-profile', 'EmployeeController@myProfile')->name('employee.myProfile');
+            Route::get('my-department', 'EmployeeController@myDepartment')->name('employee.myDepartment');
+            Route::get('{id}/department', 'EmployeeController@department')->where('id', '[1-9][0-9]*')->name('employee.department');
+            Route::get('{id}', 'EmployeeController@show')->where('id', '[1-9][0-9]*')->name('employee.show');
         });
 
         Route::group(['prefix' => 'departments'], function()
@@ -63,9 +63,9 @@ use App\Http\Controllers\HomeController;
             Route::get('/', 'DepartmentController@index')->name('department.index');
             Route::get('/create', 'DepartmentController@create')->name('department.create');
             Route::post('/', 'DepartmentController@store')->name('department.store');
-            Route::get('/{id}/edit', 'DepartmentController@edit')->name('department.edit');
-            Route::put('/{id}', 'DepartmentController@update')->name('department.update');
-            Route::get('/{id}', 'DepartmentController@destroy')->name('department.delete');
+            Route::get('/{id}/edit', 'DepartmentController@edit')->where('id', '[1-9][0-9]*')->name('department.edit');
+            Route::put('/{id}', 'DepartmentController@update')->where('id', '[1-9][0-9]*')->name('department.update');
+            Route::get('/{id}', 'DepartmentController@destroy')->where('id', '[1-9][0-9]*')->name('department.delete');
         });
     });
     

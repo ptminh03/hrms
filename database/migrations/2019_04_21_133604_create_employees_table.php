@@ -33,6 +33,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('salary');
             $table->date('date_of_resignation')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
