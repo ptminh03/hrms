@@ -50,11 +50,11 @@
         </a>
         <ul class="nav sub-nav">
             <li>
-                <a href="{{route('leave.showAdd')}}">
+                <a href="{{route('leave.create')}}">
                     <span class="glyphicon glyphicon-tags"></span>Tạo yêu cầu</a>
             </li>
             <li>
-                <a href="{{route('leave.showMyLeave')}}">
+                <a href="{{route('leave.myLeave')}}">
                     <span class="glyphicon glyphicon-tags"></span>Lịch sử</a>
             </li>
         </ul>

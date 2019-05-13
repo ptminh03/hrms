@@ -30,10 +30,10 @@ use App\Http\Controllers\HomeController;
         Route::get('/', 'AuthController@index')->name('index');
         Route::group(['prefix' => 'leaves'], function()
         {
-            Route::get('my-leave', 'LeaveController@showMyLeave')->name('leave.showMyLeave');
-            Route::get('{leave}/detail', 'LeaveController@showDetails')->name('leave.showDetails');
-            Route::get('register', 'LeaveController@showAdd')->name('leave.showAdd');
-            Route::post('register', 'LeaveController@processAdd')->name('leave.processAdd');
+            Route::get('my-leave', 'LeaveController@myLeave')->name('leave.myLeave');
+            Route::post('/', 'LeaveController@store')->name('leave.store');
+            Route::get('create', 'LeaveController@create')->name('leave.create');
+            Route::get('{id}', 'LeaveController@show')->where('id', '[1-9][0-9]*')->name('leave.show');
         });
         
         Route::group(['prefix' => 'news'], function()

@@ -56,8 +56,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {{--  <div class="col-md-2"></div>  --}}
-                        <div class="col-md-10 table-responsive" style="float: right;"></div>
+                        <div id="date_request" class="col-md-10 table-responsive" style="float: right;"></div>
                     </div>
                     <div class="form-group">
                         <label for="input002" class="col-md-2 control-label"> Lý do </label>
@@ -72,7 +71,7 @@
                         <div class="col-md-2">
                             <input type="submit" class="btn btn-bordered btn-info btn-block" value="Tạo yêu cầu">
                         </div>
-                        <div class="col-md-2"><a href="{{route('leave.processAdd')}}" >
+                        <div class="col-md-2"><a href="{{route('leave.store')}}" >
                             <input type="button" class="btn btn-bordered btn-success btn-block" value="Reset"></a>
                         </div>
                     </div>
@@ -116,7 +115,7 @@
                     }
                 }
             str += "</table>"
-            document.getElementById("abcdef").innerHTML = str;
+            document.getElementById("date_request").innerHTML = str;
             }
         }
 
