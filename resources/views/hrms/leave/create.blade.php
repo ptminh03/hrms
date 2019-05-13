@@ -56,7 +56,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {{--  <div class="col-md-2"></div>  --}}
                         <div id="date_request" class="col-md-10 table-responsive" style="float: right;"></div>
                     </div>
                     <div class="form-group">
@@ -72,7 +71,7 @@
                         <div class="col-md-2">
                             <input type="submit" class="btn btn-bordered btn-info btn-block" value="Tạo yêu cầu">
                         </div>
-                        <div class="col-md-2"><a href="{{route('leave.processAdd')}}" >
+                        <div class="col-md-2"><a href="{{route('leave.store')}}" >
                             <input type="button" class="btn btn-bordered btn-success btn-block" value="Reset"></a>
                         </div>
                     </div>
@@ -118,7 +117,11 @@
                     }
                 }
             str += "</table>"
+<<<<<<< HEAD:resources/views/hrms/leave/show_add.blade.php
             $("#date_request").html(str)
+=======
+            document.getElementById("date_request").innerHTML = str;
+>>>>>>> 8841947e0b6ed3479d59e08c880a10ec14047670:resources/views/hrms/leave/create.blade.php
             }
         }
 

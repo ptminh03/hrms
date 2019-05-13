@@ -54,7 +54,7 @@
                             @endif
                         </td>
                         <td class="text-center">
-                                <a href="{{route('leave.showDetails', ['leave' => $leave->id])}}">
+                                <a href="{{route('leave.show', ['id' => $leave->id])}}">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </a>
                         </td>
