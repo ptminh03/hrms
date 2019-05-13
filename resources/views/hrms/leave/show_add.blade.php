@@ -33,7 +33,6 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <label for="date_from" class="col-md-2 control-label"> Từ ngày </label>
                         <div class="col-md-3">
@@ -54,14 +53,11 @@
                                 <input type="text" id="datepicker4" class="select2-single form-control"
                                     name="dateTo" required readonly style="cursor: auto" onchange="getvalue()">
                             </div>
-
                         </div>
                     </div>
                     <div class="form-group">
                         {{--  <div class="col-md-2"></div>  --}}
-                        <div id="abcdef" class="col-md-10 table-responsive" style="float: right;">
-                    
-                        </div>
+                        <div class="col-md-10 table-responsive" style="float: right;"></div>
                     </div>
                     <div class="form-group">
                         <label for="input002" class="col-md-2 control-label"> Lý do </label>
@@ -73,15 +69,12 @@
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label"></label>
-
                         <div class="col-md-2">
-
-                                <input type="submit" class="btn btn-bordered btn-info btn-block"
-                                            value="Tạo yêu cầu">
+                            <input type="submit" class="btn btn-bordered btn-info btn-block" value="Tạo yêu cầu">
                         </div>
                         <div class="col-md-2"><a href="{{route('leave.processAdd')}}" >
-                                <input type="button" class="btn btn-bordered btn-success btn-block" value="Reset"></a></div>
-
+                            <input type="button" class="btn btn-bordered btn-success btn-block" value="Reset"></a>
+                        </div>
                     </div>
 
                     {!! Form::close() !!}
@@ -127,10 +120,6 @@
             }
         }
 
-        function abcdef() {
-            var formdata = $('#abcd').serializeArray();
-            console.log(formdata)
-        }
         CKEDITOR.replace( 'textarea1' );
     </script>
     @push('scripts')
