@@ -57,7 +57,7 @@
                     </div>
                     <div class="form-group">
                         {{--  <div class="col-md-2"></div>  --}}
-                        <div class="col-md-10 table-responsive" style="float: right;"></div>
+                        <div id="date_request" class="col-md-10 table-responsive" style="float: right;"></div>
                     </div>
                     <div class="form-group">
                         <label for="input002" class="col-md-2 control-label"> Lý do </label>
@@ -104,6 +104,7 @@
                         <th class='text-center'>Morning</th>
                         <th class='text-center'>Afternoon</th>
                         <th class='text-center'>All Day</th>
+                        <th class='text-center'>Remove</th>
                     </tr>`
                 for (var d = new Date($("#datepicker1").val()); d <= new Date($("#datepicker4").val()); d.setDate(d.getDate() + 1)) {
                     if (d.getDay() !== 0 && d.getDay() !== 6) {
@@ -112,11 +113,12 @@
                         str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='0'></td>"
                         str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='1'></td>"
                         str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='2' checked></td>"
+                        str += "<td class='text-center'><button class='br-n' type='button' onclick=\"$(this).parents('tr').html('')\"><span class='glyphicon glyphicon-trash'></span></button></td>"
                         str += "</tr>"
                     }
                 }
             str += "</table>"
-            document.getElementById("abcdef").innerHTML = str;
+            $("#date_request").html(str)
             }
         }
 
