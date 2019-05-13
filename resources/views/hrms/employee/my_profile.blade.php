@@ -88,7 +88,7 @@
                         @if(Auth::id() == $employee->id)
                             <a href="{{route('employee.showMyDetails')}}">Thông tin cá nhân</a>
                         @else
-                            <a href="{{route('employee.showProfile', ['profile' => $employee->id ])}}">Thông tin nhân viên</a>
+                            <a href="{{route('employee.show', ['id' => $employee->id ])}}">Thông tin nhân viên</a>
                         @endif
                     </li>
                 </ol>

@@ -6,7 +6,7 @@
 <!-- Sidebar Author -->
 <div class="sidebar-widget author-widget">
     <div class="media">
-        <a href="{{route('employee.showMyProfile')}}">
+        <a href="{{route('employee.myProfile')}}">
             @if(isset(Auth::user()->employee()->photo))
                 <img src="{{asset('photos/'.Auth::user()->employee->photo)}}" width="40px" height="30px" class="img-responsive">
             @else
@@ -15,14 +15,18 @@
         </a>
 
         <div class="media-body">
-                <a href="{{route('employee.showMyProfile')}}">
+                <a href="{{route('employee.myProfile')}}">
                 </a>
                 <p>{{Auth::user()->employee->name}}</p>
-                <p>{{Auth::user()->employee->code}} -
-                @if(Auth::user()->employee->position->description != 'None')
-                    {{Auth::user()->employee->position->description}}
+                <p>{{Auth::user()->employee->code}}
+                @if (isset(Auth::user()->employee->department->description))
+                    {{" - "}}
+                    @if (isset(Auth::user()->employee->position->description))
+                        {{Auth::user()->employee->position->description. " "}} 
+                    @endif
+                        <a href="{{ route('employee.myDepartment') }}">
+                        {{Auth::user()->employee->department->description}}
                 @endif
-                    {{Auth::user()->employee->department->description}}</p>
         </div>
     </div>
 </div>
@@ -33,7 +37,7 @@
     <li>
         <a href="{{route('index')}}">
             <span class="glyphicon glyphicon-home"></span>
-            <span class="sidebar-title">Trang chủ</span>
+            <span class="sidebar-title">Home Page</span>
         </a>
     </li>
 
@@ -56,24 +60,9 @@
         </ul>
     </li>
 
-    {{--  <!-- Chuyên môn -->
-    <li>
-        <a class="accordion-toggle" href="#">
-            <span class="fa fa-sitemap"></span>
-            <span class="sidebar-title">Chuyên môn</span>
-            <span class="fa fa-caret-square-o-left"></span>
-        </a>
-        <ul class="nav sub-nav">
-            <li>
-                <a href="{{route('employee.department')}}">
-                    <span class="glyphicon glyphicon-tags"></span>Thành viên</a>
-            </li>
-        </ul>
-    </li>  --}}
-
     <!-- Thiết bị -->
     <li>
-        <a class="accordion-toggle" href="/dashboard">
+        <a class="accordion-toggle" href="#">
             <span class="fa fa-laptop"></span>
             <span class="sidebar-title">Thiết bị</span>
             <span class="caret"></span>
@@ -97,30 +86,51 @@
         </ul>
     </li>
 
-    <!-- Nhân viên -->
+    <!-- Employee -->
     <li>
         <a class="accordion-toggle" href="#">
-            <span class="fa fa-child"></span>
-            <span class="sidebar-title">Nhân viên</span>
+            <span class="fa fa-user"></span>
+            <span class="sidebar-title">Employees</span>
             <span class="caret"></span>
         </a>
         <ul class="nav sub-nav">
             @if(Auth::user()->isManager())
                 <li>
-                    <a href="{{route('employee.showAdd')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Thêm nhân viên</a>
+                    <a href="{{ route('employee.create') }}">
+                        <span class="glyphicon glyphicon-tags"></span>Add New Employee</a>
                 </li>
                 <li>
-                    <a href="{{route('employee.showDepartment')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Nhóm của tôi</a>
+                    <a href="{{ route('employee.myDepartment') }}">
+                        <span class="glyphicon glyphicon-tags"></span>My department</a>
                 </li>
                 <li>
-                    <a href="{{route('employee.showEmployees')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Danh sách nhân viên</a>
+                    <a href="{{ route('employee.index') }}">
+                        <span class="glyphicon glyphicon-tags"></span>List of employees</a>
                 </li>
             @endif
         </ul>
     </li>
+
+    @if(Auth::user()->isManager())
+        <!-- Department -->
+        <li>
+            <a class="accordion-toggle" href="#">
+                <span class="fa fa-sitemap"></span>
+            <span class="sidebar-title">Departments</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="nav sub-nav">
+                <li>
+                    <a href="{{route('department.index')}}">
+                        <span class="glyphicon glyphicon-tags"></span>List of Departments</a>
+                </li>
+                <li>
+                    <a href="{{route('department.create')}}">
+                        <span class="glyphicon glyphicon-tags"></span>Add New Department</a>
+                </li>
+            </ul>
+        </li>
+        @endif
 
         {{--  <li>
             <a class="accordion-toggle" href="/dashboard">

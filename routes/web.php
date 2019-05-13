@@ -38,12 +38,13 @@ use App\Http\Controllers\HomeController;
 
         Route::group(['prefix' => 'employees'], function()
         {
-            Route::get('profile', 'EmployeeController@showMyProfile')->name('employee.showMyProfile');
-            Route::get('profile/{profile}', 'EmployeeController@showProfile')->name('employee.showProfile');
-            Route::get('all', 'EmployeeController@showEmployees')->name('employee.showEmployees');
-            Route::get('department', 'EmployeeController@showDepartment')->name('employee.showDepartment');
-            Route::get('/add', 'EmployeeController@add')->name('employee.showAdd');
-            Route::post('/add', 'EmployeeController@store')->name('employee.store');
+            Route::post('/', 'EmployeeController@store')->name('employee.store');
+            Route::get('/', 'EmployeeController@index')->name('employee.index');
+            Route::get('my-profile', 'EmployeeController@myProfile')->name('employee.myProfile');
+            Route::get('create', 'EmployeeController@create')->name('employee.create');            
+            Route::get('my-department', 'EmployeeController@myDepartment')->name('employee.myDepartment');
+            Route::get('{id}/department', 'EmployeeController@department')->name('employee.department');
+            Route::get('{id}', 'EmployeeController@show')->name('employee.show');
         });
 
         Route::group(['prefix' => 'news'], function()
@@ -55,6 +56,16 @@ use App\Http\Controllers\HomeController;
         Route::group(['prefix' => 'devices'], function()
         {
             Route::get('/', 'DeviceController@showAdd')->name('device.showAdd');
+        });
+
+        Route::group(['prefix' => 'departments'], function()
+        {
+            Route::get('/', 'DepartmentController@index')->name('department.index');
+            Route::get('/create', 'DepartmentController@create')->name('department.create');
+            Route::post('/', 'DepartmentController@store')->name('department.store');
+            Route::get('/{id}/edit', 'DepartmentController@edit')->name('department.edit');
+            Route::put('/{id}', 'DepartmentController@update')->name('department.update');
+            Route::get('/{id}', 'DepartmentController@destroy')->name('department.delete');
         });
     });
     
@@ -71,9 +82,9 @@ use App\Http\Controllers\HomeController;
 
 
     //     //Routes for add-employees
-    Route::get('add-employee', ['as' => 'add-employee', 'uses' => 'EmployeeController@showAdd']);
+    // Route::get('add-employee', ['as' => 'add-employee', 'uses' => 'EmployeeController@showAdd']);
 
-    Route::post('add-employee', ['as' => 'add-employee', 'uses' => 'EmpController@processEmployee']);
+    // Route::post('add-employee', ['as' => 'add-employee', 'uses' => 'EmpController@processEmployee']);
 
     // Route::get('employee-manager', ['as' => 'employee-manager', 'uses' => 'EmpController@showEmployee']);
 

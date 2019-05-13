@@ -20,10 +20,10 @@ class CreateEmployeesTable extends Migration
             $table->string('photo')->default('default.png');
             $table->string('code')->unique();
             $table->string('name');
-            $table->boolean('gender')->default(true);
-            $table->integer('department_id')->unsigned();
+            $table->enum('gender', ['Male', 'Female']);
+            $table->integer('department_id')->nullable()->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->integer('position_id')->unsigned();
+            $table->integer('position_id')->nullable()->unsigned();
             $table->foreign('position_id')->references('id')->on('positions');
             $table->date('date_of_join');
             $table->date('date_of_birth')->nullable();

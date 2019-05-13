@@ -7,6 +7,7 @@ use App\Models\Employee;
 
 class LeaveAnnualLeft extends Model
 {
+    const DEFAULT_DAYS_LEFT = 12;
     protected $table = 'leave_annual_lefts';
 
     public function employee()

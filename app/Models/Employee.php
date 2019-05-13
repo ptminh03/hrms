@@ -10,18 +10,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    const PHOTO_DEFAULT = 'default.png';
     protected $table = 'employees';
     protected $fillable = ['photo', 'code', 'name', 'gender', 'date_of_birth', 'date_of_join', 'department_id', 'position_id', 'address'];
 
-    // public function userrole()
-    // {
-    //     return $this->hasOne('App\Models\UserRole', 'user_id', 'id');
-    // }
-
-    // public function employeeLeaves()
-    // {
-    //     return $this->hasMany('App\EmployeeLeaves', 'user_id', 'user_id');
-    // }
+    public function generateCode($id) {
+        $result = (string)$id;
+        for ( ; strlen($result) < 4; ) {
+            $result = "0".$result;
+        }
+        return "BK". $result;
+    }
 
     public function user()
     {

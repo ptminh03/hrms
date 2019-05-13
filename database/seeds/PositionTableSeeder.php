@@ -27,9 +27,6 @@ class PositionTableSeeder extends Seeder
             ],
             [
                 'description' => 'Intern'
-            ],
-            [
-                'description' => 'None'
             ]
         ]);
     }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
+    const PASSWORD_DEFAULT = '123456';
     protected $table = 'users';
     protected $fillable = ['email'];
     protected $hidden = ['password', 'remember_token'];
