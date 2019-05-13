@@ -44,7 +44,7 @@ use App\Http\Controllers\HomeController;
         
         Route::group(['prefix' => 'devices'], function()
         {
-            Route::get('/', 'DeviceController@showAdd')->name('device.showAdd');
+            Route::get('/', 'DeviceController@index')->name('device.index');
         });
 
         Route::group(['prefix' => 'employees'], function()

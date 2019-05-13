@@ -25154,3 +25154,27 @@ body.basic-timeline .panel-clone {
   margin-left: 30px;
   padding: 7px;
 }
+
+/* search box */
+.search-container {
+  padding: 0px;
+}
+
+.search-box {
+  padding: 0px 0px 0px 7px;
+  width: 55%;
+  margin-bottom: 10px;
+}
+
+.search-box::placeholder {
+  color: silver;
+}
+
+.btn-search {
+  border: none;
+  position: absolute;
+  top: 1px;
+  height: 26px;
+  left: 154px;
+  outline: none;
+}

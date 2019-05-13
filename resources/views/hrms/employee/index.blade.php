@@ -5,6 +5,17 @@
         <span class="panel-title hidden-xs text-primary"> LIST OF EMPLOYEES </span>
     </div>
     <div class="panel-body pn">
+        <div>
+            <div class="col-md-4 search-container">
+                <form action="" method="POST">
+                    <input class="search-box" type="text" placeholder="Employee name">
+                    <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="col-md-8">
+                test
+            </div>
+        </div>
 
         @if(Session::has('flash_message'))
             <div class="alert alert-success">

@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DeviceType;
+use App\Models\Device;
 use DB;
 
 class DeviceController extends Controller
 {
-    public function showAdd()
-    {
-        // $devices = Device::select('device_type_id', DB::raw('count(*) as count'))->groupBy('device_type_id')->get();
-        $deviceTypes = DeviceType::withCount('devices')->get();
-        return view('hrms.device.show_add', compact('deviceTypes'));
+    public function index() {
+        // $deviceTypes = DeviceType::withCount('devices')->get();
+        $devices = Device::orderBy('id', 'desc')->paginate(15);
+        return view ('hrms.device.index', compact('devices'));
     }
 }
