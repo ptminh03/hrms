@@ -29,6 +29,10 @@
             <div class="panel panel-default">
                 <h4 class="pt-1">Employee Information</h4>
 
+                <div class="custom-file mb-3 panel-body form-group">
+                    <input type="file" class="custom-file-input" id="customFile" name="filename">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
                 <div class="panel-body form-group">
                     <label for="exampleInputEmail1">Email
                         <span class="text-danger">*<span>

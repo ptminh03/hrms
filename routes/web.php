@@ -56,6 +56,7 @@ use App\Http\Controllers\HomeController;
             Route::get('my-department', 'EmployeeController@myDepartment')->name('employee.myDepartment');
             Route::get('{id}/department', 'EmployeeController@department')->where('id', '[1-9][0-9]*')->name('employee.department');
             Route::get('{id}', 'EmployeeController@show')->where('id', '[1-9][0-9]*')->name('employee.show');
+            // Route::get('{id}', 'EmployeeController@destroy')->where('id', '[1-9][0-9]*')->name('employee.delete');
         });
 
         Route::group(['prefix' => 'departments'], function()

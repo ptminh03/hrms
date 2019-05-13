@@ -16,17 +16,18 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr class="bg-light">
+                    <th class="text-center">ID</th>
                     <th class="text-center">Employee</th>
                     <th class="text-center">Department</th>
                     <th class="text-center">Position</th>
-                    <th class="text-center">Join Date</th>
-                    <th class="text-center">Email</th>
+                    <th class="text-center">Date of Join</th>
                     <th class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
             @foreach($employees as $employee)
                 <tr>
+                    <td class="text-center">{{$employee->id}}</td>
                     <td class="text-left">{{$employee->name}} - {{$employee->code}}</td>
                     <td class="text-center">
                             @if(isset($employee->department))
@@ -48,8 +49,7 @@
                                 </a>
                             @endif
                     </td>
-                    <td class="text-center">{{getFormattedDate($employee->date_of_join)}}</td>
-                    <td class="text-left">{{$employee->user->email}}</td>
+                    <td class="text-center">{{$employee->date_of_join}}</td>
                     <td class="text-center">
                         <a href="{{ route('employee.show', ['id' => $employee->id]) }}" class="btn btn-xs text-primary">
                             <i class="glyphicon glyphicon-search"></i>

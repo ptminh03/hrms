@@ -30,7 +30,7 @@ class EmployeeController extends Controller
         $employees = Employee::whereNull('date_of_resignation')->orderBy('id', 'desc')->paginate(15);
         return view('hrms.employee.index', compact('employees'));
     }
-    
+
     public function create()
     {
         $maxID = Employee::withTrashed()->max('id');
@@ -102,25 +102,30 @@ class EmployeeController extends Controller
         $leaveAnnualLeft = new LeaveAnnualLeft;
         $leaveAnnualLeft->days_left = LeaveAnnualLeft::DEFAULT_DAYS_LEFT;
 
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             $user->save();
             $employee->user_id = $user->id;
             $employee->save();
             $leaveAnnualLeft->employee_id = $employee->id;
             $leaveAnnualLeft->save();
             DB::commit();
-            return back()->with('message', 'Create new employee success')->with('class', 'alert-success');
+            
+            return back()
+                ->with('message', 'Create new employee success')
+                ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();
-            return back()->with('message', 'Create new employee failed, please try again later')->with('class', 'alert-danger');
+            
+            return back()
+                ->with('message', 'Create new employee failed, please try again later')
+                ->with('class', 'alert-danger');
         }
     }
 
 
     public function myProfile()
     {
-
         $employee = Employee::where('user_id', Auth::user()->id)->first();
         return view('hrms.employee.my_profile', compact('employee'));
     }
@@ -143,5 +148,30 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
         return view('hrms.employee.show', compact('employee'));
+    }
+
+    public function destroy($id)
+    {
+        $employee = Employee::findOrFail($id);
+        $user = User::findOrFail($employee->user_id);
+        
+        DB::beginTransaction();
+        try {
+            $employee->delete();
+            $user->delete();
+            DB::commit();
+
+            return redirect()
+                ->route('employee.index')
+                ->with('message', 'Delete employee success')
+                ->with('class', 'alert-success');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return redirect()
+                ->route('employee.index')
+                ->with('message', 'Something was error, please try again later')
+                ->with('class', 'alert-danger');
+        } 
     }
 }

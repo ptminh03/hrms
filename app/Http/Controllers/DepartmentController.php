@@ -65,19 +65,22 @@ class DepartmentController extends Controller
         $department = Department::findOrFail($id);
         $employees = Employee::where('department_id', '=', $id)->get();
         $description = $department->description;
+        
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             $department->employees()->update(['department_id' => NULL]);
             $department->delete();
             DB::commit();
+            
+            return back()
+                ->with('message', 'Delete department '. $description . ' success')
+                ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();
+            
             return back()
                 ->with('message', 'Something was error, please try again later')
                 ->with('class', 'alert-danger');
         }
-        return back()
-            ->with('message', 'Delete department '. $description . ' success')
-            ->with('class', 'alert-success');
     }
 }
