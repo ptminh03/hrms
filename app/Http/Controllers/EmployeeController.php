@@ -28,6 +28,8 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::whereNull('date_of_resignation')->orderBy('id', 'desc')->paginate(15);
+        $employees->current = Employee::count();
+        $employees->resigned = Employee::onlyTrashed()->count();
         return view('hrms.employee.index', compact('employees'));
     }
 

@@ -7,12 +7,12 @@
     </div>
     
     <div class="panel-body pn">
-        <div class="search-container">
+        {{-- <div class="search-container">
             <form action="" method="POST">
                 <input class="search-box" type="text" placeholder="Employee name">
                 <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
             </form>
-        </div>
+        </div> --}}
 
         @if(Session::has('flash_message'))
             <div class="alert alert-success">
@@ -23,20 +23,38 @@
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
                 <thead>
-                    <tr>
-                        <th colspan="6">
-                            <div class="col-xl-4">
-                                Department: 
+                    <tr class="bg-secondary">
+                        <th colspan="12">
+                            <div class="search-container col-xl-4">
+                                <form action="" method="POST">
+                                    <input class="search-box" type="text" placeholder="Employee name">
+                                    <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                                <select class="btn btn-mini">
+                                    <option selected>All</option>
+                                    <option>Current</option>
+                                    <option>Resignated</option>
+                                </select>
                             </div>
+
                             <div class="col-xl-4">
-                                so luong : 123
-                                <br>
-                                ad asdjkasjdklasjdkasj dasjdkl
+                                Current member &nbsp;
+                                <span class="badge badge-pill badge-info">
+                                    {{ $employees->current }}
+                                </span>
+                            </div>
+    
+                            <div class="col-xl-4">
+                                Resignated &nbsp;
+                                <span class="badge badge-pill badge-light">
+                                    {{ $employees->resigned }}
+                                </span>
                             </div>
                         </th>
                     </tr>
+
                     <tr class="bg-light">
-                        <th class="text-center">ID</th>
+                        <th class="text-center">Code</th>
                         <th class="text-center">Employee</th>
                         <th class="text-center">Department</th>
                         <th class="text-center">Position</th>
@@ -44,37 +62,32 @@
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
-
+                
                 <tbody>
                     @foreach($employees as $employee)
                         <tr>
-                            <td class="text-center">{{$employee->id}}</td>
-                            <td class="text-left">{{$employee->name}} - {{$employee->code}}</td>
-                            <td class="text-center">
-                                    @if(isset($employee->department))
-                                        <a href="{{ route('employee.department', ['id' => $employee->department->id]) }}">
-                                            {{$employee->department->description}}
-                                        </a>
-                                    @else
-                                        <a href="#" class="text-muted disabled">
-                                                <i class="glyphicon glyphicon-option-horizontal"></i>
-                                        </a>
-                                    @endif
+                            <td class="text-center">{{$employee->code}}</td>
+                            <td class="text-left">
+                                <a href="{{ route('employee.show', ['id' => $employee->id]) }}">{{$employee->name}}</a>
                             </td>
                             <td class="text-center">
-                                    @if(isset($employee->position))
-                                        {{$employee->position->description}}
-                                    @else
-                                        <a href="#" class="text-muted disabled">
-                                            <i class="glyphicon glyphicon-option-horizontal"></i>
-                                        </a>
-                                    @endif
+                                @if(isset($employee->department))
+                                    <a href="{{ route('employee.department', ['id' => $employee->department->id]) }}">
+                                        {{$employee->department->description}}
+                                    </a>
+                                @else
+                                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if(isset($employee->position))
+                                    {{$employee->position->description}}
+                                @else
+                                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                                @endif
                             </td>
                             <td class="text-center">{{$employee->date_of_join}}</td>
                             <td class="text-center">
-                                <a href="{{ route('employee.show', ['id' => $employee->id]) }}" class="btn btn-xs text-primary">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </a>
                                 <a href="#" class="btn btn-xs text-success">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>

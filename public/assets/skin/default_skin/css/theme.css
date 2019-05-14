@@ -25159,7 +25159,7 @@ body.basic-timeline .panel-clone {
 }
 
 .search-box {
-  padding: 0px 0px 0px 7px;
+  padding: 4px 0px 3px 7px;
   width: 187px;
   margin-bottom: 10px;
 }
@@ -25175,4 +25175,21 @@ body.basic-timeline .panel-clone {
   height: 26px;
   left: 154px;
   outline: none;
+}
+
+select.btn {
+  -webkit-appearance: button;
+     -moz-appearance: button;
+          appearance: button;
+  width: auto;
+}
+
+select.btn-mini {
+  height: auto;
+  line-height: 14px;
+  padding-right: 16px;
+}
+
+select.btn-mini + .caret {
+  margin-left: -20px;
 }

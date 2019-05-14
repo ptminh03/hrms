@@ -32,17 +32,11 @@
                         <td class="text-center">
                             <div class="btn-group text-right">
                                 @if($leave->status == 2)
-                                    <a href="#" class="text-danger disabled">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
+                                    <span class="glyphicon glyphicon-remove"></span>
                                 @elseif($leave->status == 1)
-                                    <a href="#" class="text-success disabled">
-                                        <span class="glyphicon glyphicon-ok"></span>
-                                    </a>
+                                    <span class="glyphicon glyphicon-ok"></span>
                                 @else
-                                    <a href="#" class="text-muted disabled">
-                                        <i class="glyphicon glyphicon-option-horizontal"></i>
-                                    </a>
+                                    <i class="glyphicon glyphicon-option-horizontal"></i>
                                 @endif
                             </div>
                         </td>

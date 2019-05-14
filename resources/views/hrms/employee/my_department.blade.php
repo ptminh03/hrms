@@ -34,34 +34,30 @@
                     </tr>
 
                     <tr class="bg-light">
+                        <th class="text-center">Code</th>
                         <th class="text-center">Employee</th>
                         <th class="text-center">Position</th>
-                        <th class="text-center">Join Date</th>
+                        <th class="text-center">Date of Join</th>
                         <th class="text-center">Email</th>
-                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     @foreach($employees as $employee)
                         <tr>
-                            <td class="text-left">{{$employee->name}} - {{$employee->code}}</td>
+                            <td class="text-center">{{$employee->code}}</td>
+                            <td class="text-left">
+                                <a href="{{ route('employee.show', ['id' => $employee->id]) }}">{{$employee->name}}</a>
+                            </td>
                             <td class="text-center">
-                                    @if(isset($employee->position))
-                                        {{$employee->position->description}}
-                                    @else
-                                        <a href="#" class="text-muted disabled">
-                                            <i class="glyphicon glyphicon-option-horizontal"></i>
-                                        </a>
-                                    @endif
+                                @if(isset($employee->position))
+                                    {{$employee->position->description}}
+                                @else
+                                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                                @endif
                             </td>
                             <td class="text-center">{{getFormattedDate($employee->date_of_join)}}</td>
                             <td class="text-left">{{$employee->user->email}}</td>
-                            <td class="text-center">
-                                <a href="{{route('employee.show', ['id' => $employee->id])}}">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </a>
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>
