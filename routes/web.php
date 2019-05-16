@@ -65,6 +65,8 @@ use App\Http\Controllers\HomeController;
         Route::group(['prefix' => 'devices'], function()
         {
             Route::get('/', 'DeviceController@index')->name('device.index');
+            Route::get('/create', 'DeviceController@create')->name('device.create');
+            Route::post('/', 'DeviceController@store')->name('device.store');
         });
 
         Route::group(['prefix' => 'news'], function()

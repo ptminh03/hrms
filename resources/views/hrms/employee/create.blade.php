@@ -24,7 +24,8 @@
         @endif
         
         <form action="{{ route('employee.store') }}" method="POST">
-            <input type="hidden" value="{!! csrf_token() !!}" name="_token">
+            {!! csrf_field() !!}
+
             <div class="form-group form-add-employee col-xl-12">
                 <h4 class="pt-1">Employee Information</h4>
                 <div class="form-group col-xl-8">

@@ -7,9 +7,9 @@
     </div>
 
     <div class="panel-body pn">
-        @if(Session::has('flash_message'))
-            <div class="alert alert-success">
-                {{ Session::get('flash_message') }}
+        @if(Session::has('message'))
+            <div class="alert success">
+                {{ Session::get('message') }}
             </div>
         @endif
         {!! Form::open(['class' => 'form-horizontal']) !!}

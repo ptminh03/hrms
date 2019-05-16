@@ -121,10 +121,17 @@ class AuthController extends Controller
             $user->password = bcrypt($request->new);
             $user->save();
             Auth::logout();
-            return redirect()->route('auth.login')->with('message', 'Đổi mật khẩu thành công, vui lòng đăng nhập lại.')->with('class', 'alert-success');
+
+            return redirect()
+                ->route('auth.login')
+                ->with('message', 'Đổi mật khẩu thành công, vui lòng đăng nhập lại.')
+                ->with('class', 'alert-success');
         } else {
-            Session::flash('flash_message', 'Mật khẩu cũ không đúng');
-            return redirect()->back();
+            Session::flash('message', 'Mật khẩu cũ không đúng')->with('class');
+            
+            return back()
+                ->with('message', 'Đổi mật khẩu thành công, vui lòng đăng nhập lại.')
+                ->with('class', 'alert-success');;
         }
     }
 

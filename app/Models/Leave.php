@@ -12,6 +12,9 @@ class Leave extends Model
 {
     protected $table = 'leaves';
 
+    public const STATUS_YES = 1;
+    public const STATUS_NO = 2;
+
     public function employee()
     {
         return $this->belongsTo(Employee::class);

@@ -95,8 +95,8 @@
 
             <!-- -------------- Sidebar Hide Button -------------- -->
             <div class="sidebar-toggler">
-                <a href="#">
-                    <span class="fa fa-arrow-circle-o-left"></span>
+                <a href="#" class="btn btn-md">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
                 </a>
             </div>
             <!-- -------------- /Sidebar Hide Button -------------- -->

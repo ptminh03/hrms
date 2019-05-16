@@ -13,6 +13,35 @@
         @endif
 
         <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr class="bg-secondary">
+                        <th colspan="12">
+                            <div class="search-container col-xl-4">
+                                <form action="" method="GET">
+                                    <input class="search-box" type="text" placeholder="Search by name" name="q" value="{{ $request->q }}">
+                                    <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                            
+                            <div class="col-xl-4">
+                                Total &nbsp;
+                                <span class="badge badge-pill badge-info">
+                                    {{ $info['total'] }}
+                                </span>
+                            </div>
+
+                            <div class="col-xl-4">
+                                Available &nbsp;
+                                <span class="badge badge-pill badge-default">
+                                    {{ $info['available'] }}
+                                </span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr class="bg-light">

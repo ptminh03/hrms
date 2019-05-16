@@ -21,8 +21,8 @@
             </div>
         @endif
 
-        <form action="{{route('department.store')}}" method="POST" enctype="multipart/form-data">
-            <input type="hidden" value="{!! csrf_token() !!}" name="_token">
+        <form action="{{route('department.store')}}" method="POST">
+            {!! csrf_field() !!}
             
             <div class="form-group">
                 <label for="exampleInputEmail1">Description

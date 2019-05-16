@@ -41,7 +41,6 @@ class LeaveController extends Controller
 			}
 		}
 
-		
 		$leave = new Leave();
 		$leave->leave_type_id = $request->leave_type_id;
 		if ($leave->leave_type->description == 'Annual') {
@@ -67,7 +66,9 @@ class LeaveController extends Controller
 				$leave_detail->session_id = $value;
 				$leave_detail->save();
 			}
-			$annual->save();
+			if ($leave->leave_type->description == 'Annual') {
+				$annual->save();
+			}
 			DB::commit();
 
 			return redirect()
@@ -100,7 +101,7 @@ class LeaveController extends Controller
 	public function requestPending()
 	{
 		$request = request();
-		$leaves = Leave::where('status', '=', 0)->orderBy('id', 'desc')->paginate(15);
+		$leaves = Leave::where('status', '=', 0)->where('employee_id', '<>', Auth::id())->orderBy('id', 'desc')->paginate(15);
 		$info = [
 			'total' => Leave::where('status', '=', 0)->count()
 		];
@@ -110,6 +111,7 @@ class LeaveController extends Controller
 
 	public function update($id)
 	{
+		$leaveTypeAnnual = (new LeaveType)->getLeaveTypeAnnual();
 		$request = request();
 		$request->validate([
 			'status' => 'required|in:1,2'
@@ -122,16 +124,33 @@ class LeaveController extends Controller
 		$leave = Leave::findOrFail($id);
 		$leave->status = $request->status;
 		$leave->process_by = Auth::id();
-		$leave->save();
+		
+		if ( $request->status == Leave::STATUS_YES ) {
+			$leave->save();
 
-		if ( $request->status == 1 ) {
-			$message = 'Approve leave request success';
+			return back()
+				->with('message', 'Approve leave request success')
+				->with('class', 'alert-success');
 		} else {
-			$message = 'Deny leave request success';
-		}
+			$leaveAnnualLeft = LeaveAnnualLeft::findOrFail($leave->employee_id);
+			$leaveAnnualLeft->days_left += $leave->quantity;
+			
+			DB::beginTransaction();
+			try {
+				$leave->save();
+				$leaveAnnualLeft->save();
+				DB::commit();
 
-		return back()
-			->with('message', $message)
-			->with('class', 'alert-success');
+				return back()
+					->with('message', 'Approve leave request success')
+					->with('class', 'alert-success');
+			} catch(Exception $e) {
+				DB::rollBack();
+
+				return back()
+					->with('message', 'Approve leave request failed, please try again later')
+					->with('class', 'alert-danger');
+			}
+		}
 	}
 }

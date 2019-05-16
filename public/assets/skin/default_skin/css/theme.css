@@ -25183,3 +25183,7 @@ select.btn-mini + .caret {
   margin-bottom: 45px;
   border-radius: 4px;
 }
+
+.table-borderless {
+  border-bottom-style: hidden !important;
+}

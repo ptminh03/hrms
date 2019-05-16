@@ -51,6 +51,7 @@
                     <tbody>
                         <thead class="bg-light">
                             <th class="text-center">ID</th>
+                            <th class="text-center">Leave Type</th>
                             <th class="text-center">Employee</th>
                             <th class="text-center">Department</th>
                             <th class="text-center">Date Request</th>
@@ -60,7 +61,10 @@
 
                         @foreach($leaves as $leave)
                             <tr>
-                                <td class="text-center">{{$leave->id}}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('leave.show', ['id' => $leave->id]) }}">{{$leave->id}}</a>
+                                </td>
+                                <td class="text-center">{{$leave->leave_type->description}}</td>
                                 <td class="text-left">
                                     <a href="{{ route('employee.show', ['id' => $leave->employee->id]) }}">{{$leave->employee->name}}</a>
                                 </td>
@@ -87,7 +91,7 @@
                                     </form>
 
                                     <form action="{{ route('leave.update', ['id' => $leave->id]) }}" method="POST" class="inline-object">
-                                        {!! method_field('delete') !!}
+                                        {!! method_field('put') !!}
                                         {!! csrf_field() !!}
                                         
                                         <input name="status" type="hidden" value="2">

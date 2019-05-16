@@ -16,11 +16,10 @@ class CreateLeavesTable extends Migration
         Schema::create('leaves', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
-            $table->integer('department_id')->unsigned();
             $table->integer('leave_type_id')->unsigned();
             $table->string('reason')->nullable();
             $table->integer('status')->default(0);
-            $table->integer('quantity')->unsigned();
+            $table->float('quantity', 3, 1)->unsigned();
             $table->integer('process_by')->unsigned();
             $table->timestamps();
         });

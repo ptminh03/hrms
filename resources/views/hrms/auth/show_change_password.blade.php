@@ -20,9 +20,9 @@
                             <div class="panel-body pn">
                                 <div class="table-responsive">
                                     <div class="panel-body p25 pb10">
-                                        @if(Session::has('flash_message'))
-                                            <div class="alert alert-warning">
-                                                {{Session::get('flash_message')}}
+                                        @if(Session::has('message'))
+                                            <div class="alert alert-danger">
+                                                {{Session::get('message')}}
                                             </div>
                                         @endif
                                         {!! Form::open(['class' => 'form-horizontal', 'id' => 'passwordForm']) !!}

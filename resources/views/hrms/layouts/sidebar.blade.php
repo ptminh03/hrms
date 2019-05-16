@@ -15,25 +15,24 @@
         </a>
 
         <div class="media-body">
-                <a href="{{route('employee.myProfile')}}">
-                </a>
-                <p>{{Auth::user()->employee->name}}</p>
-                <p>{{Auth::user()->employee->code}}
-                @if (isset(Auth::user()->employee->department->description))
-                    {{" - "}}
-                    @if (isset(Auth::user()->employee->position->description))
-                        {{Auth::user()->employee->position->description. " "}} 
-                    @endif
-                        <a href="{{ route('employee.myDepartment') }}">
-                        {{Auth::user()->employee->department->description}}
+            <a href="{{route('employee.myProfile')}}"></a>
+            <p>{{Auth::user()->employee->name}}</p>
+            <p>{{Auth::user()->employee->code}}
+            @if (isset(Auth::user()->employee->department->description))
+                {{" - "}}
+                @if (isset(Auth::user()->employee->position->description))
+                    {{Auth::user()->employee->position->description. " "}} 
                 @endif
+                    <a href="{{ route('employee.myDepartment') }}">
+                    {{Auth::user()->employee->department->description}}
+            @endif
         </div>
     </div>
 </div>
 
 <!-- Sidebar Menu -->
-<ul class="nav sidebar-menu scrollable">
-    <!-- Quản lý -->
+<ul class="nav sidebar-menu scrollable text-uppercase">
+    <!-- Home Page -->
     <li>
         <a href="{{route('index')}}">
             <span class="glyphicon glyphicon-home"></span>
@@ -41,22 +40,28 @@
         </a>
     </li>
 
-    <!-- Nghỉ phép -->
+    <!-- Leave -->
     <li>
         <a class="accordion-toggle" href="#">
             <span class="fa fa-calendar"></span>
-            <span class="sidebar-title">Nghỉ phép</span>
+            <span class="sidebar-title">Leave</span>
             <span class="caret"></span>
         </a>
+
         <ul class="nav sub-nav">
             <li>
-                <a href="{{route('leave.create')}}">
-                    <span class="glyphicon glyphicon-tags"></span>Tạo yêu cầu</a>
+                <a href="{{ route('leave.create') }}"> Create Request </a>
             </li>
+
             <li>
-                <a href="{{route('leave.myLeave')}}">
-                    <span class="glyphicon glyphicon-tags"></span>Lịch sử</a>
+                <a href="{{ route('leave.myLeave') }}"> My Leave </a>
             </li>
+
+            @if(Auth::user()->isManager())
+                <li>
+                    <a href="{{ route('leave.request.pending') }}"> Requests Pending </a>
+                </li>
+            @endif
         </ul>
     </li>
 
@@ -69,22 +74,24 @@
         </a>
         <ul class="nav sub-nav">
             <li>
-                <a href="{{ route('device.index') }}">
-                    <span class="glyphicon glyphicon-tags"></span>List of devices</a>
-            </li>
-            <li>
-                <a href="">
-                    <span class="glyphicon glyphicon-tags"></span>Yêu cầu thiết bị</a>
+                <a href="{{ route('device.index') }}"> List of devices </a>
             </li>
 
             <li>
-                <a href="">
-                    <span class="glyphicon glyphicon-tags"></span>Thiết bị của tôi</a>
+                <a href="{{ route('device.create') }}"> Create New Device</a>
             </li>
+
+            <li>
+                <a href=""> Yêu cầu thiết bị </a>
+            </li>
+
+            <li>
+                <a href=""> Thiết bị của tôi </a>
+            </li>
+
             @if(Auth::user()->isManager())
                 <li>
-                    <a href="">
-                        <span class="glyphicon glyphicon-tags"></span>Thêm thiết bị</a>
+                    <a href=""> Thêm thiết bị</a>
                 </li>
             @endif
         </ul>
@@ -99,19 +106,16 @@
         </a>
         <ul class="nav sub-nav">
             <li>
-                <a href="{{ route('employee.myDepartment') }}">
-                    <span class="glyphicon glyphicon-tags"></span>My department
-                </a>
+                <a href="{{ route('employee.myDepartment') }}"> My department </a>
             </li>
+
             @if(Auth::user()->isManager())
                 <li>
-                    <a href="{{ route('employee.create') }}">
-                        <span class="glyphicon glyphicon-tags"></span>Add New Employee</a>
+                    <a href="{{ route('employee.create') }}"> Add New Employee </a>
                 </li>
                 
                 <li>
-                    <a href="{{ route('employee.index') }}">
-                        <span class="glyphicon glyphicon-tags"></span>List of employees</a>
+                    <a href="{{ route('employee.index') }}"> List of employees </a>
                 </li>
             @endif
         </ul>
@@ -127,16 +131,14 @@
             </a>
             <ul class="nav sub-nav">
                 <li>
-                    <a href="{{route('department.index')}}">
-                        <span class="glyphicon glyphicon-tags"></span>List of Departments</a>
+                    <a href="{{route('department.index')}}"> List of Departments </a>
                 </li>
                 <li>
-                    <a href="{{route('department.create')}}">
-                        <span class="glyphicon glyphicon-tags"></span>Add New Department</a>
+                    <a href="{{route('department.create')}}"> Add New Department </a>
                 </li>
             </ul>
         </li>
-        @endif
+    @endif
     
     <p> &nbsp; </p>
 </ul>
