@@ -76,22 +76,9 @@
             <li>
                 <a href="{{ route('device.index') }}"> List of devices </a>
             </li>
-
-            <li>
-                <a href="{{ route('device.create') }}"> Create New Device</a>
-            </li>
-
-            <li>
-                <a href=""> Yêu cầu thiết bị </a>
-            </li>
-
-            <li>
-                <a href=""> Thiết bị của tôi </a>
-            </li>
-
             @if(Auth::user()->isManager())
                 <li>
-                    <a href=""> Thêm thiết bị</a>
+                    <a href="{{ route('device.create') }}"> Create New Device</a>
                 </li>
             @endif
         </ul>

@@ -2,7 +2,7 @@
 @section('content')
 @section('title')Create Leave Request @endsection
     <div class="panel-heading">
-        <span class="panel-title hidden-xs"> Tạo yêu cầu nghỉ phép</span>
+        <span class="panel-title hidden-xs">Create request leave</span>
     </div>
     <div class="text-center" id="show-leave-count"></div>
         <div class="panel-body pn">
@@ -79,7 +79,7 @@
                             <div id="date_request" class="col-md-10 table-responsive" style="float: right;"></div>
                         </div>
                         <div class="form-group">
-                            <label for="input002" class="col-md-2 control-label"> Lý do </label>
+                            <label for="input002" class="col-md-2 control-label"> Reason </label>
                             <div class="col-md-10">
                                 <textarea type="text" id="textarea1" class="select2-single form-control"
                                     name="reason" required>
