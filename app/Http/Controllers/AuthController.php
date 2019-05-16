@@ -104,7 +104,7 @@ class AuthController extends Controller
         ])
         ->orderBy('news.updated_at', 'desc')->paginate(10);
 
-        return view('hrms.auth.index', ['news' => $news]);
+        return view('hrms.auth.index', compact('news'));
     }
 
     public function showChangePassword()
@@ -161,42 +161,4 @@ class AuthController extends Controller
         }
 
     }
-
-    // public function convertToArray($values)
-    // {
-    //     $result = [];
-    //     foreach ($values as $key => $value) {
-    //         $result[$key] = $value;
-    //     }
-
-    //     return $result;
-    // }
-
-    
-    // public function notFound()
-    // {
-    //     return view('hrms.auth.not_found');
-    // }
-
-    // public function showRegister()
-    // {
-    //     return view('hrms.auth.register');
-    // }
-
-    // public function doRegister(Request $request)
-    // {
-    //     return view('hrms.auth.register');
-    // }
-
-    // public function calendar()
-    // {
-    //     return view('hrms.auth.calendar');
-    // }
-
-    // public function dashboard()
-    // {
-    //     // $events   = $this->convertToArray(Event::where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(3)->get());
-    //     // $meetings = $this->convertToArray(Meeting::where('date', '>', Carbon::now())->orderBy('date', 'desc')->take(3)->get());
-    //     return view('hrms.dashboard');
-    // }
 }

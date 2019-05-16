@@ -11,6 +11,7 @@ use App\Models\LeaveDetail;
 use App\Models\LeaveAnnualLeft;
 use DB;
 use Exception;
+use App\Models\News;
 
 class LeaveController extends Controller
 {
@@ -101,7 +102,7 @@ class LeaveController extends Controller
 	public function requestPending()
 	{
 		$request = request();
-		$leaves = Leave::where('status', '=', 0)->where('employee_id', '<>', Auth::id())->orderBy('id', 'desc')->paginate(15);
+		$leaves = Leave::where('status', '=', 0)->/*where('employee_id', '<>', Auth::id())->*/orderBy('id', 'desc')->paginate(15);
 		$info = [
 			'total' => Leave::where('status', '=', 0)->count()
 		];
@@ -124,13 +125,28 @@ class LeaveController extends Controller
 		$leave = Leave::findOrFail($id);
 		$leave->status = $request->status;
 		$leave->process_by = Auth::id();
+
+		$news = new News;
+		$news->type = 2;
 		
 		if ( $request->status == Leave::STATUS_YES ) {
-			$leave->save();
+			DB::beginTransaction();
+			try {
+				$leave->save();
+				$news->target_id = $leave->id;
+				$news->save();
+				DB::commit();
 
-			return back()
-				->with('message', 'Approve leave request success')
-				->with('class', 'alert-success');
+				return back()
+					->with('message', 'Approve leave request success')
+					->with('class', 'alert-success');
+			} catch (Exception $e) {
+				DB::rollBack();
+
+				return back()
+					->with('message', 'Approve leave request failed, please try again later')
+					->with('class', 'alert-danger');
+			}
 		} else {
 			$leaveAnnualLeft = LeaveAnnualLeft::findOrFail($leave->employee_id);
 			$leaveAnnualLeft->days_left += $leave->quantity;
@@ -139,16 +155,18 @@ class LeaveController extends Controller
 			try {
 				$leave->save();
 				$leaveAnnualLeft->save();
+				$news->target_id = $leave->id;
+				$news->save();
 				DB::commit();
 
 				return back()
-					->with('message', 'Approve leave request success')
+					->with('message', 'Deny leave request success')
 					->with('class', 'alert-success');
 			} catch(Exception $e) {
 				DB::rollBack();
 
 				return back()
-					->with('message', 'Approve leave request failed, please try again later')
+					->with('message', 'Deny leave request failed, please try again later')
 					->with('class', 'alert-danger');
 			}
 		}
