@@ -1,9 +1,9 @@
 @extends('hrms.layouts.base')
 @section('content')
-    @section('title') EMPLOYEES @endsection
+    @section('title') LEAVE REQUESTS @endsection
     
     <div class="panel-heading">
-        <span class="panel-title hidden-xs text-primary"> LIST OF EMPLOYEES </span>
+        <span class="panel-title hidden-xs text-primary"> LIST OF REQUESTS PENDING </span>
     </div>
     
     <div class="panel-body pn">
@@ -32,24 +32,13 @@
                                 <form action="" method="GET">
                                     <input class="search-box" type="text" placeholder="Search by name" name="q" value="{{ $request->q }}">
                                     <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
-                                    
-                                    <div>
-                                        {!! Form::select('type', ['' => 'current', 'resignated' => 'resignated', 'all' => 'all'], $request->type, ['class' => 'btn btn-mini']) !!}
-                                    </div>
                                 </form>
                             </div>
 
                             <div class="col-xl-4">
-                                Current member &nbsp;
+                                Total &nbsp;
                                 <span class="badge badge-pill badge-info">
-                                    {{ $info['current'] }}
-                                </span>
-                            </div>
-    
-                            <div class="col-xl-4">
-                                Resignated &nbsp;
-                                <span class="badge badge-pill badge-light">
-                                    {{ $info['resigned'] }}
+                                    {{ $info['total'] }}
                                 </span>
                             </div>
                         </th>
@@ -57,51 +46,53 @@
                 </thead>
             </table>
 
-            @if ( !$employees->isEmpty() )
+            @if ( !$leaves->isEmpty() )
                 <table class="table table-bordered">
                     <tbody>
                         <thead class="bg-light">
-                            <th class="text-center">Code</th>
+                            <th class="text-center">ID</th>
                             <th class="text-center">Employee</th>
                             <th class="text-center">Department</th>
-                            <th class="text-center">Position</th>
-                            <th class="text-center">Date of Join</th>
+                            <th class="text-center">Date Request</th>
+                            <th class="text-center">Quantity</th>
                             <th class="text-center">Action</th>
                         </thead>
 
-                        @foreach($employees as $employee)
+                        @foreach($leaves as $leave)
                             <tr>
-                                <td class="text-center">{{$employee->code}}</td>
+                                <td class="text-center">{{$leave->id}}</td>
                                 <td class="text-left">
-                                    <a href="{{ route('employee.show', ['id' => $employee->id]) }}">{{$employee->name}}</a>
+                                    <a href="{{ route('employee.show', ['id' => $leave->employee->id]) }}">{{$leave->employee->name}}</a>
                                 </td>
                                 <td class="text-center">
-                                    @if(isset($employee->department))
-                                        <a href="{{ route('employee.department', ['id' => $employee->department->id]) }}">
-                                            {{$employee->department->description}}
+                                    @if(isset($leave->employee->department))
+                                        <a href="{{ route('employee.department', ['id' => $leave->employee->department->id]) }}">
+                                            {{$leave->employee->department->description}}
                                         </a>
                                     @else
                                         <i class="glyphicon glyphicon-option-horizontal"></i>
                                     @endif
                                 </td>
+                                <td class="text-center"> {{ getFormattedDate($leave->created_at) }} </td>
+                                <td class="text-center"> {{$leave->quantity}} </td>
                                 <td class="text-center">
-                                    @if(isset($employee->position))
-                                        {{$employee->position->description}}
-                                    @else
-                                        <i class="glyphicon glyphicon-option-horizontal"></i>
-                                    @endif
-                                </td>
-                                <td class="text-center">{{$employee->date_of_join}}</td>
-                                <td class="text-center">
-                                    <a href=" {{ route('employee.edit', ['id' => $employee->id]) }} " class="btn btn-xs btn-info">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </a>
-                                    <form action="{{ route('employee.delete', ['id' => $employee->id]) }}" method="POST" class="inline-object">
+                                    <form action="{{ route('leave.update', ['id' => $leave->id]) }}" method="POST" class="inline-object">
+                                        {!! method_field('put') !!}
+                                        {!! csrf_field() !!}
+                                        <input name="status" type="hidden" value="1">
+
+                                        <button class="btn btn-xs btn-success">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('leave.update', ['id' => $leave->id]) }}" method="POST" class="inline-object">
                                         {!! method_field('delete') !!}
                                         {!! csrf_field() !!}
-
-                                        <button class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this employee ?');">
-                                            <span class="glyphicon glyphicon-trash"></span>
+                                        
+                                        <input name="status" type="hidden" value="2">
+                                        <button class="btn btn-xs btn-danger">
+                                            <span class="glyphicon glyphicon-remove"></span>
                                         </button>
                                     </form>
                                 </td>
@@ -111,7 +102,7 @@
                 </table>
 
                 <div class="paginate">
-                    {{ $employees->appends(['q' => request()->q, 'type' => request()->type])->render()  }}
+                    {{ $leaves->appends(['q' => request()->q])->render()  }}
                 </div>
             @else
                 <div>

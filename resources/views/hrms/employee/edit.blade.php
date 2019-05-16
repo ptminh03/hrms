@@ -3,7 +3,7 @@
     @section('title') EMPLOYEES @endsection
 
     <div class="panel-heading">
-        <span class="panel-title hidden-xs text-primary"> CREATE NEW EMPLOYEE </span>
+        <span class="panel-title hidden-xs text-primary"> EDIT EMPLOYEES </span>
     </div>
 
     <div class="panel-body pn">
@@ -31,19 +31,19 @@
                     <label for="exampleInputPassword1">Employee Name
                         <span class="text-danger">*<span>
                     </label>
-                    <input type="text" required class="form-control" placeholder="Enter employee name" name="name">
+                    <input type="text" required class="form-control" placeholder="Enter employee name" name="name" value=" {{ $employee->name }} ">
                 </div>
                 <div class="form-group col-xl-4">
                     <label for="exampleInputEmail1">Employee Code
                         <span class="text-danger">*<span>
                     </label>
-                    <input type="text" readonly style="cursor: auto" required class="form-control" name="code" value="{{$newCode}}">
+                    <input type="text" readonly style="cursor: auto" required class="form-control" name="code" value="{{ $employee->code }}">
                 </div>
                 <div class="form-group col-xl-12">
                     <label for="exampleInputEmail1">Email
                         <span class="text-danger">*<span>
                     </label>
-                    <input type="text" required class="form-control" placeholder="Enter email" name="email" required>
+                <input type="text" readonly style="cursor: auto" required class="form-control" name="email" required value=" {{ $employee->user->email }} ">
                 </div>
                 <div class="form-group col-xl-4">
                     <label for="exampleInputPassword1">Employee Photo</label><br>
@@ -58,13 +58,13 @@
                     </label>
                     <div class="form-group form-check">
                         <div class="col-xl-3">
-                            <input class="form-check-input" type="radio" name="gender" value="Male" checked>
-                            <label class="form-check-label" for="gender1">
+                            <input class="form-check-input" type="radio" name="gender" value="Male" @if ($employee->gender == 'Male') checked @endif)>
+                            <label class="form-check-label" for="gender1"> 
                                 Male
                             </label>
                         </div>
                         <div class="col-xl-3">
-                            <input class="form-check-input" type="radio" name="gender" value="Female">
+                            <input class="form-check-input" type="radio" name="gender" value="Female" @if ($employee->gender == 'Female') checked @endif)>
                             <label class="form-check-label" for="gender2">
                                 Female
                             </label>
@@ -93,7 +93,7 @@
                     <label for="exampleInputPassword1">Date of Join
                         <span class="text-danger">*<span>
                     </label>
-                    <input type="date" class="form-control" name="date_of_join" required>
+                    <input type="date" class="form-control" name="date_of_join" required value=" {{ $employee->date_of_join }} ">
                 </div>
             </div>
 
@@ -101,16 +101,16 @@
                 <h4 class="pt-1">Personal Information</h4>
                 <div class="form-group col-xl-12">
                     <label for="exampleInputEmail1">Address</label>
-                    <input type="text" class="form-control"  placeholder="Enter address" name="address">
+                    <input type="text" class="form-control"  placeholder="Enter address" name="address" value=" {{ $employee->address }} ">
                 </div>
                 <div class="form-group col-xl-4">
                     <label for="exampleInputPassword1">Date of Birth</label>
-                    <input type="date" class="form-control" name="date_of_birth"> 
+                    <input type="date" class="form-control" name="date_of_birth" value=" {{ $employee->date_of_birth }} "> 
                 </div>
 
                 <div class="form-group col-xl-4">
                     <label for="exampleInputEmail1">Phone Number</label>
-                    <input type="text" class="form-control" placeholder="Enter phone number" name="phone_number">
+                    <input type="text" class="form-control" placeholder="Enter phone number" name="phone_number" value=" {{ $employee->phone_number }} ">
                 </div>
             </div>
 
@@ -118,11 +118,11 @@
                 <h4 class="pt-1">Bank Information</h4>
                 <div class="form-group col-xl-4">
                     <label for="exampleInputPassword1">Account Number<span class="text-danger">*<span></label>
-                    <input type="number" class="form-control" placeholder="Enter account number" name="account_number">
+                    <input type="number" class="form-control" placeholder="Enter account number" name="account_number" value=" {{ $employee->account_number }} ">
                 </div>
                 <div class="form-group col-xl-4">
                     <label for="exampleInputPassword1">Salary<span class="text-danger">*<span></label>
-                    <input type="number" min="1000000" step="100000" class="form-control" placeholder="Enter salary" name="salary" required>
+                    <input type="number" min="1000000" step="100000" class="form-control" placeholder="Enter salary" name="salary" required value=" {{ $employee->salary }} ">
                 </div>
             </div>
 

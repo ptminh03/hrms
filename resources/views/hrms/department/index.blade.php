@@ -12,7 +12,7 @@
         @endif
 
         <div class="table-responsive">
-            <table class="table table-hover table-bordered">
+            <table class="table table-bordered">
                 <thead>
                 <tr class="bg-light">
                     <th class="text-center">ID</th>

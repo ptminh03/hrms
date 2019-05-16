@@ -17,10 +17,14 @@
             <h4 class="pt-1">Employee Information</h4>
 
             <div class="panel-body">
-                <label>Email
+                {{--  <label>Email
                     <span class="text-danger">*<span>
-                </label>
-                <h5>{{$employee->user->email}}</h5>
+                </label>  --}}
+                {{$employee}}
+                <br>
+                Nút sửa xoá ở bên phải <br>
+                Table show email, photo, code, name, gender,department, position, date of join, date of birth, address, phone number<br>
+                account number, salary, date of resignated chỉ manager mới thấy
             </div>
 
             {{--  <div class="panel-body form-group">
@@ -88,7 +92,7 @@
             </div>  --}}
         </div>
 
-        <div class="panel panel-default">
+        {{--  <div class="panel panel-default">
             <h4 class="pt-1">Personal Information</h4>
 
             <div class="panel-body form-group">
@@ -121,6 +125,6 @@
                 </label>
                 <input type="number" min="1000000" step="100000" class="form-control" placeholder="Enter salary" name="salary" required>
             </div>
-        </div>
+        </div>  --}}
     </div>
 @endsection

@@ -18,7 +18,10 @@
             <div class="navbar-btn btn-group">
         <li class="dropdown dropdown-fuse">
             <a href="#" class="dropdown-toggle fw600" data-toggle="dropdown">
-                <span class="hidden-xs"><name><i class="fa fa-user"></i> {{Auth::user()->employee->name}}</name> </span>
+                <span class="hidden-xs">
+                    <name> {{ Auth::user()->employee->name}} </name>
+                </span>
+                
                 <span class="fa fa-caret-down hidden-xs mr15"></span>
             </a>
             </a>

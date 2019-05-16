@@ -12,6 +12,11 @@ class Leave extends Model
 {
     protected $table = 'leaves';
 
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
     public function leave_type()
     {
         return $this->belongsTo(LeaveType::class);

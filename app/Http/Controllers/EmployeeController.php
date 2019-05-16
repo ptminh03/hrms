@@ -27,10 +27,31 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::whereNull('date_of_resignation')->orderBy('id', 'desc')->paginate(15);
-        $employees->current = Employee::count();
-        $employees->resigned = Employee::onlyTrashed()->count();
-        return view('hrms.employee.index', compact('employees'));
+        $request = request();
+        request()->validate([
+            'type' => 'in:all,resignated'
+        ],
+        [
+            'type.in' => 'Type invalid'
+        ]);
+
+        $employees = new Employee;
+        if ( $request->type == '' ) {
+            $employees = $employees->whereNull('date_of_resignation');
+        } else if ( $request->type == 'resignated' ) {
+            $employees = $employees->whereNotNull('date_of_resignation');
+        }
+        if ( !empty($request->q) ) {
+            $employees = $employees->whereRaw('LOWER(name) like \'%'. strtolower($request->q). '%\'');
+        }
+        $employees = $employees->orderBy('id', 'desc')->paginate(15);
+
+        $info = [
+            'current' => Employee::whereNull('date_of_resignation')->count(),
+            'resigned' => Employee::whereNotNull('date_of_resignation')->count()
+        ];
+
+        return view('hrms.employee.index', compact('employees', 'request', 'info'));
     }
 
     public function create()
@@ -143,8 +164,31 @@ class EmployeeController extends Controller
 
     public function department($id)
     {
-        $employees = Employee::where('department_id', $id)->orderBy('id', 'desc')->paginate(15);
-        return view('hrms.employee.department', compact('employees'));
+        $request = request();
+        request()->validate([
+            'type' => 'in:all,resignated'
+        ],
+        [
+            'type.in' => 'Type invalid'
+        ]);
+
+        $employees = Employee::where('department_id', '=', $id);
+        if ( $request->type == '' ) {
+            $employees = $employees->whereNull('date_of_resignation');
+        } else if ( $request->type == 'resignated' ) {
+            $employees = $employees->whereNotNull('date_of_resignation');
+        }
+        if ( !empty($request->q) ) {
+            $employees = $employees->whereRaw('LOWER(name) like \'%'. strtolower($request->q). '%\'');
+        }
+        $employees = $employees->orderBy('id', 'desc')->paginate(15);
+
+        $info = [
+            'department' => Department::findOrFail($id)->description,
+            'total' => Department::findOrFail($id)->employees()->whereNull('date_of_resignation')->count()
+        ];
+
+        return view('hrms.employee.department', compact('employees', 'request', 'info'));
     }
 
     public function show($id)
@@ -164,17 +208,24 @@ class EmployeeController extends Controller
             $user->delete();
             DB::commit();
 
-            return redirect()
-                ->route('employee.index')
+            return back()
                 ->with('message', 'Delete employee success')
                 ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();
 
-            return redirect()
-                ->route('employee.index')
+            return back()
                 ->with('message', 'Something was error, please try again later')
                 ->with('class', 'alert-danger');
         } 
+    }
+
+    public function edit($id)
+    {
+        $employee = Employee::findOrFail($id);
+        $departments = Department::all();
+        $positions = Position::all();
+
+        return view('hrms.employee.edit', compact('employee', 'departments', 'positions'));
     }
 }

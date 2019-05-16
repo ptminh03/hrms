@@ -21639,17 +21639,10 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-success {
   color: #ffffff;
-  background-color: #c3d62d;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
 }
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-success.active,
-.open > .dropdown-toggle.btn-success {
-  color: #ffffff;
-  background-color: #a8b924;
-  border-color: rgba(0, 0, 0, 0.05);
-}
+
 .btn-success:active,
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
@@ -21699,17 +21692,9 @@ fieldset[disabled] .btn-success.active {
 }
 .btn-info {
   color: #ffffff;
-  background-color: #4fd8b0;
+  background-color: #5bc0de;
 }
-.btn-info:hover,
-.btn-info:focus,
-.btn-info:active,
-.btn-info.active,
-.open > .dropdown-toggle.btn-info {
-  color: #ffffff;
-  background-color: #30d1a2;
-  border-color: rgba(0, 0, 0, 0.05);
-}
+
 .btn-info:active,
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
@@ -21821,7 +21806,6 @@ fieldset[disabled] .btn-warning.active {
   color: #ffffff;
   background-color: #f5393d;
 }
-.btn-danger:hover,
 .btn-danger:focus,
 .btn-danger:active,
 .btn-danger.active,
@@ -23457,7 +23441,7 @@ a.text-success:hover {
   color: #a8b924;
 }
 .text-info {
-  color: #4fd8b0;
+  color: #17a2b8!important;
 }
 a.text-info:hover {
   color: #072119;
@@ -23990,12 +23974,7 @@ blockquote.blockquote-dark {
   color: #FFF;
   background-color: #67d3e0;
 }
-.dropdown-toggle.btn-success + .dropdown-menu > .active > a,
-.dropdown-toggle.btn-success + .dropdown-menu > .active > a:hover,
-.dropdown-toggle.btn-success + .dropdown-menu > .active > a:focus {
-  color: #FFF;
-  background-color: #c3d62d;
-}
+
 .dropdown-toggle.btn-info + .dropdown-menu > .active > a,
 .dropdown-toggle.btn-info + .dropdown-menu > .active > a:hover,
 .dropdown-toggle.btn-info + .dropdown-menu > .active > a:focus {
@@ -25171,9 +25150,9 @@ body.basic-timeline .panel-clone {
 .btn-search {
   border: none;
   position: absolute;
-  top: 1px;
-  height: 26px;
-  left: 154px;
+  top: 3px;
+  height: 22px;
+  left: 160px;
   outline: none;
 }
 
@@ -25192,4 +25171,15 @@ select.btn-mini {
 
 select.btn-mini + .caret {
   margin-left: -20px;
+}
+
+.form-delete {
+  display: inline-block;
+}
+
+.form-add-employee {
+  padding: 25px;
+  border: 1px solid #a9acbd !important;
+  margin-bottom: 45px;
+  border-radius: 4px;
 }

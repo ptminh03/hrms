@@ -1,9 +1,11 @@
 @extends('hrms.layouts.base')
 @section('content')
 @section('title')My Leave History @endsection
+    
     <div class="panel-heading">
         <span class="panel-title hidden-xs"> My Leave Lists </span>
     </div>
+
     <div class="panel-body pn">
         @if(Session::has('flash_message'))
             <div class="alert alert-success">
@@ -40,7 +42,7 @@
                                 @endif
                             </div>
                         </td>
-                        <td class="text-center">{{getFormattedDate($leave->created_at)}}</td>
+                        <td class="text-center"> {{ getFormattedDate($leave->created_at) }} </td>
                         <td class="text-center">{{$leave->quantity}}</td>
                         <td class="text-center">
                             @if(isset($leave->process_by) && $leave->process_by != 0)

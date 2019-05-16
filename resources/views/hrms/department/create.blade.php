@@ -31,7 +31,7 @@
                 <input type="text" class="form-control"  placeholder="Description must be not empty and not exist yet." name="description">
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
     </div>                   

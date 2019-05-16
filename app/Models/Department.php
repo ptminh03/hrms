@@ -17,4 +17,9 @@ class Department extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    public function employeesWithTrashed()
+    {
+        return $this->hasMany(Employee::class)->withTrashed();
+    }
 }

@@ -68,7 +68,7 @@ class DepartmentController extends Controller
         
         DB::beginTransaction();
         try {
-            $department->employees()->update(['department_id' => NULL]);
+            $department->employeesWithTrashed()->update(['department_id' => NULL]);
             $department->delete();
             DB::commit();
             

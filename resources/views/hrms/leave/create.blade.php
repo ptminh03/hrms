@@ -8,75 +8,92 @@
         <div class="panel-body pn">
             <div class="table-responsive">
                 <div class="panel-body p25 pb10">
-                    @if(session('message'))
-                        {{session('message')}}
-                    @endif
-                    @if(Session::has('flash_message'))
-                        <div class="alert alert-success">
-                            {{ session::get('flash_message') }}
+                    @if(Session::has('message'))
+                        <div class="alert {{ Session::get('class') }}">
+                            {{ Session::get('message') }}
                         </div>
                     @endif
-                    {!! Form::open(['class' => 'form-horizontal', 'method' => 'post']) !!}
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"> Loại ngày nghỉ </label>
-                        <div class="col-md-10">
-                            <input type="hidden" value="{!! csrf_token() !!}" id="token">
-                            <input type="hidden" value="{{\Auth::user()->id}}" id="user_id">
-                            <select class="select2-multiple form-control select-primary leave_type"
-                                    name="leave_type" required>
-                                <option value="" selected>-- Chọn một ---</option>
-                                @foreach($leaves as $leave)
-                                    <option value="{{$leave->id}}">{{$leave->description}}</option>
+                    
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
                                 @endforeach
-                            </select>
+                            </ul>
                         </div>
-                    </div>
+                    @endif
 
-                    <div class="form-group">
-                        <label for="date_from" class="col-md-2 control-label"> Từ ngày </label>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar text-alert pr10"></i>
-                                </div>
-                                <input type="text" id="datepicker1" class="select2-single form-control"
-                                    name="dateFrom" required readonly style="cursor: auto" onchange="getvalue()">
+                    <form action=" {{ route('leave.store') }} " method="post" class="form-horizontal">
+                        {{ csrf_field() }}
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> Leave type
+                                <span class="text-danger">*<span>
+                            </label>
+
+                            <div class="col-md-10">
+                                <select class="select2-multiple form-control select-primary leave_type"
+                                        name="leave_type_id" required>
+                                    <option value="" selected disabled> - </option>
+                                    @foreach($leaves as $leave)
+                                        <option value="{{$leave->id}}">{{$leave->description}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <label for="date_to" class="col-md-2 control-label"> đến </label>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar text-alert pr10"></i>
+
+                        <div class="form-group">
+                            <label for="date_from" class="col-md-2 control-label"> From
+                                <span class="text-danger">*<span>
+                            </label>
+
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar text-alert pr10"></i>
+                                    </div>
+
+                                    <input type="text" id="datepicker1" class="select2-single form-control"
+                                        name="dateFrom" required readonly style="cursor: auto" onchange="getvalue()">
                                 </div>
-                                <input type="text" id="datepicker4" class="select2-single form-control"
-                                    name="dateTo" required readonly style="cursor: auto" onchange="getvalue()">
+                            </div>
+
+                            <label for="date_to" class="col-md-2 control-label"> To
+                                <span class="text-danger">*<span>
+                            </label>
+
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar text-alert pr10"></i>
+                                    </div>
+
+                                    <input type="text" id="datepicker4" class="select2-single form-control"
+                                        name="dateTo" required readonly style="cursor: auto" onchange="getvalue()">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div id="date_request" class="col-md-10 table-responsive" style="float: right;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="input002" class="col-md-2 control-label"> Lý do </label>
-                        <div class="col-md-10">
-                            <textarea type="text" id="textarea1" class="select2-single form-control"
-                                name="reason" required>
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"></label>
-                        <div class="col-md-2">
-                            <input type="submit" class="btn btn-bordered btn-info btn-block" value="Tạo yêu cầu">
-                        </div>
-                        <div class="col-md-2"><a href="{{route('leave.store')}}" >
-                            <input type="button" class="btn btn-bordered btn-success btn-block" value="Reset"></a>
-                        </div>
-                    </div>
 
-                    {!! Form::close() !!}
+                        <div class="form-group">
+                            <div id="date_request" class="col-md-10 table-responsive" style="float: right;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input002" class="col-md-2 control-label"> Lý do </label>
+                            <div class="col-md-10">
+                                <textarea type="text" id="textarea1" class="select2-single form-control"
+                                    name="reason" required>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-md btn-info" value="Submit">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -112,16 +129,12 @@
                         str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='0'></td>"
                         str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='1'></td>"
                         str += "<td class='text-center'><input type='radio' name='date[" + formatDate(d) + "]' value='2' checked></td>"
-                        str += "<td class='text-center'><button class='br-n' type='button' onclick=\"$(this).parents('tr').html('')\"><span class='glyphicon glyphicon-trash'></span></button></td>"
+                        str += "<td class='text-center'><a class='btn btn-xs btn-danger' onclick=\"$(this).parents('tr').html('')\"><span class='glyphicon glyphicon-trash'></span></a></td>"
                         str += "</tr>"
                     }
                 }
             str += "</table>"
-<<<<<<< HEAD:resources/views/hrms/leave/show_add.blade.php
             $("#date_request").html(str)
-=======
-            document.getElementById("date_request").innerHTML = str;
->>>>>>> 8841947e0b6ed3479d59e08c880a10ec14047670:resources/views/hrms/leave/create.blade.php
             }
         }
 

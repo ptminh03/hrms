@@ -28,23 +28,15 @@ use App\Http\Controllers\HomeController;
     Route::group(['middleware' => ['auth']], function ()
     {
         Route::get('/', 'AuthController@index')->name('index');
-        Route::group(['prefix' => 'leaves'], function()
+
+        Route::group(['prefix' => 'departments'], function()
         {
-            Route::get('my-leave', 'LeaveController@myLeave')->name('leave.myLeave');
-            Route::post('/', 'LeaveController@store')->name('leave.store');
-            Route::get('create', 'LeaveController@create')->name('leave.create');
-            Route::get('{id}', 'LeaveController@show')->where('id', '[1-9][0-9]*')->name('leave.show');
-        });
-        
-        Route::group(['prefix' => 'news'], function()
-        {
-            Route::get('/add', 'NewsController@showAdd')->name('news.showAdd');
-            Route::post('/add', 'NewsController@processAdd');
-        });
-        
-        Route::group(['prefix' => 'devices'], function()
-        {
-            Route::get('/', 'DeviceController@index')->name('device.index');
+            Route::get('/', 'DepartmentController@index')->name('department.index');
+            Route::get('/create', 'DepartmentController@create')->name('department.create');
+            Route::post('/', 'DepartmentController@store')->name('department.store');
+            Route::get('/{id}/edit', 'DepartmentController@edit')->where('id', '[1-9][0-9]*')->name('department.edit');
+            Route::put('/{id}', 'DepartmentController@update')->where('id', '[1-9][0-9]*')->name('department.update');
+            Route::get('/{id}', 'DepartmentController@destroy')->where('id', '[1-9][0-9]*')->name('department.delete');
         });
 
         Route::group(['prefix' => 'employees'], function()
@@ -56,18 +48,35 @@ use App\Http\Controllers\HomeController;
             Route::get('my-department', 'EmployeeController@myDepartment')->name('employee.myDepartment');
             Route::get('{id}/department', 'EmployeeController@department')->where('id', '[1-9][0-9]*')->name('employee.department');
             Route::get('{id}', 'EmployeeController@show')->where('id', '[1-9][0-9]*')->name('employee.show');
-            // Route::get('{id}', 'EmployeeController@destroy')->where('id', '[1-9][0-9]*')->name('employee.delete');
+            Route::get('{id}/edit', 'EmployeeController@edit')->where('id', '[1-9][0-9]*')->name('employee.edit');
+            Route::delete('{id}', 'EmployeeController@destroy')->where('id', '[1-9][0-9]*')->name('employee.delete');
         });
 
-        Route::group(['prefix' => 'departments'], function()
+        Route::group(['prefix' => 'leaves'], function()
         {
-            Route::get('/', 'DepartmentController@index')->name('department.index');
-            Route::get('/create', 'DepartmentController@create')->name('department.create');
-            Route::post('/', 'DepartmentController@store')->name('department.store');
-            Route::get('/{id}/edit', 'DepartmentController@edit')->where('id', '[1-9][0-9]*')->name('department.edit');
-            Route::put('/{id}', 'DepartmentController@update')->where('id', '[1-9][0-9]*')->name('department.update');
-            Route::get('/{id}', 'DepartmentController@destroy')->where('id', '[1-9][0-9]*')->name('department.delete');
+            Route::get('my-leave', 'LeaveController@myLeave')->name('leave.myLeave');
+            Route::post('/', 'LeaveController@store')->name('leave.store');
+            Route::get('create', 'LeaveController@create')->name('leave.create');
+            Route::get('{id}', 'LeaveController@show')->where('id', '[1-9][0-9]*')->name('leave.show');
+            Route::get('/request-pending', 'LeaveController@requestPending')->name('leave.request.pending');
+            Route::put('{id}', 'LeaveController@update')->where('id', '[1-9][0-9]*')->name('leave.update');
         });
+        
+        Route::group(['prefix' => 'devices'], function()
+        {
+            Route::get('/', 'DeviceController@index')->name('device.index');
+        });
+
+        Route::group(['prefix' => 'news'], function()
+        {
+            Route::get('/add', 'NewsController@showAdd')->name('news.showAdd');
+            Route::post('/add', 'NewsController@processAdd');
+        });
+        
+
+        
+
+        
     });
     
     Route::get('hr-policy', ['as' => 'hr-policy', 'uses' => 'PolicyController@showPolicy']);
