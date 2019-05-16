@@ -78,7 +78,6 @@ class LeaveController extends Controller
                 ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e);
 
             return back()
                 ->with('message', 'Something was error, please try again later')
