@@ -71,6 +71,8 @@ class EmployeeController extends Controller
             'code' => 'bail|required|unique:employees',
             'name' => 'required',
             'gender' => 'bail|required|in:Male,Female',
+            'department_id' => 'exists:departments',
+            'position_id' => 'exists:positions',
             'date_of_join' => 'bail|required|date',
             'date_of_birth' => 'date',
             'phone_number' => 'numeric',
@@ -227,5 +229,67 @@ class EmployeeController extends Controller
         $positions = Position::all();
 
         return view('hrms.employee.edit', compact('employee', 'departments', 'positions'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'photo' => 'image',
+            'name' => 'required',
+            'gender' => 'bail|required|in:Male,Female',
+            'department_id' => 'exists:departments,id',
+            'position_id' => 'exists:positions,id',
+            'date_of_join' => 'bail|required|date',
+            'date_of_birth' => 'date',
+            'phone_number' => 'numeric',
+            'salary' => 'bail|required|numeric|min:1000000'
+        ]);
+
+        if ( !$employee = Employee::find($id) ) {
+            return back()
+                ->with('message', 'Employee ID not found')
+                ->with('class', 'alert-danger');
+        }
+
+        if ($request->file('photo')) {
+            $file             = $request->file('photo');
+            $filename         = str_random(12);
+            $fileExt          = $file->getClientOriginalExtension();
+            $allowedExtension = ['jpg', 'jpeg', 'png'];
+            $destinationPath  = public_path('photos');
+            if (!in_array($fileExt, $allowedExtension)) {
+                return back()
+                    ->with('message', 'Employee photo has extension not allowed')
+                    ->with('class', 'alert-danger');
+            }
+            $filename = $filename . '.' . $fileExt;
+            $file->move($destinationPath, $filename);
+            $employee->photo           = $filename;
+        }
+        $employee->name            = $request->name;
+        $employee->code            = $request->code;       
+        $employee->gender          = $request->gender;
+        $employee->date_of_join    = date_format(date_create($request->date_of_join), 'Y-m-d');
+        $employee->date_of_birth   = date_format(date_create($request->date_of_birth), 'Y-m-d');
+        $employee->address         = $request->address;
+        if ( empty($request->department_id) ) {
+            $employee->department_id = null;
+        } else {
+            $employee->department_id   = $request->department_id;
+        }
+
+        if ( empty($request->position_id) ) {
+            $employee->position_id = null;
+        } else {
+            $employee->position_id   = $request->position_id;
+        }
+        
+        $employee->account_number   = $request->account_number;
+        $employee->salary          = $request->salary;
+        $employee->save();
+
+        return back()
+            ->with('message', 'Update employee success')
+            ->with('class', 'alert-success');
     }
 }

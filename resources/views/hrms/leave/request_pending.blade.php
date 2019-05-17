@@ -71,7 +71,7 @@
                                 <td class="text-center">
                                     @if(isset($leave->employee->department))
                                         <a href="{{ route('employee.department', ['id' => $leave->employee->department->id]) }}">
-                                            {{$leave->employee->department->description}}
+                                            {{$leave->employee->department->name}}
                                         </a>
                                     @else
                                         <i class="glyphicon glyphicon-option-horizontal"></i>

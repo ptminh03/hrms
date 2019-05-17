@@ -11,7 +11,7 @@ class Department extends Model
     use SoftDeletes;
 
     protected $table = 'departments';
-    protected $fillable = ['description'];
+    protected $fillable = ['name'];
 
     public function employees()
     {

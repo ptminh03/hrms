@@ -75,7 +75,7 @@
                                 </td>
                                 <td class="text-center">
                                     @if(isset($employee->position))
-                                        {{$employee->position->description}}
+                                        {{$employee->position->name}}
                                     @else
                                         <i class="glyphicon glyphicon-option-horizontal"></i>
                                     @endif

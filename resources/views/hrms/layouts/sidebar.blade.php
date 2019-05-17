@@ -18,13 +18,13 @@
             <a href="{{route('employee.myProfile')}}"></a>
             <p>{{Auth::user()->employee->name}}</p>
             <p>{{Auth::user()->employee->code}}
-            @if (isset(Auth::user()->employee->department->description))
+            @if (isset(Auth::user()->employee->department->name))
                 {{" - "}}
-                @if (isset(Auth::user()->employee->position->description))
-                    {{Auth::user()->employee->position->description. " "}} 
+                @if (isset(Auth::user()->employee->position->name))
+                    {{Auth::user()->employee->position->name. " "}} 
                 @endif
                     <a href="{{ route('employee.myDepartment') }}">
-                    {{Auth::user()->employee->department->description}}
+                    {{Auth::user()->employee->department->name}}
             @endif
         </div>
     </div>
@@ -122,6 +122,23 @@
                 </li>
                 <li>
                     <a href="{{route('department.create')}}"> Add New Department </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Position -->
+        <li>
+            <a class="accordion-toggle" href="#">
+                <span class="fa fa-bullseye"></span>
+            <span class="sidebar-title">Positions</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="nav sub-nav">
+                <li>
+                    <a href="{{route('position.index')}}"> List of Positions </a>
+                </li>
+                <li>
+                    <a href="{{route('position.create')}}"> Add New Position </a>
                 </li>
             </ul>
         </li>

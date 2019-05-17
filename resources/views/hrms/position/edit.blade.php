@@ -1,8 +1,8 @@
 @extends('hrms.layouts.base')
 @section('content')
-@section('title') DEPARTMENTS @endsection
+@section('title') POSITIONS @endsection
     <div class="panel-heading">
-        <span class="panel-title hidden-xs text-primary"> CREATE NEW DEPARTMENT </span>
+        <span class="panel-title hidden-xs text-primary"> EDIT POSITION </span>
     </div>
     <div class="panel-body pn">
         @if(Session::has('message'))
@@ -21,18 +21,17 @@
             </div>
         @endif
 
-        <form action="{{route('department.store')}}" method="POST">
+        <form action="{{ route('position.update', ['id' => $position->id]) }}" method="POST">
             {!! csrf_field() !!}
-            
+            {{ method_field('PUT') }}
             <div class="form-group">
-                <label>Description
+                <label>Name
                     <span class="text-danger">*<span>
                 </label>
-                <input type="text" class="form-control"  placeholder="Description must be not empty and not exist yet." name="name">
+                <input type="text" class="form-control w-25"  placeholder="Name must be unique" name="name" value="{{ $position->name }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-
     </div>                   
 @endsection

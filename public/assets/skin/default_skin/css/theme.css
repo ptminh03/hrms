@@ -30959,3 +30959,7 @@ select.btn-mini+.caret {
 .margintop-6 {
   margin-top: 6px;
 }
+
+.w-25 {
+  width: 25% !important;
+}

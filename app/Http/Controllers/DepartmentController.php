@@ -23,16 +23,17 @@ class DepartmentController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'description' => 'bail|required|unique:departments',
+            'name' => 'bail|required|unique:departments',
         ],
         [
-            'description.required' => 'Description must NOT be empty',
-            'description.unique' => 'Description already exist'
+            'name.required' => 'Department name must NOT be empty',
+            'name.unique' => 'Department name already exist'
         ]);
        
         $department = new Department;
-        $department->description = $request->description;
+        $department->name = $request->name;
         $department->save();
+
         return redirect()
             ->route('department.index')
             ->with('message', 'Create new department success')
@@ -46,25 +47,26 @@ class DepartmentController extends Controller
 
     public function update(Request $request, $id) {
         $request->validate([
-            'description' => 'bail|required|unique:departments'
+            'name' => 'bail|required|unique:departments'
         ],
         [
-            'description.required' => 'Description must NOT be empty',
-            'description.unique' => 'Description already exist'
+            'name.required' => 'Department name must NOT be empty',
+            'name.unique' => 'Department name already exist'
         ]);
 
         $department = Department::findOrFail($id);
-        $department->update(['description' => $request->description]);
+        $department->update(['name' => $request->name]);
+
         return redirect()
             ->route('department.index')
-            ->with('message', 'Update department success')
+            ->with('message', 'Update department name success')
             ->with('class', 'alert-success');
     }
 
     public function destroy($id) {
         $department = Department::findOrFail($id);
         $employees = Employee::where('department_id', '=', $id)->get();
-        $description = $department->description;
+        $departmentName = $department->name;
         
         DB::beginTransaction();
         try {
@@ -73,13 +75,13 @@ class DepartmentController extends Controller
             DB::commit();
             
             return back()
-                ->with('message', 'Delete department '. $description . ' success')
+                ->with('message', 'Delete department '. $departmentName . ' success')
                 ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();
             
             return back()
-                ->with('message', 'Something was error, please try again later')
+                ->with('message', 'Delete department was error, please try again later')
                 ->with('class', 'alert-danger');
         }
     }

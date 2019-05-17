@@ -25,10 +25,10 @@
             <input type="hidden" value="{!! csrf_token() !!}" name="_token">
             {{ method_field('PUT') }}
             <div class="form-group">
-                <label for="exampleInputEmail1">Description
+                <label>Description
                     <span class="text-danger">*<span>
                 </label>
-                <input type="text" class="form-control"  placeholder="Enter description" name="description" value="{{$department->description}}" required>
+                <input type="text" class="form-control"  placeholder="Enter description" name="name" value="{{ $department->name }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

@@ -78,7 +78,7 @@
                                 <td class="text-center">
                                     @if(isset($employee->department))
                                         <a href="{{ route('employee.department', ['id' => $employee->department->id]) }}">
-                                            {{$employee->department->description}}
+                                            {{$employee->department->name}}
                                         </a>
                                     @else
                                         <i class="glyphicon glyphicon-option-horizontal"></i>
@@ -86,7 +86,7 @@
                                 </td>
                                 <td class="text-center">
                                     @if(isset($employee->position))
-                                        {{$employee->position->description}}
+                                        {{$employee->position->name}}
                                     @else
                                         <i class="glyphicon glyphicon-option-horizontal"></i>
                                     @endif

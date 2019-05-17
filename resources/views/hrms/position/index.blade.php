@@ -1,8 +1,8 @@
 @extends('hrms.layouts.base')
 @section('content')
-@section('title') DEPARTMENTS @endsection
+@section('title') POSITIONS @endsection
     <div class="panel-heading">
-        <span class="panel-title hidden-xs text-primary"> LIST OF DEPARTMENT </span>
+        <span class="panel-title hidden-xs text-primary"> LIST OF POSITIONS </span>
     </div>
     <div class="panel-body pn">
         @if(Session::has('message'))
@@ -26,25 +26,21 @@
                 <thead>
                     <tr class="bg-light">
                         <th class="text-center">ID</th>
-                        <th class="text-center">Description</th>
+                        <th class="text-center">Name</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                @foreach($departments as $department)
+                @foreach($positions as $position)
                     <tr>
-                        <td class="text-center">{{$department->id}}</td>
+                        <td class="text-center">{{$position->id}}</td>
+                        <td class="text-center">{{$position->name}}</td>
                         <td class="text-center">
-                            <a href="{{ route('employee.department', ['id' => $department->id]) }}">
-                                {{$department->name}}
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="{{ route('department.edit', ['id' => $department->id]) }}" class="btn btn-xs btn-info">
+                            <a href="{{ route('position.edit', ['id' => $position->id]) }}" class="btn btn-xs btn-info">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
-                            <a href="{{ route('department.delete', ['id' => $department->id]) }}" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this department ?');">
+                            <a href="{{ route('position.delete', ['id' => $position->id]) }}" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this position ?');">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
@@ -54,7 +50,7 @@
             </table>
             
             <div class="paginate">
-                {{ $departments->links() }}
+                {{ $positions->links() }}
             </div>
         </div>
     </div>                   
