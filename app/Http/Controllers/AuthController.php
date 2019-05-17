@@ -153,7 +153,7 @@ class AuthController extends Controller
             });
 
             User::where('email', $email)->update(['password' => bcrypt($string)]);
-            dd('vac');
+
             return redirect()->route('auth.login')->with('message', 'Login with your new password received on your email');
         } else {
             return redirect()->route('auth.login')->with('message', 'Your email is not registered');

@@ -35,54 +35,56 @@
             <!-- -------------- Products Status Table -------------- -->
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="box box-success">
-                    <div class="panel">
-                        <div class="panel-heading">
-                            <span class="panel-title hidden-xs"> My Leave Lists </span>
-                        </div>
-                        <div class="panel-body pn">
-                            @if(Session::has('flash_message'))
-                                <div class="alert alert-success">
-                                    {{ Session::get('flash_message') }}
+                <div class="box box-success">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <span class="panel-title hidden-xs"> My Leave Lists </span>
+                                <div class="pull-right">
+                                    <button class="btn btn-success">abc</button>
+                                    <button class="btn btn-danger">def</button>
                                 </div>
-                            @endif
-                            {!! Form::open(['class' => 'form-horizontal']) !!}
-                            <div class="table-responsive">
-                                <table class="table allcp-form theme-warning tc-checkbox-1 fs13">
-                                    <thead>
-                                    <tr class="bg-light">
-                                        <th class="text-center">Id</th>
-                                        <th class="text-center">Date Leave</th>
-                                        <th class="text-center">Session</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php $i =0;?>
-                                    @foreach($leaveDetails as $leaveDetail)
-                                        <tr>
-                                            <td class="text-center">{{$leaveDetail->id}}</td>
-                                            <td class="text-center">{{getFormattedDate($leaveDetail->date_leave)}}</td>
-                                            <td class="text-center">
-                                                @if($leaveDetail->session_id == 0)
-                                                    Morning
-                                                @elseif($leaveDetail->session_id == 1)
-                                                    Afternoon
-                                                @else
-                                                    All day
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
                             </div>
-                            {!! Form::close() !!}
+                            <div class="panel-body pn">
+                                <div class="table-responsive">
+                                    <table class="table allcp-form theme-warning tc-checkbox-1 fs13">
+                                        <thead>
+                                            <tr class="bg-light">
+                                                <th class="text-center">Id</th>
+                                                <th class="text-center">Date Leave</th>
+                                                <th class="text-center">Session</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($leaveDetails as $leaveDetail)
+                                            <tr>
+                                                <td class="text-center">{{$leaveDetail->id}}</td>
+                                                <td class="text-center">{{getFormattedDate($leaveDetail->date_leave)}}</td>
+                                                <td class="text-center">
+                                                    @if($leaveDetail->session_id == 0)
+                                                        Morning
+                                                    @elseif($leaveDetail->session_id == 1)
+                                                        Afternoon
+                                                    @else
+                                                        All day
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <p>Reason:</p>
+                                    <div class="col-sm-12 content-card">
+                                        {!! $leaves->reason !!}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            </div>
     </section>
 
 </div>

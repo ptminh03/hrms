@@ -35,7 +35,7 @@
                                 </form>
                             </div>
 
-                            <div class="col-xl-4">
+                            <div class="col-xl-4 margintop-6">
                                 Total &nbsp;
                                 <span class="badge badge-pill badge-info">
                                     {{ $info['total'] }}
