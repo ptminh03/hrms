@@ -13,15 +13,20 @@
                             <img src="{{ $avatar }}" class="img-circle" height="50" width="50" alt="Avatar">
                         </div>
                         <div class="user-info col-md-11">
-                            <h6 class="tag-name">{{ $new->name }}</h6>
-                            <!-- <small>Sep 25, 2015, 8:25 PM</small> -->
+                            <h6 class="tag-name">
+                                @if($new->author !== null)
+                                {{ $new->name }}
+                                @else
+                                System
+                                @endif
+                            </h6>
                             <small>{{ Carbon\Carbon::parse($new->updated_at)->format('Y-m-d H:i:s') }}</small>
                         </div>
                     </div>
                     <div class="post-content">
                         @if($new->type === 2 || $new->type === 3)
                         <h3>Request announcement</h3>
-                        <p>{{ $new->name }} has been approve your request!</p>
+                        <p><a href="{{ route('employee.show', ['id' => $new->id]) }}">{{ $new->name }}</a> has been approve your request!</p>
                         @else
                         <h3>{{ $new->title }}</h3>
                         <p>{!! $new->content !!}</p>
