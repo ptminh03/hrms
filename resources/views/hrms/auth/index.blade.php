@@ -26,7 +26,7 @@
                     <div class="post-content">
                         @if($new->type === 2 || $new->type === 3)
                         <h3>Leave Announcement</h3>
-                        <p><a href="{{ route('employee.show', ['id' => $new->id]) }}">{{ $new->name }}</a> has been approve <a href="{{ route('leave.show', ['id' => $new->target_id]) }}"></a> your request!</p>
+                        <p><a href="{{ route('employee.show', ['id' => $new->id]) }}">{{ $new->name }}</a> has been @if ($new->leaveStatus() == 1) approved @else denied @endif your<a href="{{ route('leave.show', ['id' => $new->target_id]) }}"> Leave request</a> !</p>
                         @else
                         <h3>{{ $new->title }}</h3>
                         <p>{!! $new->content !!}</p>

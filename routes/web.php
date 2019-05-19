@@ -72,16 +72,6 @@ use App\Http\Controllers\HomeController;
             Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('device-type.delete');
         });
 
-        Route::group(['prefix' => 'device-types'], function()
-        {
-            Route::get('/', 'DeviceTypeController@index')->name('device-type.index');
-            Route::get('/create', 'DeviceTypeController@create')->name('device-type.create');
-            Route::post('/', 'DeviceTypeController@store')->name('device-type.store');
-            Route::get('/{id}/edit', 'DeviceTypeController@edit')->where('id', '[1-9][0-9]*')->name('device-type.edit');
-            Route::put('/{id}', 'DeviceTypeController@update')->where('id', '[1-9][0-9]*')->name('device-type.update');
-            Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('device-type.delete');
-        });
-
         Route::group(['prefix' => 'assign-devices'], function()
         {
             Route::get('/', 'DeviceTypeController@index')->name('assign-device.index');
@@ -111,9 +101,29 @@ use App\Http\Controllers\HomeController;
             Route::put('/{id}', 'PositionController@update')->where('id', '[1-9][0-9]*')->name('position.update');
             Route::delete('/{id}', 'PositionController@destroy')->where('id', '[1-9][0-9]*')->name('position.delete');
         });
+
+        Route::group(['prefix' => 'policies'], function()
+        {
+            Route::get('/', 'PolicyController@index')->name('policy.index');
+            Route::get('/create', 'PolicyController@create')->name('policy.create');
+            Route::post('/', 'PolicyController@store')->name('policy.store');
+            Route::get('/{id}/edit', 'PolicyController@edit')->name('policy.edit');
+            Route::put('/{id}', 'PolicyController@update')->where('id', '[1-9][0-9]*')->name('policy.update');
+            Route::delete('/{id}', 'PolicyController@destroy')->where('id', '[1-9][0-9]*')->name('policy.delete');
+        });
+
+        Route::group(['prefix' => 'news'], function()
+        {
+            Route::get('/', 'NewsController@index')->name('news.index');
+            Route::get('/create', 'NewsController@create')->name('news.create');
+            Route::post('/', 'NewsController@store')->name('news.store');
+            Route::get('/{id}/show', 'NewsController@show')->name('news.show');
+            Route::get('/{id}/edit', 'NewsController@edit')->name('news.edit');
+            Route::put('/{id}', 'NewsController@update')->where('id', '[1-9][0-9]*')->name('news.update');
+            Route::delete('/{id}', 'NewsController@destroy')->where('id', '[1-9][0-9]*')->name('news.delete');
+        });
     });
 
     Route::get('/test', 'DeviceController@test');
-    Route::get('hr-policy', ['as' => 'hr-policy', 'uses' => 'PolicyController@showPolicy']);
 
     Auth::routes();
