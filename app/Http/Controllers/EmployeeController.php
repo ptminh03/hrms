@@ -186,7 +186,7 @@ class EmployeeController extends Controller
         $employees = $employees->orderBy('id', 'desc')->paginate(15);
 
         $info = [
-            'department' => Department::findOrFail($id)->description,
+            'department' => Department::findOrFail($id)->name,
             'total' => Department::findOrFail($id)->employees()->whereNull('date_of_resignation')->count()
         ];
 

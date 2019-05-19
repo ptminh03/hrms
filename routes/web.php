@@ -58,14 +58,40 @@ use App\Http\Controllers\HomeController;
             Route::get('/', 'DeviceController@index')->name('device.index');
             Route::get('/create', 'DeviceController@create')->name('device.create');
             Route::post('/', 'DeviceController@store')->name('device.store');
+            Route::get('/status', 'DeviceController@status')->name('device.status');
+            Route::delete('/{id}', 'DeviceController@destroy')->where('id', '[1-9][0-9]*')->name('device.delete');
         });
 
-        Route::group(['prefix' => 'news'], function()
+        Route::group(['prefix' => 'device-types'], function()
         {
-            Route::get('/add', 'NewsController@showAdd')->name('news.showAdd');
-            Route::post('/add', 'NewsController@processAdd');
+            Route::get('/', 'DeviceTypeController@index')->name('device-type.index');
+            Route::get('/create', 'DeviceTypeController@create')->name('device-type.create');
+            Route::post('/', 'DeviceTypeController@store')->name('device-type.store');
+            Route::get('/{id}/edit', 'DeviceTypeController@edit')->where('id', '[1-9][0-9]*')->name('device-type.edit');
+            Route::put('/{id}', 'DeviceTypeController@update')->where('id', '[1-9][0-9]*')->name('device-type.update');
+            Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('device-type.delete');
         });
-        
+
+        Route::group(['prefix' => 'device-types'], function()
+        {
+            Route::get('/', 'DeviceTypeController@index')->name('device-type.index');
+            Route::get('/create', 'DeviceTypeController@create')->name('device-type.create');
+            Route::post('/', 'DeviceTypeController@store')->name('device-type.store');
+            Route::get('/{id}/edit', 'DeviceTypeController@edit')->where('id', '[1-9][0-9]*')->name('device-type.edit');
+            Route::put('/{id}', 'DeviceTypeController@update')->where('id', '[1-9][0-9]*')->name('device-type.update');
+            Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('device-type.delete');
+        });
+
+        Route::group(['prefix' => 'assign-devices'], function()
+        {
+            Route::get('/', 'DeviceTypeController@index')->name('assign-device.index');
+            Route::get('/create', 'DeviceTypeController@create')->name('assign-device.create');
+            Route::post('/', 'DeviceTypeController@store')->name('assign-device.store');
+            Route::get('/{id}/edit', 'DeviceTypeController@edit')->where('id', '[1-9][0-9]*')->name('assign-device.edit');
+            Route::put('/{id}', 'DeviceTypeController@update')->where('id', '[1-9][0-9]*')->name('assign-device.update');
+            Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('assign-device.delete');
+        });
+
         Route::group(['prefix' => 'departments'], function()
         {
             Route::get('/', 'DepartmentController@index')->name('department.index');
@@ -73,7 +99,7 @@ use App\Http\Controllers\HomeController;
             Route::post('/', 'DepartmentController@store')->name('department.store');
             Route::get('/{id}/edit', 'DepartmentController@edit')->where('id', '[1-9][0-9]*')->name('department.edit');
             Route::put('/{id}', 'DepartmentController@update')->where('id', '[1-9][0-9]*')->name('department.update');
-            Route::get('/{id}', 'DepartmentController@destroy')->where('id', '[1-9][0-9]*')->name('department.delete');
+            Route::delete('/{id}', 'DepartmentController@destroy')->where('id', '[1-9][0-9]*')->name('department.delete');
         });
         
         Route::group(['prefix' => 'positions'], function()
@@ -83,10 +109,11 @@ use App\Http\Controllers\HomeController;
             Route::post('/', 'PositionController@store')->name('position.store');
             Route::get('/{id}/edit', 'PositionController@edit')->where('id', '[1-9][0-9]*')->name('position.edit');
             Route::put('/{id}', 'PositionController@update')->where('id', '[1-9][0-9]*')->name('position.update');
-            Route::get('/{id}', 'PositionController@destroy')->where('id', '[1-9][0-9]*')->name('position.delete');
+            Route::delete('/{id}', 'PositionController@destroy')->where('id', '[1-9][0-9]*')->name('position.delete');
         });
     });
-    
+
+    Route::get('/test', 'DeviceController@test');
     Route::get('hr-policy', ['as' => 'hr-policy', 'uses' => 'PolicyController@showPolicy']);
 
     Auth::routes();

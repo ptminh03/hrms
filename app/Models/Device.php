@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DeviceType;
+use DB;
 
 class Device extends Model
 {
@@ -12,5 +13,17 @@ class Device extends Model
     public function deviceType()
     {
         return $this->belongsTo(DeviceType::class);
+    }
+
+    public function available()
+    {
+        return $this->where('status', '=', 0)->selectRaw('device_type_id, count(`device_type_id`) as count')->groupBy('device_type_id')->having('count', '>', 0)->get();
+    }
+
+    public function generateCode()
+    {
+        $code = (string) $this->code;
+        for ( ; strlen($code) < 4; $code = "0". $code );
+        return $this->deviceType->prefix. "-". $code;
     }
 }

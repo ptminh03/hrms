@@ -67,18 +67,25 @@
 
     <!-- Device -->
     <li>
+
         <a class="accordion-toggle" href="#">
             <span class="fa fa-laptop"></span>
             <span class="sidebar-title">Devices</span>
             <span class="caret"></span>
         </a>
         <ul class="nav sub-nav">
-            <li>
-                <a href="{{ route('device.index') }}"> List of devices </a>
-            </li>
             @if(Auth::user()->isManager())
                 <li>
+                    <a href="{{ route('device.status') }}"> Status of devices </a>
+                </li>
+                <li>
+                    <a href="{{ route('device.index') }}"> List of devices </a>
+                </li>
+                <li>
                     <a href="{{ route('device.create') }}"> Create New Device</a>
+                </li>
+                <li>
+                    <a href="{{ route('device-type.index') }}"> List of Device Types</a>
                 </li>
             @endif
         </ul>
@@ -138,7 +145,7 @@
                     <a href="{{route('position.index')}}"> List of Positions </a>
                 </li>
                 <li>
-                    <a href="{{route('position.create')}}"> Add New Position </a>
+                    <a href="{{route('position.create')}}"> Create New Position </a>
                 </li>
             </ul>
         </li>

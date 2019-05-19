@@ -2,13 +2,23 @@
 @section('content')
     @section('title') DEVICES @endsection
     <div class="panel-heading">
-        <span class="panel-title hidden-xs text-primary"> LIST OF DEVICES </span>
+        <span class="panel-title hidden-xs text-primary"> STATUS OF DEVICES </span>
     </div>
     <div class="panel-body pn">
 
         @if(Session::has('message'))
             <div class="alert {{ Session::get('class') }}">
                 {{ Session::get('message') }}
+            </div>
+        @endif
+        
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
 
@@ -18,12 +28,10 @@
                     <tr class="bg-secondary">
                         <th colspan="12">
                             <div class="search-container col-xl-4">
-                                <form action="" method="GET">
-                                    {!! Form::select('type', $deviceTypes, $request->type, ['class' => 'btn btn-mini search-box h-30']) !!}
-                                    <div class="inline-object">
-                                        <button class="btn-type" type="submit"><i class="fa fa-search"></i></button>
-                                    </div> 
-                                </form>
+                                {{-- <form action="" method="GET">
+                                    <input class="search-box" type="text" placeholder="Search by name" name="q" value="{{ $request->q }}">
+                                    <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
+                                </form> --}}
                             </div>
                             
                             <div class="col-xl-4">
@@ -47,40 +55,35 @@
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr class="bg-light">
-                        <th class="text-center">ID</th>
+                        <th class="text-center">{{'#'}}</th>
                         <th class="text-center">Device Type</th>
-                        <th class="text-center">Code</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Available</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach($devices as $device)
+                    @php $i = 0; @endphp
+                    @foreach($countDevices as $countDevice)
+                        @php $i++; @endphp
                         <tr>
-                            <td class="text-center">{{ $device->id }}</td>
+                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$countDevice->prefix}}</td>
                             <td class="text-left">
-                                <a href="{{ route('device.index', ['type' => $device->device_type_id]) }}">
-                                    {{ $device->deviceType->description }}
+                                <a href="#">
+                                    {{$countDevice->description}}
                                 </a>
                             </td>
-                            <td class="text-center">{{ $device->generateCode() }}</td>
                             <td class="text-center">
-                                @if ($device->status == 0)
-                                    <span class="text-success glyphicon glyphicon-ok"></span>
+                                @if($countDevice->devices_count != 0)
+                                    <a href="#" class="text-success disabled">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </a>
                                 @else
-                                    <span class="text-muted glyphicon glyphicon-refresh"></span>
+                                    <a href="#" class="text-danger disabled">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
                                 @endif
-                            </td>
-                            <td class="text-center">
-                                <form action="{{ route('device.delete', ['id' => $device->id]) }}" method="POST" class="inline-object">
-                                    {!! method_field('delete') !!}
-                                    {!! csrf_field() !!}
-    
-                                    <button class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this device ?');">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -88,7 +91,7 @@
             </table>
 
             <div class="paginate">
-                {{ $devices->links() }}
+                {{ $countDevices->links() }}
             </div>
         </div>
     </div>

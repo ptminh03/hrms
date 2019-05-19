@@ -25,10 +25,10 @@
             <input type="hidden" value="{!! csrf_token() !!}" name="_token">
             {{ method_field('PUT') }}
             <div class="form-group">
-                <label>Description
+                <label>Name
                     <span class="text-danger">*<span>
                 </label>
-                <input type="text" class="form-control"  placeholder="Enter description" name="name" value="{{ $department->name }}" required>
+                <input type="text" class="form-control w-25"  placeholder="Name must be unique" name="name" value="{{ $department->name }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

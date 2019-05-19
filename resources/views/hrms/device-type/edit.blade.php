@@ -1,8 +1,8 @@
 @extends('hrms.layouts.base')
 @section('content')
-@section('title') DEPARTMENTS @endsection
+@section('title') DEVICE TYPES @endsection
     <div class="panel-heading">
-        <span class="panel-title hidden-xs text-primary"> CREATE NEW DEPARTMENT </span>
+        <span class="panel-title hidden-xs text-primary"> EDIT DEVICE TYPES </span>
     </div>
     <div class="panel-body pn">
         @if(Session::has('message'))
@@ -21,14 +21,21 @@
             </div>
         @endif
 
-        <form action="{{route('department.store')}}" method="POST">
+        <form action="{{ route('device-type.update', ['id' => $deviceType->id]) }}" method="POST">
             {!! csrf_field() !!}
-            
+            {{ method_field('PUT') }}
             <div class="form-group">
-                <label>Name
+                <label>Prefix
                     <span class="text-danger">*<span>
                 </label>
-                <input type="text" class="form-control w-25"  placeholder="Name must be unique" name="name">
+                <input type="text" class="form-control w-25"  placeholder="Prefix must be unique" name="prefix" value="{{ $deviceType->prefix }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description
+                    <span class="text-danger">*<span>
+                </label>
+                <input type="text" class="form-control w-25"  placeholder="Description must be unique" name="description" value="{{ $deviceType->description }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

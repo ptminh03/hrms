@@ -40,9 +40,14 @@
                             <a href="{{ route('position.edit', ['id' => $position->id]) }}" class="btn btn-xs btn-info">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
-                            <a href="{{ route('position.delete', ['id' => $position->id]) }}" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this position ?');">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
+                            <form action="{{ route('position.delete', ['id' => $position->id]) }}" method="POST" class="inline-object">
+                                {!! method_field('delete') !!}
+                                {!! csrf_field() !!}
+
+                                <button class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this position ?');">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

@@ -30963,3 +30963,16 @@ select.btn-mini+.caret {
 .w-25 {
   width: 25% !important;
 }
+
+.h-30 {
+  height: 30px !important;
+}
+
+.btn-type {
+  border: none;
+  position: absolute;
+  top: 3px;
+  height: 22px;
+  left: 115px;
+  outline: none;
+}

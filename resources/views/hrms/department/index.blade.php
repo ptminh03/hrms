@@ -26,7 +26,7 @@
                 <thead>
                     <tr class="bg-light">
                         <th class="text-center">ID</th>
-                        <th class="text-center">Description</th>
+                        <th class="text-center">Name</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -44,9 +44,14 @@
                             <a href="{{ route('department.edit', ['id' => $department->id]) }}" class="btn btn-xs btn-info">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
-                            <a href="{{ route('department.delete', ['id' => $department->id]) }}" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this department ?');">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
+                            <form action="{{ route('department.delete', ['id' => $department->id]) }}" method="POST" class="inline-object">
+                                {!! method_field('delete') !!}
+                                {!! csrf_field() !!}
+
+                                <button class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this department ?');">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
