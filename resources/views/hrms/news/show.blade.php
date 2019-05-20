@@ -29,15 +29,14 @@
                         {{ method_field('PUT') }}
                         
                         <div class="form-group">
-                                <p>Title</p>
-                                <label class="control-label">{{ $news->title }}</label>
-    
-                                <div class="control-label">
+                                <p><strong>Title</strong></p>
+                                <div class="col-sm-12 content-card">
+                                    <p><strong>{{ $news->title }}</strong></p> 
                                 </div>
                             </div>
 
                         <div class="form-group">
-                            <p>Content</p>
+                            <p><strong>Content</strong></p>
                             <div class="col-sm-12 content-card">
                                 {!! $news->content !!}
                             </div>
