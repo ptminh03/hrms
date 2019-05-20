@@ -23,15 +23,17 @@
 
         <form action="{{ route('position.store') }}" method="POST">
             {!! csrf_field() !!}
-
-            <div class="form-group">
-                <label>Name
-                    <span class="text-danger">*<span>
-                </label>
-                <input type="text" class="form-control w-25" placeholder="Name must be unique" name="name">
+            <div class="form-group row">
+                <div class="form-group col-xl-12">
+                    <label>Name
+                        <span class="text-danger">*<span>
+                    </label>
+                    <input type="text" class="form-control w-25" placeholder="Name must be unique" name="name">
+                </div>
             </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group row col-xl-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
-    </div>                   
+    </div>
 @endsection

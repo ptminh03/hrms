@@ -26,33 +26,32 @@
             {!! csrf_field() !!}
             
             <div class="form-group row">
-            <div class="form-group col-xl-3">
-                <label for="department_id">Device Type
-                    <span class="text-danger">*<span>
-                </label>
-                <select class="form-control" name="device_type_id">
-                    <option disabled selected>-</option>
-                    @foreach($deviceTypes as $deviceType)
-                        <option value="{{ $deviceType->id }}">{{ $deviceType->description }}</option>
-                    @endforeach
-                </select>
-            </div>
-            
-            <div class="form-group col-xl-3">
-                <label for="number">Number of device(s)
-                    <span class="text-danger">*<span>
+                <div class="form-group col-xl-3">
+                    <label for="department_id">Device Type
+                        <span class="text-danger">*<span>
+                    </label>
+                    <select class="form-control" name="device_type_id">
+                        <option disabled selected>-</option>
+                        @foreach($deviceTypes as $deviceType)
+                            <option value="{{ $deviceType->id }}">{{ $deviceType->description }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-xl-3">
+                    <label for="number">Number of device(s)
+                        <span class="text-danger">*<span>
                     </label>
                     <select class="form-control" name="number">
                         <option disabled selected>-</option>
                         @for ($i = 1; $i <= 50; $i++)
                             <option value="{{ $i }}">{{ $i}}</option>
                         @endfor
-                </select>
+                    </select>
+                </div>
             </div>
-        </div>
-            <div class="forrm-group row">
+            <div class="form-group row col-xl-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-    </div>                   
+    </div>
 @endsection
