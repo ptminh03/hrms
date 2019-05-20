@@ -15,10 +15,35 @@ class News extends Model
     
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'target_id', 'id');
     }
 
-    public function leave() {
+    public function leave()
+    {
         return $this->belongsTo(Leave::class);
+    }
+
+    public function leaveStatus()
+    {
+        if ( $this->type != 2)
+        {
+            return new Leave;
+        }
+
+        if ( !$leave = Leave::find($this->target_id) )
+        {
+            return new Leave;
+        }
+
+        return $leave->status;
+    }
+
+    public function showTitle()
+    {
+        if( strlen($this->title) > 60 )
+        {
+            return substr($this->title, 0, 57). '...';
+        }
+        return $this->title;
     }
 }

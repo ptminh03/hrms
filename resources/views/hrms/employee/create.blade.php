@@ -23,7 +23,7 @@
             </div>
         @endif
         
-        <form action="{{ route('employee.store') }}" method="POST">
+        <form action="{{ route('employee.store') }}" method="POST" enctype="multipart/form-data">
             {!! csrf_field() !!}
 
             <div class="form-group form-add-employee col-xl-12">
@@ -75,7 +75,7 @@
                 <div class="form-group col-xl-4">
                     <label>Department</label>
                     <select class="form-control" name="department_id">
-                        <option>-</option>
+                        <option value="">-</option>
                         @foreach($departments as $department)
                             <option value="{{ $department->id }}">{{ $department->name }}</option>
                         @endforeach
@@ -84,7 +84,7 @@
                 <div class="form-group col-xl-4">
                     <label>Position</label>
                     <select class="form-control" name="position_id">
-                        <option>-</option>
+                        <option value="">-</option>
                         @foreach($positions as $position)
                             <option value="{{$position->id}}">{{$position->name}}</option>
                         @endforeach

@@ -7,11 +7,7 @@
 <div class="sidebar-widget author-widget">
     <div class="media">
         <a href="{{route('employee.myProfile')}}">
-            @if(isset(Auth::user()->employee->photo))
-                <img src="/assets/img/avatars/{{Auth::user()->employee->photo}}" width="130px" height="130px" class="img-responsive">
-            @else
-                <img src="/assets/img/avatars/profile_pic.png" width="130px" height="130px" class="img-circle">
-            @endif
+            <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="70px" height="70px" class="img-circle">
         </a>
 
         <div class="media-body">
@@ -151,6 +147,46 @@
         </li>
     @endif
     
+    <!-- Policy -->
+    <li>
+        <a class="accordion-toggle" href="#">
+            <span class="glyphicon glyphicon-lock"></span>
+        <span class="sidebar-title">Policies</span>
+            <span class="caret"></span>
+        </a>
+        <ul class="nav sub-nav">
+            <li>
+                <a href="{{route('policy.index')}}"> List of Policies </a>
+            </li>
+
+            @if(Auth::user()->isManager())
+                <li>
+                    <a href="{{route('policy.create')}}"> Create New Policies </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+
+    <!-- News -->
+    @if( Auth::user()->isManager() )
+        <li>
+            <a class="accordion-toggle" href="#">
+                <span class="glyphicon glyphicon-pencil"></span>
+            <span class="sidebar-title">News</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="nav sub-nav">
+                <li>
+                    <a href="{{route('news.index')}}"> List of News </a>
+                </li>
+                
+                    <li>
+                        <a href="{{route('news.create')}}"> Create New Policies </a>
+                    </li>
+                @endif
+            </ul>
+        </li>
+
     <p> &nbsp; </p>
 </ul>
 <!-- -------------- /Sidebar Menu  -------------- -->

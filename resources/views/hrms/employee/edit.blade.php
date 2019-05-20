@@ -23,7 +23,7 @@
             </div>
         @endif
         
-        <form action="{{ route('employee.update', ['id' => $employee->id]) }}" method="POST">
+        <form action="{{ route('employee.update', ['id' => $employee->id]) }}" method="POST" enctype="multipart/form-data">
             <input type="hidden" value="{!! csrf_token() !!}" name="_token">
             {{ method_field('PUT') }}
             <div class="form-group form-add-employee col-xl-12">
@@ -84,7 +84,7 @@
                 <div class="form-group col-xl-4">
                     <label>Position</label>
                     <select id="position" class="form-control" name="position_id">
-                        <option>-</option>
+                        <option value="">-</option>
                         @foreach($positions as $position)
                             <option value="{{$position->id}}" @if ($position->id == $employee->position_id) selected @endif>{{$position->name}}</option>
                         @endforeach

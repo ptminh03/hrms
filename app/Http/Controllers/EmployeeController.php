@@ -71,31 +71,28 @@ class EmployeeController extends Controller
             'code' => 'bail|required|unique:employees',
             'name' => 'required',
             'gender' => 'bail|required|in:Male,Female',
-            'department_id' => 'exists:departments',
-            'position_id' => 'exists:positions',
+            'department_id' => 'exists:departments,id',
+            'position_id' => 'exists:positions,id',
             'date_of_join' => 'bail|required|date',
             'date_of_birth' => 'date',
             'phone_number' => 'numeric',
             'salary' => 'bail|required|numeric|min:1000000'
         ]);
-
-        $filename = public_path('photos/a.png');
         if ($request->file('photo')) {
-            $file             = $request->file('photo');
-            $filename         = str_random(12);
-            $fileExt          = $file->getClientOriginalExtension();
-            $allowedExtension = ['jpg', 'jpeg', 'png'];
             $destinationPath  = public_path('photos');
-            if (!in_array($fileExt, $allowedExtension)) {
-                return back()
-                    ->with('message', 'Employee photo has extension not allowed')
-                    ->with('class', 'alert-danger');
-            }
-            $filename = $filename . '.' . $fileExt;
-            $file->move($destinationPath, $filename);
+            $file             = $request->file('photo');
+            $fileExt          = $file->getClientOriginalExtension();
+            // $allowedExtension = ['jpg', 'jpeg', 'png'];
+            // if (!in_array($fileExt, $allowedExtension)) {
+            //     return back()
+            //         ->with('message', 'Employee photo has extension not allowed')
+            //         ->with('class', 'alert-danger');
+            // }
+            $filename = str_random(12). '.'. $fileExt;
         } else {
             $filename = Employee::PHOTO_DEFAULT;
         }
+        $file->move($destinationPath, $filename);
 
         $user           = new User;
         $user->email = $request->email;
