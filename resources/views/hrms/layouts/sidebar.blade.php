@@ -181,7 +181,7 @@
                 </li>
                 
                     <li>
-                        <a href="{{route('news.create')}}"> Create New Policies </a>
+                        <a href="{{route('news.create')}}"> Create New News </a>
                     </li>
                 @endif
             </ul>

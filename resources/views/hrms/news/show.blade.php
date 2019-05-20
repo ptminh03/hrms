@@ -1,8 +1,8 @@
 @extends('hrms.layouts.base')
 @section('content')
-@section('title') POLICIES @endsection
+@section('title') NEWS @endsection
     <div class="panel-heading">
-        <span class="panel-title hidden-xs">Edit Policy</span>
+        <span class="text-info panel-title hidden-xs">News Details</span>
     </div>
     <div class="text-center"></div>
         <div class="panel-body pn">
@@ -30,7 +30,7 @@
                         
                         <div class="form-group">
                                 <p>Title</p>
-                                <label class="col-md-4 control-label">{{ $news->title }}</label>
+                                <label class="control-label">{{ $news->title }}</label>
     
                                 <div class="control-label">
                                 </div>

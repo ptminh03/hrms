@@ -150,7 +150,7 @@
                 </table>
                 
                 <div class="paginate">
-                    {{ $news->links() }}
+                    {{ $news->appends(['q' => request()->q])->render() }}
                 </div>
             </div>
         </div>

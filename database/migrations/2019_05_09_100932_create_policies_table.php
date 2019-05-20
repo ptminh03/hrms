@@ -17,7 +17,7 @@ class CreatePoliciesTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned()->nullable();
             $table->string('title')->nullable();
-            $table->string('content')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
