@@ -24,27 +24,45 @@
                     <div class="col-xl-6">
                         <label class="col-xl-6">Name:</label>{{$employee->name}}
                     </div>
+
                     <div class="col-xl-6">
                         <label class="col-xl-6">Code:</label>{{$employee->code}}
                     </div>
+
                     <div class="col-xl-6">
                         <label class="col-xl-6">Gender:</label>{{$employee->gender}}
                     </div>
+
                     <div class="col-xl-6">
                         <label class="col-xl-6">Birthday:</label>{{$employee->date_of_birth}}
                     </div>
+
                     <div class="col-xl-6">
-                        <label class="col-xl-6">Position:</label>{{$employee->position->description}}
+                        <label class="col-xl-6">Department:</label>
+                        @if ( !empty($employee->department->name) )
+                        {{ $employee->department->name }}
+                        @else
+                        -
+                        @endif
                     </div>
+
                     <div class="col-xl-6">
-                        <label class="col-xl-6">Department:</label>{{$employee->department->description}}
+                        <label class="col-xl-6">Position:</label>
+                        @if ( !empty($employee->position->name) )
+                            {{ $employee->position->name }}
+                        @else
+                            -
+                        @endif
                     </div>
+
                     <div class="col-xl-6">
                         <label class="col-xl-6">Phone:</label>{{$employee->phone_number}}
                     </div>
+
                     <div class="col-xl-6">
                         <label class="col-xl-6">Date join:</label>{{$employee->date_of_join}}
                     </div>
+                    
                     @if(Auth::user()->isManager())
                         <div class="col-xl-6">
                             <label class="col-xl-6">Account:</label>{{$employee->account_number}}

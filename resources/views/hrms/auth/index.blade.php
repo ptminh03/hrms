@@ -37,7 +37,7 @@
                             <h3>Leave Announcement</h3>
                             <p><a href="{{ route('employee.show', ['id' => $new->id]) }}">{{ $new->name }}</a> has been @if ($new->leaveStatus() == 1) approved @else denied @endif your<a href="{{ route('leave.show', ['id' => $new->target_id]) }}"> Leave request</a> !</p>
                         @else
-                            <h3>{{ $new->showTitle() }}</h3>
+                            <h3>{{ $new->title }}</h3>
                             <p>{!! $new->content !!}</p>
                         @endif
                     </div>
