@@ -30983,3 +30983,15 @@ select.btn-mini+.caret {
 .mx-5 {
   margin: 0px 5px;
 }
+
+.p-20 {
+  font-size: 20px;
+}
+
+.p-15 {
+  font-size: 15px;
+}
+
+.margintop-10 {
+  margin-top: 10px;
+}

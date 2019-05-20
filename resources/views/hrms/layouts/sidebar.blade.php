@@ -5,24 +5,23 @@
 
 <!-- Sidebar Author -->
 <div class="sidebar-widget author-widget">
-    <div class="media">
+    <div class="media text-center">
         <a href="{{route('employee.myProfile')}}">
-            <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="150px" height="150px" class="img-circle">
+            <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="" height="150px" class="img-circle">
         </a>
 
-        <div class="media-body">
-            <a href="{{route('employee.myProfile')}}"></a>
-            <p>{{Auth::user()->employee->name}}</p>
-            <p>{{Auth::user()->employee->code}}
-            @if (isset(Auth::user()->employee->department->name))
-                {{" - "}}
-                @if (isset(Auth::user()->employee->position->name))
-                    {{Auth::user()->employee->position->name. " "}} 
-                @endif
-                    <a href="{{ route('employee.myDepartment') }}">
-                    {{Auth::user()->employee->department->name}}
+        <a href="{{route('employee.myProfile')}}">
+            <p class="p-20 margintop-10">{{Auth::user()->employee->name}}</p>
+        </a>
+        <p class="p-15">{{Auth::user()->employee->code}}
+        @if (isset(Auth::user()->employee->department->name))
+            {{" - "}}
+            @if (isset(Auth::user()->employee->position->name))
+                {{Auth::user()->employee->position->name. " "}} 
             @endif
-        </div>
+            <a href="{{ route('employee.myDepartment') }}">
+            {{Auth::user()->employee->department->name}}
+        @endif
     </div>
 </div>
 
