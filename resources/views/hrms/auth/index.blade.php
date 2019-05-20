@@ -10,7 +10,7 @@
         <div class="row">
             @foreach($news as $new)
             <div class="border-content">
-                <div class="col-sm-12 content-card">
+                <div class="col-sm-12 content-card mt-30">
                     <div class="row">
                         <div class="col-md-1">
                             @if ( $new->type == 1 )

@@ -7,7 +7,7 @@
 <div class="sidebar-widget author-widget">
     <div class="media">
         <a href="{{route('employee.myProfile')}}">
-            <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="70px" height="70px" class="img-circle">
+            <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="150px" height="150px" class="img-circle">
         </a>
 
         <div class="media-body">

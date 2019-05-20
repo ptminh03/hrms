@@ -18,7 +18,7 @@
 
             <div class="panel-body">
                 <div class="col-xl-4">
-                    <img src="/assets/img/avatars/{{$employee->photo}}" alt="/assets/img/avatars/{{$employee->photo}}" width="250px" height="250px">
+                    <img class="img-circle" src="{{ asset('/photos/'. $employee->photo) }}" alt="No image" width="250px" height="250px">
                 </div>
                 <div class="col-xl-8">
                     <div class="col-xl-6">
@@ -40,7 +40,7 @@
                     <div class="col-xl-6">
                         <label class="col-xl-6">Department:</label>
                         @if ( !empty($employee->department->name) )
-                        {{ $employee->department->name }}
+                            {{ $employee->department->name }}
                         @else
                         -
                         @endif

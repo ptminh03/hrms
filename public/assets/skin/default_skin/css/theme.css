@@ -15835,7 +15835,7 @@ a.list-group-item:focus {
 
 #content .panel .panel-body {
   border: 0;
-  margin-top: 30px;
+  margin-top: 5px;
 }
 
 #content .panel .panel-heading+.panel-body {
@@ -30878,7 +30878,6 @@ body.basic-timeline .panel-clone {
 }
 
 .content-card {
-  margin: 10px 0px;
   padding-top: 15px;
   padding-bottom: 15px;
   border: 1px solid silver;
@@ -30960,6 +30959,10 @@ select.btn-mini+.caret {
   margin-top: 6px;
 }
 
+.mt-30 {
+  margin-top: 30px !important;
+}
+
 .w-25 {
   width: 25% !important;
 }
@@ -30975,4 +30978,8 @@ select.btn-mini+.caret {
   height: 22px;
   left: 115px;
   outline: none;
+}
+
+.mx-5 {
+  margin: 0px 5px;
 }
