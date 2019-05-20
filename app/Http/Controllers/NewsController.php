@@ -43,7 +43,7 @@ class NewsController extends Controller
 
         return redirect()
             ->route('news.index')
-            ->with('message', 'Create new success')
+            ->with('message', 'Create news success')
             ->with('class', 'alert-success');
     }
 

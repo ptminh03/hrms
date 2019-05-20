@@ -33,7 +33,6 @@
                                 <label class="col-md-4 control-label">{{ $news->title }}</label>
     
                                 <div class="control-label">
-                                    {{--  <input type="text" class="form-control"  placeholder="Title must be required" name="title" value="{{ $policy->title }}" required>  --}}
                                 </div>
                             </div>
 

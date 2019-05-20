@@ -38,7 +38,7 @@
                 </thead>
             </table>
             
-            <table class="table table-hover table-bordered">
+            <table classet="table table-hover table-bordered">
                 <thead>
                     <tr class="bg-light">
                         <th class="text-center">ID</th>
@@ -54,7 +54,7 @@
                             <td class="text-center">{{ $news->id }}</td>
                             <td class="text-left">
                                 <a href="{{ route('news.show', ['id' => $news->id]) }}">
-                                    {{ $news->title }}
+                                    {{ $news->showTitle() }}
                                 </a>
                             </td>
                             <td class="text-center">

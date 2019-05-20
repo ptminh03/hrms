@@ -37,4 +37,13 @@ class News extends Model
 
         return $leave->status;
     }
+
+    public function showTitle()
+    {
+        if( strlen($this->title) > 60 )
+        {
+            return substr($this->title, 0, 57). '...';
+        }
+        return $this->title;
+    }
 }

@@ -7,11 +7,7 @@
 <div class="sidebar-widget author-widget">
     <div class="media">
         <a href="{{route('employee.myProfile')}}">
-            @if(isset(Auth::user()->employee()->photo))
-                <img src="{{asset('photos/'.Auth::user()->employee->photo)}}" width="40px" height="30px" class="img-responsive">
-            @else
-                <img src="/assets/img/avatars/profile_pic.png" class="img-circle">
-            @endif
+            <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="70px" height="70px" class="img-circle">
         </a>
 
         <div class="media-body">
