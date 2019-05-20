@@ -14,19 +14,19 @@ class PositionTableSeeder extends Seeder
     {
         (new Position)->insert([
             [
-                'description' => 'Senior'
+                'name' => 'Senior'
             ],
             [
-                'description' => 'Junior'
+                'name' => 'Junior'
             ],
             [
-                'description' => 'Technical Leader'
+                'name' => 'Technical Leader'
             ],
             [
-                'description' => 'Fresher'
+                'name' => 'Fresher'
             ],
             [
-                'description' => 'Intern'
+                'name' => 'Intern'
             ]
         ]);
     }

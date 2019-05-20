@@ -14,22 +14,22 @@ class DepartmentTableSeeder extends Seeder
     {
         (new Department)->insert([
             [
-                'description' => 'CEO'
+                'name' => 'CEO'
             ],
             [
-                'description' => 'VP'
+                'name' => 'VP'
             ],
             [
-                'description' => 'HR'
+                'name' => 'HR'
             ],
             [
-                'description' => 'iOS'
+                'name' => 'iOS'
             ],
             [
-                'description' => 'Android'
+                'name' => 'Android'
             ],
             [
-                'description' => 'PHP'
+                'name' => 'PHP'
             ]
         ]);
     }
