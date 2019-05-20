@@ -33,7 +33,7 @@ class UserTableSeeder extends Seeder
         });
         User::find(1)->update(['email' => 'ptminh03@gmail.com']);
         Employee::find(1)->update(['name' => 'Phan Tấn Minh']);
-        $department = Department::where('description', '=', 'HR')->first();
+        $department = Department::where('name', '=', 'HR')->first();
         Employee::find(1)->update(['department_id' => $department->id]);
     }
 }
