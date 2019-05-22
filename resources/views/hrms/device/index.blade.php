@@ -89,17 +89,24 @@
                                     <a href="{{ route('device.assign.create', ['id' => $device->id]) }}" class="btn btn-xs btn-info">
                                         <span class="text-default glyphicon glyphicon-plus-sign"></span>
                                     </a>
+                                    <form action="{{ route('device.delete', ['id' => $device->id]) }}" method="POST" class="inline-object">
+                                        {!! method_field('delete') !!}
+                                        {!! csrf_field() !!}
+        
+                                        <button class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this device ?');">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </form>
                                 @else
-                                    <span class="text-default glyphicon glyphicon-minus-sign"></span>
+                                    <form action="{{ route('device-assign.update', ['id' => $device->id]) }}" method="POST" class="inline-object">
+                                        {!! method_field('put') !!}
+                                        {!! csrf_field() !!}
+                                        <button class="btn btn-xs btn-default" onclick="return confirm('Are you sure to unassign this device ?');">
+                                            <span class="glyphicon glyphicon-refresh"></span>
+                                        </button>
+                                    </form>
                                 @endif
-                                <form action="{{ route('device.delete', ['id' => $device->id]) }}" method="POST" class="inline-object">
-                                    {!! method_field('delete') !!}
-                                    {!! csrf_field() !!}
-    
-                                    <button class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this device ?');">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </form>
+                                
                             </td>
                         </tr>
                     @endforeach

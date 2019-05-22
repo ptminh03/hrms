@@ -34,16 +34,37 @@ class LeaveController extends Controller
         ]);
 
         $quantity = 0;
-        foreach ($request->date as $key => $value){
+        $leaveDetails = [];
+        foreach ($request->date as $key => $value) {
+            if ( $detail = LeaveDetail::where('date_leave', '=', date_format(date_create($key),"Y/m/d") )
+                    ->whereRaw('(session_id + ? <> ?)', [$value, 1])->orderBy('id', 'desc')->first() )
+            {   
+                if ( Leave::where('id', '=', $detail->leave_id)->where('status', '<', 2)->first() )
+                {
+                    return back()
+                        ->with('message', 'Create leave request failed because date leave are in conflict with previous request')
+                        ->with('class', 'alert-danger');
+                }
+            }
+
             if ($value == 2) {
                 $quantity += 1;
             } else {
                 $quantity += 0.5;
             }
+            $leaveDetail = [
+              'date_leave' => date_format(date_create($key),"Y/m/d"),
+              'session_id' => $value
+            ];
+            $leaveDetails[] = $leaveDetail;
         }
 
         $leave = new Leave();
         $leave->leave_type_id = $request->leave_type_id;
+        $leave->reason = $request->reason;
+        $leave->employee_id = Auth::user()->id;
+        $leave->quantity = $quantity;
+
         if ($leave->leave_type->description == 'Annual') {
             $annual = LeaveAnnualLeft::where('employee_id', '=', Auth::user()->id)->firstOrFail();
             if ($annual->days_left < $quantity) {
@@ -53,29 +74,7 @@ class LeaveController extends Controller
             }
             $annual->days_left -= $quantity;
         }
-        $leave->reason = $request->reason;
-        $leave->quantity = $quantity;
-        $leave->employee_id = Auth::user()->id;
 
-        $leaveDetails = [];
-        foreach ($request->date as $key => $value) {
-            if ( $detail = LeaveDetail::where('date_leave', '=', date_format(date_create($key),"Y/m/d") )
-                    ->whereRaw('(session_id = ? OR session_id = ?)', [2, $value])->first() )
-            {
-                if ( Leave::where('id', '=', $detail->leave_id)->where('status', '<', 2)->first() )
-                {
-                    return back()
-                        ->with('message', 'Create leave request failed because date leave are in conflict with previous request')
-                        ->with('class', 'alert-danger');
-                }
-            }
-
-            $leaveDetail = [
-              'date_leave' => date_format(date_create($key),"Y/m/d"),
-              'session_id' => $value
-            ];
-            $leaveDetails[] = $leaveDetail;
-        }
         DB::beginTransaction();
         try {
             $leave->save();
@@ -95,11 +94,11 @@ class LeaveController extends Controller
             ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();
+            
             return back()
                 ->with('message', 'Something was error, please try again later')
                 ->with('class', 'alert-danger');
         }
-        
     }
 
     public function show($id)
@@ -117,13 +116,34 @@ class LeaveController extends Controller
 
     public function requestPending()
     {
-        $request = request();
-        $leaves = Leave::where('status', '=', 0)->/*where('employee_id', '<>', Auth::id())->*/orderBy('id', 'desc')->paginate(15);
+        $leaves = Leave::where('status', 0)->with('employee')->whereHas('employee', function($query) {
+            if ( request()->q )
+            {
+                $query->whereNull('date_of_resignation')
+                    ->whereRaw('LOWER(name) like \'%'. strtolower( request()->q ). '%\'');
+            } else {
+                $query->whereNull('date_of_resignation');
+            }
+        });
         $info = [
-            'total' => Leave::where('status', '=', 0)->count()
+            'total' => $leaves->count()
         ];
+        
+        $leaves = $leaves->paginate(15);
+        return view('hrms.leave.request_pending', compact('leaves', 'info'));
+    }
 
-        return view('hrms.leave.request_pending', compact('leaves', 'request', 'info'));
+    public function requestHistory()
+    {
+        $leaves = Leave::where('status', '<>', 0)->with('employee')->whereHas('employee', function($query) {
+            if ( request()->q )
+            {
+                $query->whereRaw('LOWER(name) like \'%'. strtolower( request()->q ). '%\'');
+            }
+        });
+        
+        $leaves = $leaves->orderBy('id', 'desc')->paginate(15);
+        return view('hrms.leave.request_history', compact('leaves'));
     }
 
     public function update($id)
@@ -175,7 +195,8 @@ class LeaveController extends Controller
                 $news->save();
                 DB::commit();
 
-                return back()
+                return redirect()
+                    ->route('leave.request.pending')
                     ->with('message', 'Deny leave request success')
                     ->with('class', 'alert-success');
             } catch(Exception $e) {

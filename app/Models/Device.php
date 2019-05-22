@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DeviceType;
 use App\Models\Employee;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 class Device extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'devices';
 
     public function deviceType()
     {
-        return $this->belongsTo(DeviceType::class);
+        return $this->belongsTo(DeviceType::class)->withTrashed();
     }
 
     public function available()

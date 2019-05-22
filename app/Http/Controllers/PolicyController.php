@@ -52,14 +52,13 @@ class PolicyController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'bail|required|unique:policies'
-        ],
-        [
-            'title.required' => 'Title must NOT be empty',
-            'title.unique' => 'Title already exist'
-        ]);
-
+        if ( Policy::where('id', '<>', $id)->where('title', $request->title)->first() )
+        {
+            return back()
+                ->with('message', 'Title already exist')
+                ->with('class', 'alert-danger');
+        }
+        
         if ( !$policy = Policy::find($id) )
         {
             return back()

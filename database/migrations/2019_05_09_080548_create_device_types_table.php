@@ -18,6 +18,7 @@ class CreateDeviceTypesTable extends Migration
             $table->string('description')->unique();
             $table->string('prefix');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

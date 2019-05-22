@@ -54,6 +54,10 @@
 
             @if(Auth::user()->isManager())
                 <li>
+                    <a href="{{ route('leave.request.history') }}"> Requests History </a>
+                </li>
+
+                <li>
                     <a href="{{ route('leave.request.pending') }}"> Requests Pending </a>
                 </li>
             @endif
@@ -80,6 +84,10 @@
                     <a href="{{ route('device.status') }}"> Status of devices </a>
                 </li>
             @endif
+
+            <li>
+                <a href="{{ route('device.myDevice') }}"> My Device </a>
+            </li>
         </ul>
     </li>
 
@@ -111,19 +119,20 @@
             <span class="caret"></span>
         </a>
         <ul class="nav sub-nav">
+            @if(Auth::user()->isManager())
+                <li>
+                    <a href="{{ route('employee.index') }}"> List of employees </a>
+                </li>
+                
+                <li>
+                    <a href="{{ route('employee.create') }}"> Create New Employee </a>
+                </li>
+            @endif
+
             <li>
                 <a href="{{ route('employee.myDepartment') }}"> My department </a>
             </li>
 
-            @if(Auth::user()->isManager())
-                <li>
-                    <a href="{{ route('employee.create') }}"> Add New Employee </a>
-                </li>
-                
-                <li>
-                    <a href="{{ route('employee.index') }}"> List of employees </a>
-                </li>
-            @endif
         </ul>
     </li>
 
@@ -140,7 +149,7 @@
                     <a href="{{route('department.index')}}"> List of Departments </a>
                 </li>
                 <li>
-                    <a href="{{route('department.create')}}"> Add New Department </a>
+                    <a href="{{route('department.create')}}"> Create New Department </a>
                 </li>
             </ul>
         </li>
@@ -167,7 +176,7 @@
     <li>
         <a class="accordion-toggle" href="#">
             <span class="glyphicon glyphicon-lock"></span>
-        <span class="sidebar-title">Policies</span>
+        <span class="sidebar-title">Policy</span>
             <span class="caret"></span>
         </a>
         <ul class="nav sub-nav">
@@ -177,7 +186,7 @@
 
             @if(Auth::user()->isManager())
                 <li>
-                    <a href="{{route('policy.create')}}"> Create New Policies </a>
+                    <a href="{{route('policy.create')}}"> Create New Policy </a>
                 </li>
             @endif
         </ul>

@@ -49,8 +49,9 @@ use App\Http\Controllers\HomeController;
             Route::post('/', 'LeaveController@store')->name('leave.store');
             Route::get('create', 'LeaveController@create')->name('leave.create');
             Route::get('{id}', 'LeaveController@show')->where('id', '[1-9][0-9]*')->name('leave.show');
-            Route::get('/request-pending', 'LeaveController@requestPending')->name('leave.request.pending');
             Route::put('{id}', 'LeaveController@update')->where('id', '[1-9][0-9]*')->name('leave.update');
+            Route::get('/request-pending', 'LeaveController@requestPending')->name('leave.request.pending');
+            Route::get('/request-history', 'LeaveController@requestHistory')->name('leave.request.history');
         });
         
         Route::group(['prefix' => 'devices'], function()
@@ -62,6 +63,8 @@ use App\Http\Controllers\HomeController;
             Route::delete('{id}', 'DeviceController@destroy')->where('id', '[1-9][0-9]*')->name('device.delete');
             Route::get('{id}/assign', 'DeviceController@assignCreate')->where('id', '[1-9][0-9]*')->name('device.assign.create');
             Route::post('{id}/assign', 'DeviceController@assignStore')->where('id', '[1-9][0-9]*')->name('device.assign.store');
+            Route::put('{id}/assign', 'DeviceController@assignUpdate')->where('id', '[1-9][0-9]*')->name('device.assign.update');
+            Route::get('my-device', 'DeviceController@myDevice')->name('device.myDevice');
         });
 
         Route::group(['prefix' => 'device-types'], function()
@@ -71,16 +74,12 @@ use App\Http\Controllers\HomeController;
             Route::post('/', 'DeviceTypeController@store')->name('device-type.store');
             Route::get('/{id}/edit', 'DeviceTypeController@edit')->where('id', '[1-9][0-9]*')->name('device-type.edit');
             Route::put('/{id}', 'DeviceTypeController@update')->where('id', '[1-9][0-9]*')->name('device-type.update');
+            Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('device-type.delete');
         });
 
-        Route::group(['prefix' => 'assign-devices'], function()
+        Route::group(['prefix' => 'device-assigns'], function()
         {
-            Route::get('/', 'DeviceTypeController@index')->name('assign-device.index');
-            Route::get('/create', 'DeviceTypeController@create')->name('assign-device.create');
-            Route::post('/', 'DeviceTypeController@store')->name('assign-device.store');
-            Route::get('/{id}/edit', 'DeviceTypeController@edit')->where('id', '[1-9][0-9]*')->name('assign-device.edit');
-            Route::put('/{id}', 'DeviceTypeController@update')->where('id', '[1-9][0-9]*')->name('assign-device.update');
-            Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('assign-device.delete');
+            Route::put('{id}', 'DeviceController@assignUpdate')->where('id', '[1-9][0-9]*')->name('device-assign.update');
         });
 
         Route::group(['prefix' => 'departments'], function()

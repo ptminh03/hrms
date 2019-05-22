@@ -155,6 +155,7 @@ class AuthController extends Controller
         ->where('news.type', 1)
         ->orWhere('leaves.employee_id', Auth::user()->id)
         ->orWhere('device_assigns.employee_id', Auth::user()->id)
+        ->orderBy('news.id', 'desc')
         ->paginate(15);
         return view('hrms.auth.index', compact('news'));
     }

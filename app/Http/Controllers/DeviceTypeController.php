@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DeviceType;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 use Mockery\Exception;
 use App\Models\Device;
 
 class DeviceTypeController extends Controller
 {
+    use SoftDeletes;
+
     public function index()
     {
         $deviceTypes = DeviceType::withCount('devices')->paginate(15);
@@ -86,5 +89,40 @@ class DeviceTypeController extends Controller
             ->route('device-type.index')
             ->with('message', 'Edit device type success')
             ->with('class', 'alert-success');
+    }
+
+    public function destroy($id)
+    {
+        if ( !$deviceType = DeviceType::find($id) )
+        {
+            return back()
+                ->with('message', 'ID device type not found')
+                ->with('class', 'alert-danger');
+        }
+
+        if ( $devices = Device::where('device_type_id', $id)->where('status', '<>', 0)->first() )
+        {
+            return back()
+                ->with('message', 'Please unassign all device with this type')
+                ->with('class', 'alert-danger');
+        }
+
+        DB::beginTransaction();
+        try {
+            Device::where('device_type_id', $id)->delete();
+            $deviceType->delete();
+            DB::commit();
+
+            return redirect()
+            ->route('device-type.index')
+            ->with('message', 'Delete device type success')
+            ->with('class', 'alert-success');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return back()
+                ->with('message', 'Delete device type failed')
+                ->with('class', 'alert-danger');
+        }
     }
 }

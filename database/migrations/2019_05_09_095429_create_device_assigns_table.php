@@ -20,6 +20,7 @@ class CreateDeviceAssignsTable extends Migration
             $table->integer('process_assign')->unsigned();
             $table->integer('process_remove')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

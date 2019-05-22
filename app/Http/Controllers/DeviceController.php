@@ -165,8 +165,55 @@ class DeviceController extends Controller
         }
     }
 
-    public function test() {
-        $device = Device::where('status', '=', 0)->get();
-        return response()->json($device);
+    public function assignUpdate($id)
+    {
+        if ( !$device = Device::where('status', '<>', 0)->where('id', '=', $id)->first() )
+        {
+            return back()
+                ->with('message', 'Device not found or available')
+                ->with('class', 'alert-danger');
+        }
+
+        if ( !$assign = DeviceAssign::where('device_id', '=', $id)->where('process_remove', '=', 0)->first() )
+        {
+            return back()
+                ->with('message', 'ID device assign not found')
+                ->with('class', 'alert-danger');
+        }
+
+        $assign->process_remove = Auth::id();
+        $device->status = 0;
+
+        $news = new News;
+        $news->target_id = $assign->id;
+        $news->type = 3;
+        $news->status = 2;
+
+        DB::beginTransaction();
+        try {
+            $assign->save();
+            $device->save();
+            $news->save();
+            DB::commit();
+            
+            return back()
+            ->with('message', 'Unassign device success')
+            ->with('class', 'alert-success');
+
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return back()
+            ->with('message', 'Unassign device failed')
+            ->with('class', 'alert-danger');
+
+        }
+    }
+    
+    public function myDevice()
+    {
+        $deviceAssigns = DeviceAssign::where(['employee_id' => Auth::id(), 'process_remove' => 0])->paginate(15);
+        return view('hrms.device.my_device', compact('deviceAssigns'));  
     }
 }

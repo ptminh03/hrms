@@ -3,7 +3,7 @@
 @section('title')My Leave History @endsection
     
     <div class="panel-heading">
-        <span class="panel-title hidden-xs"> My Leave Lists </span>
+        <span class="text-info panel-title hidden-xs"> My Leave </span>
     </div>
 
     <div class="panel-body pn">
@@ -12,7 +12,8 @@
                 {{ Session::get('message') }}
             </div>
         @endif
-        {!! Form::open(['class' => 'form-horizontal']) !!}
+
+        @if ( !$leaves->isEmpty() )
         <div class="table-responsive">
             <table class="table allcp-form theme-warning tc-checkbox-1 fs13">
                 <thead>
@@ -62,6 +63,10 @@
                 </tbody>
             </table>
         </div>
-        {!! Form::close() !!}
+        @else
+        <div>
+            <h5 class="text-info">No data available</h5>
+        </div>
+        @endif
     </div>                   
 @endsection

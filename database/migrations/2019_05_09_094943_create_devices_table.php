@@ -19,6 +19,7 @@ class CreateDevicesTable extends Migration
             $table->integer('code')->unsigned();
             $table->integer('status')->default(0)->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

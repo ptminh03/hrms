@@ -3,7 +3,7 @@
     @section('title') LEAVE REQUESTS @endsection
     
     <div class="panel-heading">
-        <span class="panel-title hidden-xs text-primary"> LIST OF REQUESTS PENDING </span>
+        <span class="panel-title hidden-xs text-primary"> LIST OF REQUESTS HISTORY </span>
     </div>
     
     <div class="panel-body pn">
@@ -34,13 +34,6 @@
                                     <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                             </div>
-
-                            <div class="col-xl-4 margintop-6">
-                                Total &nbsp;
-                                <span class="badge badge-pill badge-info">
-                                    {{ $info['total'] }}
-                                </span>
-                            </div>
                         </th>
                     </tr>
                 </thead>
@@ -56,7 +49,7 @@
                             <th class="text-center">Department</th>
                             <th class="text-center">Date Request</th>
                             <th class="text-center">Quantity</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center">Status</th>
                         </thead>
 
                         @foreach($leaves as $leave)
@@ -80,25 +73,11 @@
                                 <td class="text-center"> {{ getFormattedDate($leave->created_at) }} </td>
                                 <td class="text-center"> {{$leave->quantity}} </td>
                                 <td class="text-center">
-                                    <form action="{{ route('leave.update', ['id' => $leave->id]) }}" method="POST" class="inline-object">
-                                        {!! method_field('put') !!}
-                                        {!! csrf_field() !!}
-                                        <input name="status" type="hidden" value="1">
-
-                                        <button class="btn btn-xs btn-success">
-                                            <span class="glyphicon glyphicon-ok"></span>
-                                        </button>
-                                    </form>
-
-                                    <form action="{{ route('leave.update', ['id' => $leave->id]) }}" method="POST" class="inline-object">
-                                        {!! method_field('put') !!}
-                                        {!! csrf_field() !!}
-                                        
-                                        <input name="status" type="hidden" value="2">
-                                        <button class="btn btn-xs btn-danger">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                        </button>
-                                    </form>
+                                    @if ( $leave->status == 1)
+                                        <span class="text-success glyphicon glyphicon-ok"></span></p>
+                                    @else
+                                        <span class="text-danger glyphicon glyphicon-remove"></span></p>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
