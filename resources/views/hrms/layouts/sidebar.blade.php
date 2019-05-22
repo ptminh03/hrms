@@ -91,25 +91,24 @@
         </ul>
     </li>
 
-    <!-- Device Type -->
-    <li>
-
-        <a class="accordion-toggle" href="#">
-            <span class="glyphicon glyphicon-th-list"></span>
-            <span class="sidebar-title">Device Types</span>
-            <span class="caret"></span>
-        </a>
-        <ul class="nav sub-nav">
-            @if(Auth::user()->isManager())
+    @if(Auth::user()->isManager())
+        <!-- Device Type -->
+        <li>
+            <a class="accordion-toggle" href="#">
+                <span class="glyphicon glyphicon-th-list"></span>
+                <span class="sidebar-title">Device Types</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="nav sub-nav">
                 <li>
                     <a href="{{ route('device-type.create') }}"> Create New Type</a>
                 </li>
                 <li>
                     <a href="{{ route('device-type.index') }}"> List of Device Types</a>
                 </li>
-            @endif
-        </ul>
-    </li>
+            </ul>
+        </li>
+    @endif
 
     <!-- Employee -->
     <li>
