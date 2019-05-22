@@ -23,10 +23,6 @@
                 <span class="fa fa-caret-down hidden-xs mr15"></span>
             </a>
             <ul class="dropdown-menu list-group keep-dropdown w250" role="menu">
-                <li class="dropdown-footer text-center">
-                    <a href="{{route('employee.myProfile')}}" class="btn btn-primary btn-sm btn-bordered w160 text-left">
-                        <span class="fa fa-user pr5"> Profile</span></a>
-                </li>
                 @if(\Route::getFacadeRoot()->current()->uri() != 'change-password')
                 <li class="dropdown-footer text-center">
                     <a href="{{route('auth.change-password')}}" class="btn btn-primary btn-sm btn-bordered w160 text-left">

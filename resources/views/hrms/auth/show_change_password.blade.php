@@ -59,9 +59,9 @@
 
                                                 <input type="submit" class="btn btn-bordered btn-info btn-block" value="Submit">
                                             </div>
-                                            <div class="col-md-2"><a href="/change-password" >
-                                                    <input type="button" class="btn btn-bordered btn-success btn-block" value="Reset"></a></div>
-                                        </div>
+                                            <div class="col-md-2">
+                                                    <input type="button" id="reset" class="btn btn-bordered btn-success btn-block" value="Reset"></div>
+                                             </div>
                                         {!! Form::close() !!}
 
                                     </div>
@@ -71,8 +71,15 @@
                     </div>
                 </div>
             </div>
-
         </section>
-
     </div>
+    <script>
+        $('document').ready( function() {
+            $('#reset').on('click', function() {
+                $('#old_password').val('');
+                $('#new_password').val('');
+                $('#confirm_password').val('');
+            })
+        });
+    </script>
 @endsection
