@@ -8,7 +8,11 @@ use App\Models\Device;
 use App\Models\DeviceRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceAssign;
+use App\Models\Employee;
+use App\Models\News;
+use Carbon\Carbon;
 use DB;
+use Mockery\Exception;
 
 class DeviceController extends Controller
 {
@@ -73,7 +77,7 @@ class DeviceController extends Controller
         if ( !$device = Device::find($id) )
         {
             return back()
-                ->with('message', 'ID devicenot found')
+                ->with('message', 'ID device not found')
                 ->with('class', 'alert-danger');
         }
         $device->delete();
@@ -92,6 +96,73 @@ class DeviceController extends Controller
             'available' => (new Device)->available()->count()
         ];
         return view('hrms.device.status', compact('countDevices', 'info'));
+    }
+
+    public function assignCreate($id)
+    {
+        if ( !$device = Device::where('status', '=', 0)->where('id', '=', $id)->first() )
+        {
+            return back()
+                ->with('message', 'Device not found or not available')
+                ->with('class', 'alert-danger');
+        }
+
+        if (request()->q)
+        {
+            $employees = Employee::whereNull('date_of_resignation')->whereRaw('LOWER(name) like \'%'. strtolower(request()->q). '%\'')->pluck('name', 'id');
+        } else {
+            $employees = Employee::pluck('name', 'id');
+        }
+        
+        return view('hrms.device.assign', compact('device', 'employees')); 
+    }
+
+    public function assignStore(Request $request, $id)
+    {
+        if ( !$device = Device::where('status', '=', 0)->where('id', '=', $id)->first() )
+        {
+            return back()
+                ->with('message', 'Device not found or not available')
+                ->with('class', 'alert-danger');
+        }
+
+        if ( !$employee = Employee::whereNull('date_of_resignation')->where('id', '=', $request->employee_id)->first() )
+        {
+            return back()
+                ->with('message', 'Employee not found or resignated')
+                ->with('class', 'alert-danger');
+        }
+        
+        $device->status = $request->employee_id;
+
+        $deviceAssign = new DeviceAssign;
+        $deviceAssign->employee_id = $request->employee_id;
+        $deviceAssign->device_id = $id;
+        $deviceAssign->process_assign = Auth::id();
+
+        $news = new News;
+        $news->type = 3;
+        $news->status = 1;
+
+        DB::beginTransaction();
+        try {
+            $device->save();
+            $deviceAssign->save();
+            $news->target_id = $deviceAssign->id;
+            $news->save();
+            DB::commit();
+
+            return redirect()
+                ->route('device.index')
+                ->with('message', 'Assign device success')
+                ->with('class', 'alert-success');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return back()
+                ->with('message', 'Assign device failed, please try again later')
+                ->with('class', 'alert-danger');
+        }
     }
 
     public function test() {

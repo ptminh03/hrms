@@ -19,6 +19,7 @@ class CreateNewsTable extends Migration
             $table->integer('type');
             $table->string('title')->nullable();
             $table->text('content')->nullable();
+            $table->integer('status')->unsigned()->default(0);
             $table->timestamps();
         });
     }

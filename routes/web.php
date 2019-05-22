@@ -27,7 +27,7 @@ use App\Http\Controllers\HomeController;
     
     Route::group(['middleware' => ['auth']], function ()
     {
-        Route::get('/', 'AuthController@index')->name('index');
+        Route::get('/', 'AuthController@er')->name('index');
 
         Route::group(['prefix' => 'employees'], function()
         {
@@ -56,10 +56,12 @@ use App\Http\Controllers\HomeController;
         Route::group(['prefix' => 'devices'], function()
         {
             Route::get('/', 'DeviceController@index')->name('device.index');
-            Route::get('/create', 'DeviceController@create')->name('device.create');
+            Route::get('create', 'DeviceController@create')->name('device.create');
             Route::post('/', 'DeviceController@store')->name('device.store');
-            Route::get('/status', 'DeviceController@status')->name('device.status');
-            Route::delete('/{id}', 'DeviceController@destroy')->where('id', '[1-9][0-9]*')->name('device.delete');
+            Route::get('status', 'DeviceController@status')->name('device.status');
+            Route::delete('{id}', 'DeviceController@destroy')->where('id', '[1-9][0-9]*')->name('device.delete');
+            Route::get('{id}/assign', 'DeviceController@assignCreate')->where('id', '[1-9][0-9]*')->name('device.assign.create');
+            Route::post('{id}/assign', 'DeviceController@assignStore')->where('id', '[1-9][0-9]*')->name('device.assign.store');
         });
 
         Route::group(['prefix' => 'device-types'], function()
@@ -69,7 +71,6 @@ use App\Http\Controllers\HomeController;
             Route::post('/', 'DeviceTypeController@store')->name('device-type.store');
             Route::get('/{id}/edit', 'DeviceTypeController@edit')->where('id', '[1-9][0-9]*')->name('device-type.edit');
             Route::put('/{id}', 'DeviceTypeController@update')->where('id', '[1-9][0-9]*')->name('device-type.update');
-            Route::delete('/{id}', 'DeviceTypeController@destroy')->where('id', '[1-9][0-9]*')->name('device-type.delete');
         });
 
         Route::group(['prefix' => 'assign-devices'], function()

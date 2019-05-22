@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DeviceType;
+use App\Models\Employee;
 use DB;
 
 class Device extends Model
@@ -25,5 +26,14 @@ class Device extends Model
         $code = (string) $this->code;
         for ( ; strlen($code) < 4; $code = "0". $code );
         return $this->deviceType->prefix. "-". $code;
+    }
+
+    public function employee()
+    {
+        if ( $this->status == 0 )
+        {
+            return new Employee;
+        }
+        return $this->hasOne(Employee::class, 'id', 'status');
     }
 }

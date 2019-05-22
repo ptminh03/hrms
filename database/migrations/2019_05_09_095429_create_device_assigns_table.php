@@ -17,10 +17,8 @@ class CreateDeviceAssignsTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
             $table->integer('device_id')->unsigned();
-            $table->date('date_borrow');
-            $table->integer('process_borrow')->unsigned();
-            $table->date('date_return')->nullable();
-            $table->integer('process_return')->unsigned();
+            $table->integer('process_assign')->unsigned();
+            $table->integer('process_remove')->unsigned();
             $table->timestamps();
         });
     }

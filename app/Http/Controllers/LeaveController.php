@@ -56,29 +56,45 @@ class LeaveController extends Controller
         $leave->reason = $request->reason;
         $leave->quantity = $quantity;
         $leave->employee_id = Auth::user()->id;
-        
+
+        $leaveDetails = [];
+        foreach ($request->date as $key => $value) {
+            if ( $detail = LeaveDetail::where('date_leave', '=', date_format(date_create($key),"Y/m/d") )
+                    ->whereRaw('(session_id = ? OR session_id = ?)', [2, $value])->first() )
+            {
+                if ( Leave::where('id', '=', $detail->leave_id)->where('status', '<', 2)->first() )
+                {
+                    return back()
+                        ->with('message', 'Create leave request failed because date leave are in conflict with previous request')
+                        ->with('class', 'alert-danger');
+                }
+            }
+
+            $leaveDetail = [
+              'date_leave' => date_format(date_create($key),"Y/m/d"),
+              'session_id' => $value
+            ];
+            $leaveDetails[] = $leaveDetail;
+        }
         DB::beginTransaction();
         try {
             $leave->save();
-            foreach ($request->date as $key => $value) {
-                $leave_detail = new LeaveDetail();
-                $leave_detail->leave_id = $leave->id;
-                $leave_detail->date_leave = date_format(date_create($key),"Y/m/d");
-                $leave_detail->session_id = $value;
-                $leave_detail->save();
+            foreach ( $leaveDetails as $key => $leaveDetail ) {
+                $leaveDetails[$key] = array_add($leaveDetail, 'leave_id', $leave->id);
             }
+
+            LeaveDetail::insert($leaveDetails);
             if ($leave->leave_type->description == 'Annual') {
                 $annual->save();
             }
             DB::commit();
-
+            
             return redirect()
-                ->route('leave.myLeave')
-                ->with('message', 'Create leave request success')
-                ->with('class', 'alert-success');
+            ->route('leave.myLeave')
+            ->with('message', 'Create leave request success')
+            ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();
-
             return back()
                 ->with('message', 'Something was error, please try again later')
                 ->with('class', 'alert-danger');

@@ -79,10 +79,19 @@
                                 @if ($device->status == 0)
                                     <span class="text-success glyphicon glyphicon-ok"></span>
                                 @else
-                                    <span class="text-muted glyphicon glyphicon-refresh"></span>
+                                    <a href="{{ route('employee.show', ['id' => $device->status]) }}">
+                                        {{ $device->employee->name }}
+                                    </a>
                                 @endif
                             </td>
                             <td class="text-center">
+                                @if ($device->status == 0)
+                                    <a href="{{ route('device.assign.create', ['id' => $device->id]) }}" class="btn btn-xs btn-info">
+                                        <span class="text-default glyphicon glyphicon-plus-sign"></span>
+                                    </a>
+                                @else
+                                    <span class="text-default glyphicon glyphicon-minus-sign"></span>
+                                @endif
                                 <form action="{{ route('device.delete', ['id' => $device->id]) }}" method="POST" class="inline-object">
                                     {!! method_field('delete') !!}
                                     {!! csrf_field() !!}

@@ -6,7 +6,7 @@
 <!-- Sidebar Author -->
 <div class="sidebar-widget author-widget">
     <div class="media text-center">
-        <a href="{{route('employee.myProfile')}}">
+        <a href="{{route('employee.show', ['id' => Auth::user()->employee->id]) }}">
             <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="" height="150px" class="img-circle">
         </a>
 
@@ -71,13 +71,30 @@
         <ul class="nav sub-nav">
             @if(Auth::user()->isManager())
                 <li>
-                    <a href="{{ route('device.status') }}"> Status of devices </a>
-                </li>
-                <li>
                     <a href="{{ route('device.index') }}"> List of devices </a>
                 </li>
                 <li>
                     <a href="{{ route('device.create') }}"> Create New Device</a>
+                </li>
+                <li>
+                    <a href="{{ route('device.status') }}"> Status of devices </a>
+                </li>
+            @endif
+        </ul>
+    </li>
+
+    <!-- Device Type -->
+    <li>
+
+        <a class="accordion-toggle" href="#">
+            <span class="glyphicon glyphicon-th-list"></span>
+            <span class="sidebar-title">Device Types</span>
+            <span class="caret"></span>
+        </a>
+        <ul class="nav sub-nav">
+            @if(Auth::user()->isManager())
+                <li>
+                    <a href="{{ route('device-type.create') }}"> Create New Type</a>
                 </li>
                 <li>
                     <a href="{{ route('device-type.index') }}"> List of Device Types</a>

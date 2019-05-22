@@ -30995,3 +30995,11 @@ select.btn-mini+.caret {
 .margintop-10 {
   margin-top: 10px;
 }
+
+.pt-10 {
+  padding-top: 10px;
+}
+
+.ml-30 {
+  margin-left: 30px;
+}

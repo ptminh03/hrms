@@ -80,10 +80,10 @@ class AuthController extends Controller
             $join->on('news.target_id', '=', 'leaves.id');
             $join->on('news.type', DB::raw(TYPES['leave']));
         })
-        // ->leftJoin('devices', function($join) {
-        //     $join->on('news.target_id', '=', 'devices.id');
-        //     $join->on('news.type', \DB::raw(TYPES['device']));
-        // })
+        ->leftJoin('device_assigns', function($join) {
+            $join->on('news.target_id', '=', 'device_assigns.id');
+            $join->on('news.type', DB::raw(TYPES['device']));
+        })
         ->leftJoin('employees', function($join) {
             $join
             ->on('news.target_id', '=', 'employees.id')
@@ -100,9 +100,62 @@ class AuthController extends Controller
         ])
         ->orWhere([
             ['news.type', TYPES['device']],
-            // ['devices.employee_id', \DB::raw(Auth::user()->id)]
+            ['device_assigns.employee_id', DB::raw(Auth::user()->id)]
         ])
-        ->orderBy('news.updated_at', 'desc')->paginate(10);
+        ->orderBy('news.id', 'desc')->paginate(15);
+        dd($news);
+        return view('hrms.auth.index', compact('news'));
+    }
+
+    public function er()
+    {
+        $news = News::select(DB::raw("
+            news.id,
+            news.type,
+            ( CASE
+                WHEN news.type = 1 THEN news.target_id
+                ELSE NULL
+            END ) as author,
+            news.title,
+            news.content,
+            ( CASE
+                WHEN news.type = 2 THEN leaves.id
+                WHEN news.type = 3 THEN device_assigns.id
+                ELSE NULL
+            END ) as target_id,
+            employees.id,
+            employees.name,
+            employees.photo,
+            news.status,
+            news.updated_at
+        "))
+        ->leftJoin('leaves', function($join)
+        {
+            $join->on('news.target_id', 'leaves.id');
+            $join->on('news.type', DB::raw(2));
+        })
+        ->leftJoin('device_assigns', function($join)
+        {
+            $join->on('news.target_id', 'device_assigns.id');
+            $join->on('news.type', DB::raw(3));
+        })
+        ->leftJoin('employees', function($join) {
+            $join
+            ->on('news.target_id', '=', 'employees.id')
+            ->on('news.type', DB::raw(1));
+
+            $join
+            ->orOn('news.type', DB::raw(2))
+            ->on('leaves.process_by', '=', 'employees.id');
+
+            $join
+            ->orOn('news.type', DB::raw(3))
+            ->on('leaves.process_by', '=', 'employees.id');
+        })
+        ->where('news.type', 1)
+        ->orWhere('leaves.employee_id', Auth::user()->id)
+        ->orWhere('device_assigns.employee_id', Auth::user()->id)
+        ->paginate(15);
         return view('hrms.auth.index', compact('news'));
     }
 

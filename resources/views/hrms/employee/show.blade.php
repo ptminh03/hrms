@@ -80,8 +80,18 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="pull-right">
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-success">Edit</button>
+                    @if ( Auth::user()->employee->id != $employee->id && Auth::user()->isManager() )
+                    <a href="{{ route('employee.edit', ['id' => request()->id]) }}" class="btn btn-md btn-info mx-5">Edit</a>
+                        <form action="{{ route('employee.delete', ['id' => request()->id]) }}" method="POST" class="inline-object mx-5">
+                            {!! method_field('delete') !!}
+                            {!! csrf_field() !!}
+
+                            <button class="btn btn-md btn-danger" onclick="return confirm('Are you sure to delete this employee ?');">
+                                Delete
+                            </button>
+                        </form>
+                    @endif
+                    <a href="{{ url()->previous() }}" class="btn btn-md btn-default mx-5">Back</a>
                 </div>
             </div>
         </div>

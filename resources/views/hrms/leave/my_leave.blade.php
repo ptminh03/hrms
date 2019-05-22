@@ -34,11 +34,11 @@
                         <td class="text-center">
                             <div class="btn-group text-right">
                                 @if($leave->status == 2)
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <span class="text-danger glyphicon glyphicon-remove"></span>
                                 @elseif($leave->status == 1)
-                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <span class="text-success glyphicon glyphicon-ok"></span>
                                 @else
-                                    <i class="glyphicon glyphicon-option-horizontal"></i>
+                                    <i class="text-default glyphicon glyphicon-option-horizontal"></i>
                                 @endif
                             </div>
                         </td>

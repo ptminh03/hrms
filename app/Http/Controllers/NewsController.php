@@ -81,12 +81,18 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|unique:news',
+            'title' => 'required',
         ],
         [
             'title.required' => 'Title must NOT be empty',
-            'title.unique' => 'Title already exist',
         ]);
+
+        if ( News::where('id', '<>', $id)->where('title', '=', $request->title)->first())
+        {
+            return back()
+                ->with('message', 'Title already exists')
+                ->with('class', 'alert-danger');
+        }
 
         if ( !$news = News::find($id) )
         {

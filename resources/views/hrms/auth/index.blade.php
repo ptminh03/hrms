@@ -33,13 +33,66 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        @if($new->type === 2 || $new->type === 3)
+                        @switch($new->type)
+                            @case(1)
+                                <h3>{{ $new->title }}</h3>
+                                <p>{!! $new->content !!}</p>
+                                @break
+                            @case(3)
+                                <h3>Device Announcement</h3>
+                                <p>
+                                    <a href="{{ route('employee.show', ['id' => $new->deviceAssign->assign->id]) }}">
+                                        {{ $new->deviceAssign->assign->name }}
+                                    </a> has been
+                                    @if ( $new->status == 1 ) 
+                                        <span class="text-success">assign</span> device <b>{{ $new->deviceAssign->device->generateCode() }}</b> to you 
+                                    @else 
+                                        <span class="text-danger">unassign</span> device <b>{{ $new->deviceAssign->device->generateCode() }}</b> from you 
+                                    @endif
+                                </p>
+                                @break
+                            @case(2)
+                                <h3>Leave Announcement</h3>
+                                <p>
+                                    <a href="{{ route('employee.show', ['id' => $new->id]) }}">
+                                        {{ $new->name }}
+                                    </a> 
+                                    has been 
+                                    @if ($new->leaveStatus() == 1) 
+                                        approved 
+                                    @else 
+                                        denied 
+                                    @endif 
+                                    your
+                                    <a href="{{ route('leave.show', ['id' => $new->target_id]) }}"> 
+                                        Leave request
+                                    </a> 
+                                    !
+                                </p>
+                            @break
+                        @endswitch
+                        {{--  @if( $new->type === 2 )
                             <h3>Leave Announcement</h3>
                             <p><a href="{{ route('employee.show', ['id' => $new->id]) }}">{{ $new->name }}</a> has been @if ($new->leaveStatus() == 1) approved @else denied @endif your<a href="{{ route('leave.show', ['id' => $new->target_id]) }}"> Leave request</a> !</p>
-                        @else
+                        @endif  --}}
+                        
+                        {{--  @if ( $new->type === 3 )
+                            <h3>Device Announcement</h3>
+                            <p>
+                                <a href="{{ route('employee.show', ['id' => $new->id]) }}">
+                                    {{ $new->name }}
+                                </a> has been 
+                                @if ( $new->deviceAssign->process_remove == 0 ) 
+                                    assign {{ $new->deviceAssign->device->generateCode() }} to you 
+                                @else 
+                                    unassign {{ $new->deviceAssign->device->generateCode() }} from you 
+                            </p>
+                        @endif  --}}
+
+                        {{--  @if ( $new->type === 3 )
                             <h3>{{ $new->title }}</h3>
                             <p>{!! $new->content !!}</p>
-                        @endif
+                        @endif  --}}
                     </div>
                 </div>        
             </div>

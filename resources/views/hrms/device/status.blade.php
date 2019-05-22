@@ -70,21 +70,11 @@
                             <td class="text-center">{{$i}}</td>
                             <td class="text-center">{{$countDevice->prefix}}</td>
                             <td class="text-left">
-                                <a href="#">
+                                <a href="{{ route('device.index', ['type' => $countDevice->id]) }}">
                                     {{$countDevice->description}}
                                 </a>
                             </td>
-                            <td class="text-center">
-                                @if($countDevice->devices_count != 0)
-                                    <a href="#" class="text-success disabled">
-                                        <span class="glyphicon glyphicon-ok"></span>
-                                    </a>
-                                @else
-                                    <a href="#" class="text-danger disabled">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                @endif
-                            </td>
+                            <td class="text-center">{{ $countDevice->devices_count }}</td>
                         </tr>
                     @endforeach
                 </tbody>
