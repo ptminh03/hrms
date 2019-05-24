@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Attendance;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use DB;
@@ -41,6 +43,27 @@ class AuthController extends Controller
                 'password' => $password
             ];
             if (Auth::attempt($data)) {
+                $now = Carbon::now();
+                $attendance = Attendance::where(['employee_id' => Auth::id(), 'year' => $now->year, 'month' => $now->month, 'day' => $now->day])->first();
+                if ( $attendance )
+                {
+                    if ( empty($attendance->start_at) )
+                    {
+                        $attendance->start_at = $now->toTimeString();
+                        $attendance->save();
+                    } else {
+                        $attendance->end_at = $now->toTimeString();
+                        $attendance->save();
+                    }
+                } else {
+                    Attendance::create([
+                        'employee_id' => Auth::id(),
+                        'year' => $now->year,
+                        'month' => $now->month,
+                        'day' => $now->day,
+                        'start_at' => $now->toTimeString()
+                    ]);
+                }
                 return redirect()->route('index');
             }
         }
@@ -51,8 +74,16 @@ class AuthController extends Controller
 
     public function processLogout()
     {
+        
+        $now = Carbon::now();
+        $attendance = Attendance::where(['employee_id' => Auth::id(), 'year' => $now->year, 'month' => $now->month, 'day' => $now->day])->first();
+        if ( $attendance )
+        {
+            $attendance->end_at = $now->toTimeString();
+            $attendance->save();
+        }
+        
         Auth::logout();
-
         return redirect()->route('auth.login');
     }
 

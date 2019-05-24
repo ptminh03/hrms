@@ -95,7 +95,7 @@
         <!-- Device Type -->
         <li>
             <a class="accordion-toggle" href="#">
-                <span class="glyphicon glyphicon-th-list"></span>
+                <span class="glyphicon glyphicon-list-alt"></span>
                 <span class="sidebar-title">Device Types</span>
                 <span class="caret"></span>
             </a>
@@ -191,8 +191,8 @@
         </ul>
     </li>
 
-    <!-- News -->
     @if( Auth::user()->isManager() )
+    <!-- News -->
         <li>
             <a class="accordion-toggle" href="#">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -203,13 +203,33 @@
                 <li>
                     <a href="{{route('news.index')}}"> List of News </a>
                 </li>
-                
-                    <li>
-                        <a href="{{route('news.create')}}"> Create New News </a>
-                    </li>
-                @endif
+            
+                <li>
+                    <a href="{{route('news.create')}}"> Create New News </a>
+                </li>
             </ul>
         </li>
+    @endif
+
+    @if( Auth::user()->isManager() )
+    <!-- Salary -->
+        <li>
+            <a class="accordion-toggle" href="#">
+                <span class="glyphicon glyphicon-pencil"></span>
+            <span class="sidebar-title">Payments</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="nav sub-nav">
+                <li>
+                    <a href="{{route('payment.create')}}"> Create New Payment </a>
+                </li>
+
+                <li>
+                    <a href="{{route('payment.index')}}"> List of Payment </a>
+                </li>
+            </ul>
+        </li>
+    @endif
 
     <p> &nbsp; </p>
 </ul>

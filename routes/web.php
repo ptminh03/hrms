@@ -122,8 +122,16 @@ use App\Http\Controllers\HomeController;
             Route::put('/{id}', 'NewsController@update')->where('id', '[1-9][0-9]*')->name('news.update');
             Route::delete('/{id}', 'NewsController@destroy')->where('id', '[1-9][0-9]*')->name('news.delete');
         });
+
+        Route::group(['prefix' => 'payments'], function()
+        {
+            Route::get('/', 'PaymentController@index')->name('payment.index');
+            Route::get('/create', 'PaymentController@create')->name('payment.create');
+            Route::post('/store', 'PaymentController@store')->name('payment.store');
+            Route::get('{id}', 'PaymentController@show')->name('payment.show');
+        });
     });
 
-    Route::get('/test', 'DeviceController@test');
+    Route::get('test', 'AttendanceController@test')->name('attendance');
 
     Auth::routes();

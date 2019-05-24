@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\News;
+use App\Models\Leave;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -42,5 +43,10 @@ class Employee extends Model
 
     public function news() {
         return $this->hasMany(News::class);
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class);
     }
 }
