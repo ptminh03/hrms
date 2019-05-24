@@ -55,7 +55,7 @@
                     
                     <label class="btn btn-default btn-file mt-5">
                         <label for="validatedCustomFile"> Browse </label>
-                        <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="display: none;" 
+                        <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="border:solid 1px" 
                         onchange="showInfoImage(this)">
                     </label>
                     <label id="name-photo"></label>
@@ -134,7 +134,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-info">Submit</button>
         </form>
     </div>
     <script>

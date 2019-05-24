@@ -215,7 +215,7 @@
     <!-- Salary -->
         <li>
             <a class="accordion-toggle" href="#">
-                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="fa fa-money"></span>
             <span class="sidebar-title">Payments</span>
                 <span class="caret"></span>
             </a>

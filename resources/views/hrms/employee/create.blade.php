@@ -46,17 +46,17 @@
                     </label>
                     <input type="text" required class="form-control" placeholder="Enter email" name="email" required>
                 </div>
-                <div class="form-group col-xl-4">
+                <div class="form-group col-xl-4 width-100">
                     <label>Employee Photo</label><br>
-                    <label class="btn btn-default btn-file">
-                        Browse 
-                        <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="display: none;" 
-                        onchange="showInfoImage(this)">
-                    </label>
-                    <label id="name-photo"></label>
                     <div>
                         <img id="preview-photo" width="250px" height="250px" style='border:solid 1px'>
                     </div>
+                    <label class="btn btn-default btn-file mt-5">
+                        <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="display: none;" 
+                        onchange="showInfoImage(this)">
+                        Browse 
+                    </label>
+                    <label id="name-photo"></label>
                 </div>
                 <div class="form-group col-xl-12">
                     <label>Gender
