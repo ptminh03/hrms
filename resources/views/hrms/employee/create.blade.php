@@ -49,9 +49,14 @@
                 <div class="form-group col-xl-4">
                     <label>Employee Photo</label><br>
                     <label class="btn btn-default btn-file">
-                        Browse <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="display: none;" onchange="$('#name-photo').html($('#validatedCustomFile')[0].files[0].name)">
+                        Browse 
+                        <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="display: none;" 
+                        onchange="showInfoImage(this)">
                     </label>
                     <label id="name-photo"></label>
+                    <div>
+                        <img id="preview-photo" width="250px" height="250px" style='border:solid 1px'>
+                    </div>
                 </div>
                 <div class="form-group col-xl-12">
                     <label>Gender
@@ -129,7 +134,18 @@
 
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
-     </div>
     </div>
+    <script>
+        function showInfoImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview-photo').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+                $('#name-photo').html(input.files[0].name);
+            }
+        }
+    </script>
 
 @endsection

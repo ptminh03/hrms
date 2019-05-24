@@ -4,7 +4,7 @@
 <head>
     <!-- -------------- Meta and Title -------------- -->
     <meta charset="utf-8">
-    <title>Alliance - A Responsive Bootstrap 3 Admin Dashboard Template</title>
+    <title>Human Resource Management System</title>
     <meta name="keywords" content="HTML5, Bootstrap 3, Admin Template, UI Theme"/>
     <meta name="description" content="Alliance - A Responsive HTML5 Admin UI Framework">
     <meta name="author" content="ThemeREX">
@@ -16,10 +16,10 @@
           type='text/css'>
 
     <!-- -------------- CSS - theme -------------- -->
-    <link rel="stylesheet" type="text/css" href="assets/skin/default_skin/css/theme.css">
+    <link rel="stylesheet" type="text/css" href="/assets/skin/default_skin/css/theme.css">
 
     <!-- -------------- CSS - allcp forms -------------- -->
-    <link rel="stylesheet" type="text/css" href="assets/allcp/forms/css/forms.css">
+    <link rel="stylesheet" type="text/css" href="/assets/allcp/forms/css/forms.css">
 
     <!-- -------------- Favicon -------------- -->
     <link rel="shortcut icon" href="/assets/img/favicon.png">
