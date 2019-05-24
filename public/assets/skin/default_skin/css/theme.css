@@ -30963,6 +30963,10 @@ select.btn-mini+.caret {
   margin-top: 30px !important;
 }
 
+.mt-5 {
+  margin-top: 5px !important;
+}
+
 .w-25 {
   width: 25% !important;
 }
@@ -31002,4 +31006,8 @@ select.btn-mini+.caret {
 
 .ml-30 {
   margin-left: 30px;
+}
+
+.width-100 {
+  width: 100%;
 }

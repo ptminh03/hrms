@@ -46,17 +46,19 @@
                     </label>
                 <input type="text" readonly style="cursor: auto" required class="form-control" name="email" required value=" {{ $employee->user->email }} ">
                 </div>
-                <div class="form-group col-xl-4">
+                <div class="form-group col-xl-4 width-100">
                     <label>Employee Photo</label><br>
-                    <label class="btn btn-default btn-file">
-                        Browse 
+                    
+                    <div>
+                        <img id="preview-photo" src="{{ asset('/photos/'. $employee->photo) }}" width="250px" height="250px" style='border:solid 1px'>
+                    </div>
+                    
+                    <label class="btn btn-default btn-file mt-5">
+                        <label for="validatedCustomFile"> Browse </label>
                         <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="display: none;" 
                         onchange="showInfoImage(this)">
                     </label>
                     <label id="name-photo"></label>
-                    <div>
-                        <img id="preview-photo" src="{{ asset('/photos/'. $employee->photo) }}" width="250px" height="250px" style='border:solid 1px'>
-                    </div>
                 </div>
                 <div class="form-group col-xl-12">
                     <label>Gender

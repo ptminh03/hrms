@@ -80,7 +80,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="pull-right">
-                    @if ( Auth::user()->employee->id != $employee->id && Auth::user()->isManager() )
+                    @if ( Auth::user()->isManager() )
                     <a href="{{ route('employee.edit', ['id' => request()->id]) }}" class="btn btn-md btn-info mx-5">Edit</a>
                         <form action="{{ route('employee.delete', ['id' => request()->id]) }}" method="POST" class="inline-object mx-5">
                             {!! method_field('delete') !!}

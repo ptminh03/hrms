@@ -10,7 +10,7 @@
             <img src="{{ asset('/photos/'. Auth::user()->employee->photo) }}" width="" height="150px" class="img-circle">
         </a>
 
-        <a href="{{route('employee.myProfile')}}">
+        <a href="{{route('employee.show', ['id' => Auth::user()->employee->id])}}">
             <p class="p-20 margintop-10">{{Auth::user()->employee->name}}</p>
         </a>
         <p class="p-15">{{Auth::user()->employee->code}}
