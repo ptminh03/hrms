@@ -16,6 +16,7 @@ class CreatePoliciesTable extends Migration
         Schema::create('policies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('employee_id')->unsigned()->nullable();
+            $table->foreign('employee_id')->references('id')->on('employees');
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();

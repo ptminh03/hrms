@@ -16,6 +16,7 @@ class CreateLeaveDetailsTable extends Migration
         Schema::create('leave_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('leave_id')->unsigned();
+            $table->foreign('leave_id')->references('id')->on('leaves');
             $table->date('date_leave');
             $table->integer('session_id')->unsigned();
             $table->timestamps();

@@ -1,8 +1,8 @@
 @extends('hrms.layouts.base')
 @section('content')
-@section('title')Create Leave Request @endsection
+@section('title')LEAVES @endsection
     <div class="panel-heading">
-        <span class="panel-title hidden-xs">Create request leave</span>
+        <span class="text-primary panel-title hidden-xs">Create Leave Request</span>
     </div>
     <div class="text-center" id="show-leave-count"></div>
         <div class="panel-body pn">
@@ -27,6 +27,16 @@
                     <form action=" {{ route('leave.store') }} " method="post" class="form-horizontal">
                         {{ csrf_field() }}
 
+                        <div class="form-group">
+                            <div class="col-md-2"></div>
+                            
+                            <div class="col-md-10">
+                                    <label class="control-label">Your annual days left &nbsp;</label>
+                                    <span class="badge badge-pill badge-info">
+                                            {{ $info['days_left'] }}
+                                    </span>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label"> Leave type
                                 <span class="text-danger">*<span>

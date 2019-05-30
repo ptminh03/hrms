@@ -16,9 +16,13 @@ class CreateDeviceAssignsTable extends Migration
         Schema::create('device_assigns', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees');
             $table->integer('device_id')->unsigned();
+            $table->foreign('device_id')->references('id')->on('devices');
             $table->integer('process_assign')->unsigned();
-            $table->integer('process_remove')->unsigned();
+            $table->foreign('process_assign')->references('id')->on('employees');
+            $table->integer('process_remove')->unsigned()->nullable();
+            $table->foreign('process_remove')->references('id')->on('employees');
             $table->timestamps();
             $table->softDeletes();
         });

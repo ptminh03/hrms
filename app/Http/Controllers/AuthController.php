@@ -43,46 +43,16 @@ class AuthController extends Controller
                 'password' => $password
             ];
             if (Auth::attempt($data)) {
-                $now = Carbon::now();
-                $attendance = Attendance::where(['employee_id' => Auth::id(), 'year' => $now->year, 'month' => $now->month, 'day' => $now->day])->first();
-                if ( $attendance )
-                {
-                    if ( empty($attendance->start_at) )
-                    {
-                        $attendance->start_at = $now->toTimeString();
-                        $attendance->save();
-                    } else {
-                        $attendance->end_at = $now->toTimeString();
-                        $attendance->save();
-                    }
-                } else {
-                    Attendance::create([
-                        'employee_id' => Auth::id(),
-                        'year' => $now->year,
-                        'month' => $now->month,
-                        'day' => $now->day,
-                        'start_at' => $now->toTimeString()
-                    ]);
-                }
                 return redirect()->route('index');
             }
         }
         Session::flash('class', 'alert-danger');
-        Session::flash('message', 'Email hoặc mật khẩu không đúng !');
+        Session::flash('message', 'Email or password invalid');
         return redirect()->route('auth.login');
     }
 
     public function processLogout()
     {
-        
-        $now = Carbon::now();
-        $attendance = Attendance::where(['employee_id' => Auth::id(), 'year' => $now->year, 'month' => $now->month, 'day' => $now->day])->first();
-        if ( $attendance )
-        {
-            $attendance->end_at = $now->toTimeString();
-            $attendance->save();
-        }
-        
         Auth::logout();
         return redirect()->route('auth.login');
     }
@@ -239,9 +209,9 @@ class AuthController extends Controller
 
             User::where('email', $email)->update(['password' => bcrypt($string)]);
 
-            return redirect()->route('auth.login')->with('message', 'Login with your new password received on your email');
+            return redirect()->route('auth.login')->with('message', 'Login with your new password received on your email')->with('class', 'alert-success');
         } else {
-            return redirect()->route('auth.login')->with('message', 'Your email is not registered');
+            return back()->with('message', 'This email is invalid')->with('class', 'alert-danger');
         }
 
     }

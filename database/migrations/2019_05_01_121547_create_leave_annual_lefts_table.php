@@ -16,7 +16,8 @@ class CreateLeaveAnnualLeftsTable extends Migration
         Schema::create('leave_annual_lefts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
-            $table->integer('days_left')->unsigned();
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->float('days_left')->unsigned();
             $table->timestamps();
         });
     }

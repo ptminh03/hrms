@@ -76,8 +76,10 @@
                             </td>
                             <td class="text-center">{{ $device->generateCode() }}</td>
                             <td class="text-center">
-                                @if ($device->status == 0)
+                                @if ( is_null($device->status) )
                                     <span class="text-success glyphicon glyphicon-ok"></span>
+                                @elseif ($device->status == 0)
+                                    <span class="text-default glyphicon glyphicon-remove"></span>
                                 @else
                                     <a href="{{ route('employee.show', ['id' => $device->status]) }}">
                                         {{ $device->employee->name }}
@@ -85,7 +87,7 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if ($device->status == 0)
+                                @if ( is_null($device->status) )
                                     <a href="{{ route('device.assign.create', ['id' => $device->id]) }}" class="btn btn-xs btn-info">
                                         <span class="text-default glyphicon glyphicon-plus-sign"></span>
                                     </a>
@@ -97,16 +99,33 @@
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </form>
-                                @else
+
+                                    <form action="{{ route('device.update', ['id' => $device->id]) }}" method="POST" class="inline-object">
+                                        {!! method_field('put') !!}
+                                        {!! csrf_field() !!}
+        
+                                        <button class="btn btn-xs btn-default" onclick="return confirm('Are you sure to make this device unavailable ?');">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                        </button>
+                                    </form>
+                                @elseif ( $device->status > 0 )
                                     <form action="{{ route('device-assign.update', ['id' => $device->id]) }}" method="POST" class="inline-object">
                                         {!! method_field('put') !!}
                                         {!! csrf_field() !!}
-                                        <button class="btn btn-xs btn-default" onclick="return confirm('Are you sure to unassign this device ?');">
+                                        <button class="btn btn-xs btn-success" onclick="return confirm('Are you sure to unassign this device ?');">
                                             <span class="glyphicon glyphicon-refresh"></span>
                                         </button>
                                     </form>
+                                @else
+                                    <form action="{{ route('device.update', ['id' => $device->id]) }}" method="POST" class="inline-object">
+                                        {!! method_field('put') !!}
+                                        {!! csrf_field() !!}
+        
+                                        <button class="btn btn-xs btn-default" onclick="return confirm('Are you sure to make this device available ?');">
+                                            <span class="glyphicon glyphicon-wrench"></span>
+                                        </button>
+                                    </form>
                                 @endif
-                                
                             </td>
                         </tr>
                     @endforeach

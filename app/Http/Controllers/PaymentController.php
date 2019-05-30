@@ -27,40 +27,28 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'month' => 'numeric|min:1|max:12',
-        ],
-        [
-            'month.numeric' => 'Month is invalid',
-            'month.min' => 'Month is invalid',
-            'month.max' => 'Month is invalid',
-        ]);
-        
         $now = Carbon::now();
-        if ( $request->year > $now->year)
-        {
-            return back()
-                ->with('message', 'Year is invalid')
-                ->with('class', 'alert-danger');
-        }
-
-        if ( $request->year == $now->year && $request->month >= $now->month)
-        {
-            return back()
-                ->with('message', 'Time is invalid')
-                ->with('class', 'alert-danger');
-        }
-
-        if ( Payment::where(['year' => $request->year, 'month' => $request->month])->first() )
-        {
-            return back()
-                ->with('message', 'Payment already exist')
-                ->with('class', 'alert-danger');
-        }
-
         $payment = new Payment;
-        $payment->month = $request->month;
-        $payment->year = $request->year;
+        if  ( !$lastPayment = Payment::orderBy('year', 'desc')->orderBy('month', 'desc')->first() )
+        {
+            $payment->month = 1;
+            $payment->year = 2019;
+        } else {
+            if ( $lastPayment->month == 12 ) {
+                $payment->year = $lastPayment->year + 1;
+                $payment->month = 1;
+            } else {
+                $payment->year = $lastPayment->year;
+                $payment->month = $lastPayment->month + 1;
+            }
+        }
+
+        if ( $payment->year > $now->year || ($payment->year == $now->year && $payment->month >= $now->month) )
+        {
+            return back()
+                ->with('message', 'Latest payment has been updated')
+                ->with('class', 'alert-warning');
+        }
 
         $employees = DB::select('SELECT employees.id as employee_id, employees.code, employees.name, employees.account_number, employees.salary, 
         CASE WHEN employees_leaves.non_paid IS NULL THEN ? ELSE employees_leaves.non_paid END as non_paid
@@ -96,7 +84,7 @@ class PaymentController extends Controller
 
             return redirect()
                 ->route('payment.index')
-                ->with('message', 'Create payment success')
+                ->with('message', 'Create payment '. $payment->year. '-'. $payment->month. ' success')
                 ->with('class', 'alert-success');
         } catch (Exception $e) {
             DB::rollBack();

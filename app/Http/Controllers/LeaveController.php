@@ -18,7 +18,10 @@ class LeaveController extends Controller
     public function create()
     {
         $leaves = LeaveType::get();
-        return view('hrms.leave.create', compact('leaves'));
+        $info = [
+            'days_left' => LeaveAnnualLeft::where('employee_id', Auth::id())->first()->days_left
+        ];
+        return view('hrms.leave.create', compact('leaves', 'info'));
     }
 
     public function store(Request $request)
@@ -111,7 +114,10 @@ class LeaveController extends Controller
     public function myLeave()
     {
         $leaves = Leave::where('employee_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
-        return view('hrms.leave.my_leave', compact('leaves'));
+        $info = [
+            'days_left' => LeaveAnnualLeft::where('employee_id', Auth::id())->first()->days_left
+        ];
+        return view('hrms.leave.my_leave', compact('leaves', 'info'));
     }
 
     public function requestPending()

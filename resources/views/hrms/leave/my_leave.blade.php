@@ -12,6 +12,23 @@
                 {{ Session::get('message') }}
             </div>
         @endif
+        <table class="table">
+            <thead>
+                <tr class="bg-secondary">
+                    <th colspan="12">
+                        <div class="col-xl-8">
+                        </div>
+
+                        <div class="col-xl-4">
+                            Your annual days left &nbsp;
+                            <span class="badge badge-pill badge-info">
+                                {{ $info['days_left'] }}
+                            </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+        </table>
 
         @if ( !$leaves->isEmpty() )
         <div class="table-responsive">

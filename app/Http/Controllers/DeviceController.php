@@ -27,7 +27,7 @@ class DeviceController extends Controller
 
         $info = [
             'total' => Device::count(),
-            'available' => Device::where('status', '=', 0)->count(),
+            'available' => Device::whereNull('status')->count(),
         ];
         if ( !empty($request->type) ) {
             $devices = Device::where('device_type_id', '=', $request->type)->orderBy('id', 'desc')->paginate(15);
@@ -72,6 +72,28 @@ class DeviceController extends Controller
             ->with('class', 'alert-success');
     }
 
+    public function update(Request $request, $id)
+    {
+        if ( !$device = Device::whereRaw('id = ? AND ( status IS NULL or status = ?)', [$id, 0])->first() )
+        {
+            return back()
+                ->with('message', 'ID device not found')
+                ->with('class', 'alert-danger');
+        }
+
+        if ( is_null($device->status) )
+        {
+            $device->status = 0;
+        } else {
+            $device->status = null;
+        }
+        $device->save();
+
+        return back()
+            ->with('message', 'Update device success')
+            ->with('class', 'alert-success');
+    }
+
     public function destroy($id)
     {
         if ( !$device = Device::find($id) )
@@ -100,7 +122,7 @@ class DeviceController extends Controller
 
     public function assignCreate($id)
     {
-        if ( !$device = Device::where('status', '=', 0)->where('id', '=', $id)->first() )
+        if ( !$device = Device::whereNull('status')->where('id', '=', $id)->first() )
         {
             return back()
                 ->with('message', 'Device not found or not available')
@@ -119,7 +141,7 @@ class DeviceController extends Controller
 
     public function assignStore(Request $request, $id)
     {
-        if ( !$device = Device::where('status', '=', 0)->where('id', '=', $id)->first() )
+        if ( !$device = Device::whereNull('status')->where('id', '=', $id)->first() )
         {
             return back()
                 ->with('message', 'Device not found or not available')
@@ -167,14 +189,14 @@ class DeviceController extends Controller
 
     public function assignUpdate($id)
     {
-        if ( !$device = Device::where('status', '<>', 0)->where('id', '=', $id)->first() )
+        if ( !$device = Device::where('status', '>', 0)->where('id', '=', $id)->first() )
         {
             return back()
                 ->with('message', 'Device not found or available')
                 ->with('class', 'alert-danger');
         }
 
-        if ( !$assign = DeviceAssign::where('device_id', '=', $id)->where('process_remove', '=', 0)->first() )
+        if ( !$assign = DeviceAssign::where('device_id', '=', $id)->whereNull('process_remove')->first() )
         {
             return back()
                 ->with('message', 'ID device assign not found')
@@ -182,7 +204,7 @@ class DeviceController extends Controller
         }
 
         $assign->process_remove = Auth::id();
-        $device->status = 0;
+        $device->status = null;
 
         $news = new News;
         $news->target_id = $assign->id;

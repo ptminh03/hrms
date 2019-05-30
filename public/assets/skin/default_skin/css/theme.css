@@ -29213,7 +29213,9 @@ blockquote.blockquote-dark {
 }
 
 .alert-warning {
-  background-color: #ff8a4b;
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
 }
 
 .alert-warning.alert-border-right {

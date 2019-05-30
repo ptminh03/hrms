@@ -16,8 +16,9 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('device_type_id')->unsigned();
+            $table->foreign('device_type_id')->references('id')->on('device_types');
             $table->integer('code')->unsigned();
-            $table->integer('status')->default(0)->unsigned();
+            $table->integer('status')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

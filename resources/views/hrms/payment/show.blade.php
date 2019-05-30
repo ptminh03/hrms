@@ -74,9 +74,9 @@
                                     <a href="{{ route('employee.show', ['id' => $payment->employee_id]) }}">{{$payment->name}}</a>
                                 </td>
                                 <td class="text-center">{{$payment->account_number}}</td>
-                                <td class="text-center">{{$payment->salary}}</td>
+                                <td class="text-right">{{number_format($payment->salary, 0, ',', '.')}}</td>
                                 <td class="text-center">{{$payment->non_paid}}</td>
-                                <td class="text-center">{{$payment->payment}}</td>
+                                <td class="text-right">{{number_format($payment->payment, 0, ',', '.')}}</td>
                             </tr>
                         @endforeach
                     </tbody>

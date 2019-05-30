@@ -60,6 +60,7 @@ use App\Http\Controllers\HomeController;
             Route::get('create', 'DeviceController@create')->name('device.create');
             Route::post('/', 'DeviceController@store')->name('device.store');
             Route::get('status', 'DeviceController@status')->name('device.status');
+            Route::put('{id}', 'DeviceController@update')->name('device.update');
             Route::delete('{id}', 'DeviceController@destroy')->where('id', '[1-9][0-9]*')->name('device.delete');
             Route::get('{id}/assign', 'DeviceController@assignCreate')->where('id', '[1-9][0-9]*')->name('device.assign.create');
             Route::post('{id}/assign', 'DeviceController@assignStore')->where('id', '[1-9][0-9]*')->name('device.assign.store');

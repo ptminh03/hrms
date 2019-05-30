@@ -28,7 +28,6 @@
                 <table class="table table-bordered">
                     <tbody>
                         <thead class="bg-light">
-                            <th class="text-center">ID</th>
                             <th class="text-center">Year</th>
                             <th class="text-center">Month</th>
                             <th class="text-center">Total Payments</th>
@@ -36,14 +35,13 @@
 
                         @foreach($payments as $payment)
                             <tr>
-                                <td class="text-center">
-                                    <a href="{{ route('payment.show', ['id' => $payment->id]) }}">
-                                        {{$payment->id}}
-                                    </a>
-                                </td>
                                 <td class="text-center">{{$payment->year}}</td>
                                 <td class="text-center">{{$payment->month}}</td>
-                                <td class="text-center">{{$payment->total_payments}}</td>
+                                <td class="text-right">
+                                    <a href="{{ route('payment.show', ['id' => $payment->id]) }}">
+                                        {{number_format($payment->total_payments, 0, ',', '.')}}
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -57,6 +55,14 @@
                     <h5 class="text-info">No data available</h5>
                 </div>
             @endif
+
+            <form action="{{route('payment.store')}}" method="POST" class="pt10">
+                {!! csrf_field() !!}
+                
+                <div class="form-group row col-xl-3">
+                    <button type="submit" class="btn btn-primary">New Payment</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

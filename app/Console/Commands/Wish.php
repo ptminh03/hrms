@@ -82,10 +82,5 @@ class Wish extends Command
                 $message->to($emp->user->email, $emp->name)->subject($subject);
             });
         }
-
-
-
-
-
     }
 }
