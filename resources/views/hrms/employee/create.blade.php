@@ -49,7 +49,7 @@
                 <div class="form-group col-xl-4 width-100">
                     <label>Employee Photo</label><br>
                     <div>
-                        <img id="preview-photo" width="250px" height="250px" style='border:solid 1px'>
+                        <img id="preview-photo" width="250px" height="250px" style='border:solid 1px' src="{{ asset('/photos/default.png') }}">
                     </div>
                     <label class="btn btn-default btn-file mt-5">
                         <input type="file" accept="image/*" name="photo" class="custom-file-input" id="validatedCustomFile" style="display: none;" 
@@ -123,7 +123,7 @@
             <div class="form-group form-add-employee col-xl-12">
                 <h4 class="pt-1">Bank Information</h4>
                 <div class="form-group col-xl-4">
-                    <label>Account Number<span class="text-danger">*<span></label>
+                    <label>Account Number</label>
                     <input type="text" class="form-control" placeholder="Enter account number" name="account_number">
                 </div>
                 <div class="form-group col-xl-4">
@@ -132,7 +132,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <script>

@@ -82,12 +82,6 @@ class EmployeeController extends Controller
             $destinationPath  = public_path('photos');
             $file             = $request->file('photo');
             $fileExt          = $file->getClientOriginalExtension();
-            // $allowedExtension = ['jpg', 'jpeg', 'png'];
-            // if (!in_array($fileExt, $allowedExtension)) {
-            //     return back()
-            //         ->with('message', 'Employee photo has extension not allowed')
-            //         ->with('class', 'alert-danger');
-            // }
             $filename = str_random(12). '.'. $fileExt;
         } else {
             $filename = Employee::PHOTO_DEFAULT;
@@ -121,8 +115,9 @@ class EmployeeController extends Controller
         }
         $employee->salary          = $request->salary;
         
+        $now = Carbon::now();
         $leaveAnnualLeft = new LeaveAnnualLeft;
-        $leaveAnnualLeft->days_left = LeaveAnnualLeft::DEFAULT_DAYS_LEFT;
+        $leaveAnnualLeft->days_left = LeaveAnnualLeft::DEFAULT_DAYS_LEFT + 1 - $now->month;
 
         DB::beginTransaction();
         try {

@@ -64,7 +64,7 @@ class PaymentController extends Controller
             as employees_leaves
         ON employees.id = employees_leaves.employee_id
         WHERE employees.date_of_resignation IS NULL
-        AND employees.deleted_at IS NULL', [0, 2, 1, 0, 0.5, 'Non paid', $request->month, $request->year, 1]);
+        AND employees.deleted_at IS NULL', [0, 2, 1, 0, 0.5, 'Non paid', $payment->month, $payment->year, 1]);
         foreach ($employees as $index => $employee)
         {
             $employees[$index]->payment = round($employee->salary*(22 - $employee->non_paid)/22);
